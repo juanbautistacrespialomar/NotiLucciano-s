@@ -65,11 +65,79 @@ _PAIS_ISO = {
     "nigeria": "NG", "cameroon": "CM",
 }
 
+# ----- Frase de la semana -----
+# Frases reales y celebres de figuras del espectaculo/deporte argentino.
+# Cada corrida elige una al azar. Cada item es (FRASE, AUTOR). Sumá las que quieras.
+MOSTRAR_FRASE = True
+FRASES = [
+    # --- Diego Maradona ---
+    ("La pelota no se mancha", "Diego Maradona"),
+    ("Me cortaron las piernas", "Diego Maradona"),
+    ("Fue la mano de Dios", "Diego Maradona"),
+    ("Se le escap\u00f3 la tortuga", "Diego Maradona"),
+    ("Ganarle a River es como que tu mam\u00e1 te despierte con un beso", "Diego Maradona"),
+    ("Te lo digo a vos, Segurola y Habana, and\u00e1 a buscarlo", "Diego Maradona"),
+    ("Tengo menos piernas que una foto carnet", "Diego Maradona"),
+    ("M\u00e1s falso que d\u00f3lar celeste", "Diego Maradona"),
+    ("L\u00e1stima no se le tiene a nadie, maestro", "Diego Maradona"),
+    ("Tengo dos sue\u00f1os: jugar un Mundial y salir campe\u00f3n", "Diego Maradona"),
+    ("Si voy al banco es para sacar plata, fiera", "Diego Maradona"),
+    # --- Moria Cas\u00e1n ---
+    ("\u00bfQui\u00e9nes son?", "Moria Cas\u00e1n"),
+    ("Si quer\u00e9s llorar, llor\u00e1", "Moria Cas\u00e1n"),
+    ("Sos un helado de pollo, no exist\u00eds", "Moria Cas\u00e1n"),
+    ("A llorar al campito", "Moria Cas\u00e1n"),
+    ("\u00a1Se calla el decorado!", "Moria Cas\u00e1n"),
+    # --- Mirtha Legrand ---
+    ("Como te ven, te tratan", "Mirtha Legrand"),
+    ("Les he dado mi vida", "Mirtha Legrand"),
+    ("\u00a1Qu\u00e9 mesaza!", "Mirtha Legrand"),
+    # --- Ricardo Fort ---
+    ("\u00a1Mam\u00e1, cortaste toda la looz!", "Ricardo Fort"),
+    ("Yo no manejo el rating, yo manejo un Rolls Royce", "Ricardo Fort"),
+    ("Yendo o llendo, da igual: voy arriba de mi Rolls Royce", "Ricardo Fort"),
+    ("\u00a1Mam\u00e1, metiste el cutucuchillo!", "Ricardo Fort"),
+    # --- Susana Gim\u00e9nez ---
+    ("Un dinosaurio\u2026 \u00bfvivo?", "Susana Gim\u00e9nez"),
+    ("\u00a1Se acab\u00f3, de ahora en m\u00e1s voy a cumplir 69!", "Susana Gim\u00e9nez"),
+    # --- Espect\u00e1culo / humor ---
+    ("\u00bfQu\u00e9 pretende usted de m\u00ed?", "Isabel Sarli"),
+    ("\u00a1Hay que caminar chicas, hay que caminar!", "Lita de Lazzari"),
+    ("Che Pedro, mir\u00e1 qui\u00e9n vino. No va andar", "Juan Carlos Calabr\u00f3"),
+    ("Vermouth con papas fritas y\u2026 good show", "Tato Bores"),
+    ("Si te gusta el durazno, bancate la pelusa", "Florencia de la V"),
+    ("\u00a1Vos fum\u00e1!", "Carl\u00edn Calvo"),
+    ("Billetera mata gal\u00e1n", "Jacobo Winograd"),
+    ("No me peguen, soy Giordano", "Roberto Giordano"),
+    ("Muchacha, hacete el papanicolau", "Tita Merello"),
+    ("Qu\u00e9 pa\u00eds generoso", "Jorge Rial"),
+    ("Estoy comprometido con mi tierra, casado con los problemas y divorciado de sus riquezas", "Inodoro Pereyra (Fontanarrosa)"),
+    ("Parece que quieren hacer bowling conmigo", "Vicky Xipolitakis"),
+    ("\u00bfQui\u00e9n sos? \u00a1Ubicate, pendejo!", "Nacha Guevara"),
+    # --- Deporte ---
+    ("Me gusta tanto la noche que al d\u00eda le pondr\u00eda un toldo", "Bambino Veira"),
+    ("Pusimos un micro en el arco y entr\u00f3 por la ventanilla", "Bambino Veira"),
+    ("\u00a1Por lo menos as\u00ed lo veo yo!", "Guillermo Nimo"),
+    ("En la altura la pelota no dobla", "Daniel Passarella"),
+    ("\u00bfEst\u00e1 crazy, Macaya?", "Marcelo Araujo"),
+    ("La experiencia es un peine que te regalan cuando te qued\u00e1s pelado", "Ringo Bonavena"),
+    ("\u00bfCu\u00e1ntos pulmones tengo? Uno, como todo el mundo", "Mostaza Merlo"),
+    # --- M\u00fasica ---
+    ("Yo no me gan\u00e9 la loter\u00eda, la hice laburando", "Pablo Lescano"),
+    # --- Pol\u00edtica (frases hist\u00f3ricas del folclore) ---
+    ("S\u00edganme, no los voy a defraudar", "Carlos Menem"),
+    ("La casa est\u00e1 en orden", "Ra\u00fal Alfons\u00edn"),
+    ("Soy lo mejor que le puede pasar al pa\u00eds", "Fernando de la R\u00faa"),
+    ("El que deposit\u00f3 d\u00f3lares recibir\u00e1 d\u00f3lares", "Eduardo Duhalde"),
+    ("Hacia fin de siglo la deuda externa ser\u00e1 insignificante", "Domingo Cavallo"),
+]
+
 # ----- Cancion (Spotify) -----
 # Cada corrida elige UN artista al azar de esta lista y de ahi un tema al azar
 # de su catalogo real. Edita la lista con los artistas que quieras.
 ARTISTAS = [
     "Ariana Grande", "Tan Bionica", "Airbag", "Tini",
+    "One Direction", "Taylor Swift", "Justin Bieber", "Shakira",
 ]
 
 # ----- Colores -----
@@ -372,6 +440,24 @@ def _caja_futbol(partidos):
     )
 
 
+def _caja_frase(frase):
+    if not frase:
+        return ""
+    texto, autor = frase
+    return (
+        f'<div style="margin-bottom:26px;">'
+        f'<div style="background:{COLOR_SECCION}; color:#ffffff; font-size:15px; font-weight:bold; '
+        f'padding:9px 14px; border-radius:6px;">\U0001F4AC&nbsp; Frase de la semana</div>'
+        f'<div style="background:{COLOR_CAJA}; border-left:5px solid {COLOR_SECCION}; '
+        f'border-radius:4px; padding:18px 22px; margin-top:10px;">'
+        f'<div style="font-size:19px; font-style:italic; color:{COLOR_HEADER}; line-height:1.4;">'
+        f'\u201c{texto}\u201d</div>'
+        f'<div style="font-size:13px; font-weight:bold; color:#5a7a99; margin-top:11px;">'
+        f'\u2014 {autor}</div>'
+        f'</div></div>'
+    )
+
+
 def _caja_cancion(cancion):
     if not cancion:
         return ""
@@ -415,7 +501,7 @@ def _fecha_en_espanol():
     return f"{dias[ahora.weekday()]} {ahora.day} de {meses[ahora.month - 1]} de {ahora.year}"
 
 
-def armar_html(clima, partidos, cancion):
+def armar_html(clima, partidos, frase, cancion):
     fecha_hoy = _fecha_en_espanol()
     es_viernes = datetime.now(timezone(timedelta(hours=-3))).weekday() == 4
     # Bombo solo los viernes; el resto de los dias, un saludo normal.
@@ -436,6 +522,7 @@ def armar_html(clima, partidos, cancion):
       {_caja_notiluccianos()}
       {_caja_clima(clima)}
       {_caja_futbol(partidos)}
+      {_caja_frase(frase)}
       {_caja_cancion(cancion)}
     </div>
     <div style="padding:14px 28px 24px; color:#9aa7b4; font-size:11px;">
@@ -471,7 +558,8 @@ def main():
     clima = obtener_clima()
     partidos = obtener_futbol()
     cancion = obtener_cancion()
-    html = armar_html(clima, partidos, cancion)
+    frase = random.choice(FRASES) if (MOSTRAR_FRASE and FRASES) else None
+    html = armar_html(clima, partidos, frase, cancion)
     enviar_mail(html)
 
 
