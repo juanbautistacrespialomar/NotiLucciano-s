@@ -200,7 +200,7 @@ def obtener_cancion():
         artista_nombre = items[0].get("name", artista)
 
         albs = _spotify_get(f"https://api.spotify.com/v1/artists/{artista_id}/albums", token,
-                            {"market": "AR", "include_groups": "album", "limit": 20})
+                            {"market": "AR", "include_groups": "album", "limit": 10})
         albumes = (albs or {}).get("items", [])
         if not albumes:
             print(f"[AVISO] '{artista_nombre}' no devolvio albumes.")
@@ -210,7 +210,7 @@ def obtener_cancion():
         portada = imgs[0]["url"] if imgs else ""
 
         trks = _spotify_get(f"https://api.spotify.com/v1/albums/{album['id']}/tracks", token,
-                            {"market": "AR", "limit": 50})
+                            {"market": "AR", "limit": 10})
         tracks = (trks or {}).get("items", [])
         if not tracks:
             print(f"[AVISO] El album elegido de '{artista_nombre}' no devolvio temas.")
