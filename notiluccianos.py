@@ -24,10 +24,13 @@ import requests
 # ----- NotiLucciano's (las noticias de joda; las editamos cada viernes) -----
 # Cada item es (VOLANTA, TITULAR, BAJADA).
 MOSTRAR_NOTILUCCIANOS = True
+# Cada item es (VOLANTA, TITULAR, BAJADA, FOTO).
+# FOTO es opcional: pone la URL de una imagen, o dejala como "" si no queres foto.
 NOTILUCCIANOS = [
     ("\u00a1EXCLUSIVO!",
      "AC\u00c1 VAN LOS TITULARES DE LA SEMANA",
-     "Reemplazar por las noticias reales. Cada una es una tripleta (volanta, titular, bajada)."),
+     "Reemplazar por las noticias reales. Cada una es (volanta, titular, bajada, foto).",
+     ""),
 ]
 
 # ----- Clima (Mar del Plata) -----
@@ -294,7 +297,14 @@ def _caja_notiluccianos():
     NEGRO = "#0a0a0a"
 
     notas = ""
-    for volanta, titular, bajada in NOTILUCCIANOS:
+    for nota in NOTILUCCIANOS:
+        volanta, titular, bajada = nota[0], nota[1], nota[2]
+        foto = nota[3] if len(nota) > 3 else ""
+        img_html = ""
+        if foto:
+            img_html = (f'<img src="{foto}" width="100%" '
+                        f'style="display:block; max-height:240px; object-fit:cover; '
+                        f'margin-top:10px; border-radius:4px;" alt="">')
         notas += (
             f'<div style="background:#ffffff; border-bottom:3px solid {NEGRO}; padding:13px 16px;">'
             f'<span style="display:inline-block; background:{ROJO}; color:#ffffff; font-size:11px; '
@@ -303,7 +313,8 @@ def _caja_notiluccianos():
             f'<div style="color:{NEGRO}; font-size:20px; font-weight:900; line-height:1.15; '
             f'margin-top:7px; text-transform:uppercase;">{titular}</div>'
             f'<div style="color:#444444; font-size:13px; line-height:1.45; margin-top:5px; '
-            f'font-style:italic;">{bajada}</div></div>'
+            f'font-style:italic;">{bajada}</div>'
+            f'{img_html}</div>'
         )
 
     return (
@@ -395,14 +406,31 @@ def _caja_cancion(cancion):
             f'{boton}</td></tr></table></div>')
 
 
+def _fecha_en_espanol():
+    """Fecha en castellano, sin depender del idioma del servidor (GitHub esta en ingles)."""
+    dias = ["Lunes", "Martes", "Mi\u00e9rcoles", "Jueves", "Viernes", "S\u00e1bado", "Domingo"]
+    meses = ["enero", "febrero", "marzo", "abril", "mayo", "junio", "julio",
+             "agosto", "septiembre", "octubre", "noviembre", "diciembre"]
+    ahora = datetime.now(timezone(timedelta(hours=-3)))
+    return f"{dias[ahora.weekday()]} {ahora.day} de {meses[ahora.month - 1]} de {ahora.year}"
+
+
 def armar_html(clima, partidos, cancion):
-    fecha_hoy = datetime.now(timezone(timedelta(hours=-3))).strftime("%A %d/%m/%Y")
+    fecha_hoy = _fecha_en_espanol()
+    es_viernes = datetime.now(timezone(timedelta(hours=-3))).weekday() == 4
+    # Bombo solo los viernes; el resto de los dias, un saludo normal.
+    if es_viernes:
+        bombo = ('<div style="font-size:15px; font-weight:bold; color:#ffd600; margin-top:8px;">'
+                 '\U0001F37A\U0001F1E6\U0001F1F7 \u00a1VIERNES QUE TE QUIERO VIERNES! \U0001F1E6\U0001F1F7\U0001F37A</div>')
+    else:
+        bombo = ''
     return f"""<!DOCTYPE html>
 <html><body style="margin:0; padding:0; background:{COLOR_FONDO};">
   <div style="max-width:640px; margin:0 auto; background:#ffffff; font-family:Arial,Helvetica,sans-serif;">
     <div style="background:{COLOR_HEADER}; color:#ffffff; padding:20px 28px;">
       <div style="font-size:22px; font-weight:bold;">NotiLucciano\u2019s</div>
       <div style="font-size:13px; color:#bcd4ec; margin-top:3px;">{fecha_hoy}</div>
+      {bombo}
     </div>
     <div style="padding:24px 28px 6px;">
       {_caja_notiluccianos()}
