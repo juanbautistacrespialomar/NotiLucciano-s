@@ -127,12 +127,15 @@ ARTISTAS = [
     "One Direction", "Taylor Swift", "Justin Bieber", "Shakira",
 ]
 
-# ----- Colores -----
-COLOR_HEADER  = "#0b3d6b"
-COLOR_SECCION = "#1565c0"
-COLOR_TEXTO   = "#333333"
-COLOR_FONDO   = "#eef3f8"
-COLOR_CAJA    = "#e6f1fb"
+# ----- Colores (estilo "portal de noticias") -----
+COLOR_HEADER  = "#c0000a"   # rojo bordo (header, tags de seccion)
+COLOR_SECCION = "#c0000a"   # idem, para tags
+COLOR_ACENTO  = "#ffd700"   # dorado
+COLOR_OSCURO  = "#1a1a1a"   # negro de barras
+COLOR_BORDE   = "#8a0007"   # rojo mas oscuro (bordes)
+COLOR_TEXTO   = "#222222"
+COLOR_FONDO   = "#f5f4f0"   # crema (fondo)
+COLOR_CAJA    = "#fff8f8"   # rosa muy claro (caja de la frase)
 
 # Codigos de clima (WMO) -> (emoji, descripcion).
 WMO = {
@@ -347,10 +350,6 @@ def obtener_futbol():
 def _caja_notiluccianos():
     if not MOSTRAR_NOTILUCCIANOS or not NOTILUCCIANOS:
         return ""
-    ROJO = "#d50000"
-    AMARILLO = "#ffd600"
-    NEGRO = "#0a0a0a"
-
     notas = ""
     for nota in NOTILUCCIANOS:
         volanta, titular, bajada = nota[0], nota[1], nota[2]
@@ -358,34 +357,21 @@ def _caja_notiluccianos():
         img_html = ""
         if foto:
             img_html = (f'<img src="{foto}" width="100%" '
-                        f'style="display:block; max-height:240px; object-fit:cover; '
-                        f'margin-top:10px; border-radius:4px;" alt="">')
+                        f'style="display:block; width:100%; max-height:260px; object-fit:cover; '
+                        f'border-radius:3px; margin:15px 0 6px;" alt="">')
         notas += (
-            f'<div style="background:#ffffff; border-bottom:3px solid {NEGRO}; padding:13px 16px;">'
-            f'<span style="display:inline-block; background:{ROJO}; color:#ffffff; font-size:11px; '
-            f'font-weight:bold; padding:2px 8px; border-radius:3px; text-transform:uppercase; '
-            f'letter-spacing:0.5px;">{volanta}</span>'
-            f'<div style="color:{NEGRO}; font-size:20px; font-weight:900; line-height:1.15; '
-            f'margin-top:7px; text-transform:uppercase;">{titular}</div>'
-            f'<div style="color:#444444; font-size:13px; line-height:1.45; margin-top:5px; '
-            f'font-style:italic;">{bajada}</div>'
+            f'<div style="margin-bottom:30px;">'
+            f'<span style="display:inline-block; background:{COLOR_HEADER}; color:#ffffff; '
+            f'font-size:10px; font-weight:bold; text-transform:uppercase; letter-spacing:1.5px; '
+            f'padding:3px 10px; font-family:Arial,Helvetica,sans-serif;">{volanta}</span>'
+            f'<div style="font-size:25px; font-weight:bold; color:#111111; line-height:1.22; '
+            f'margin:11px 0; font-family:Georgia,\'Times New Roman\',serif;">{titular}</div>'
+            f'<div style="font-size:14px; color:#444444; line-height:1.55; '
+            f'border-left:3px solid {COLOR_HEADER}; padding-left:13px; '
+            f'font-family:Arial,Helvetica,sans-serif;">{bajada}</div>'
             f'{img_html}</div>'
         )
-
-    return (
-        f'<div style="margin-bottom:26px; border:4px solid {NEGRO}; border-radius:6px; overflow:hidden;">'
-        f'<div style="background:{ROJO}; padding:12px 16px; text-align:center;">'
-        f'<div style="color:{AMARILLO}; font-size:30px; font-weight:900; letter-spacing:1px; '
-        f'text-shadow:2px 2px 0 {NEGRO};">NOTILUCCIANO\u2019S</div>'
-        f'<div style="color:#ffffff; font-size:11px; font-weight:bold; letter-spacing:3px; '
-        f'text-transform:uppercase; margin-top:2px;">La verdad que nadie se anima a contar</div>'
-        f'</div>'
-        f'<div style="background:{AMARILLO}; color:{NEGRO}; font-size:12px; font-weight:900; '
-        f'text-align:center; padding:5px; letter-spacing:2px; text-transform:uppercase;">'
-        f'\u25cf En vivo \u00b7 Edici\u00f3n especial \u00b7 No apto para cr\u00e9dulos \u25cf</div>'
-        f'{notas}'
-        f'</div>'
-    )
+    return notas
 
 
 def _caja_clima(clima):
@@ -432,14 +418,16 @@ def _caja_frase(frase):
         return ""
     texto, autor = frase
     return (
-        f'<div style="margin-bottom:26px;">'
-        f'<div style="background:{COLOR_SECCION}; color:#ffffff; font-size:15px; font-weight:bold; '
-        f'padding:9px 14px; border-radius:6px;">\U0001F4AC&nbsp; Frase de la semana</div>'
-        f'<div style="background:{COLOR_CAJA}; border-left:5px solid {COLOR_SECCION}; '
-        f'border-radius:4px; padding:18px 22px; margin-top:10px;">'
-        f'<div style="font-size:19px; font-style:italic; color:{COLOR_HEADER}; line-height:1.4;">'
-        f'\u201c{texto}\u201d</div>'
-        f'<div style="font-size:13px; font-weight:bold; color:#5a7a99; margin-top:11px;">'
+        f'<div style="margin-bottom:30px;">'
+        f'<span style="display:inline-block; background:{COLOR_HEADER}; color:#ffffff; '
+        f'font-size:10px; font-weight:bold; text-transform:uppercase; letter-spacing:1.5px; '
+        f'padding:3px 10px; font-family:Arial,Helvetica,sans-serif;">Frase de la semana</span>'
+        f'<div style="border-left:4px solid {COLOR_HEADER}; border-right:4px solid {COLOR_HEADER}; '
+        f'background:{COLOR_CAJA}; padding:20px 24px; margin-top:11px; text-align:center;">'
+        f'<div style="font-size:21px; font-style:italic; color:{COLOR_BORDE}; line-height:1.4; '
+        f'font-family:Georgia,\'Times New Roman\',serif;">\u201c{texto}\u201d</div>'
+        f'<div style="font-size:11px; font-weight:bold; color:#999999; margin-top:13px; '
+        f'text-transform:uppercase; letter-spacing:1px; font-family:Arial,Helvetica,sans-serif;">'
         f'\u2014 {autor}</div>'
         f'</div></div>'
     )
@@ -488,32 +476,43 @@ def _fecha_en_espanol():
     return f"{dias[ahora.weekday()]} {ahora.day} de {meses[ahora.month - 1]} de {ahora.year}"
 
 
-def armar_html(clima, partidos, frase, cancion):
+def armar_html(frase, cancion):
     fecha_hoy = _fecha_en_espanol()
     es_viernes = datetime.now(timezone(timedelta(hours=-3))).weekday() == 4
-    # Bombo solo los viernes; el resto de los dias, un saludo normal.
-    if es_viernes:
-        bombo = ('<div style="font-size:15px; font-weight:bold; color:#ffd600; margin-top:8px;">'
-                 '\U0001F37A\U0001F1E6\U0001F1F7 \u00a1VIERNES QUE TE QUIERO VIERNES! \U0001F1E6\U0001F1F7\U0001F37A</div>')
+    # Breaking bar: usa el titular de la primera noticia, si hay.
+    if MOSTRAR_NOTILUCCIANOS and NOTILUCCIANOS:
+        breaking = NOTILUCCIANOS[0][1]
     else:
-        bombo = ''
+        breaking = "Toda la informaci\u00f3n que no necesit\u00e1s, y un poco m\u00e1s"
+    bombo = ""
+    if es_viernes:
+        bombo = (f'<div style="background:{COLOR_ACENTO}; color:{COLOR_OSCURO}; text-align:center; '
+                 f'font-family:Arial,Helvetica,sans-serif; font-size:13px; font-weight:bold; '
+                 f'padding:8px; letter-spacing:1px;">'
+                 f'\U0001F37A \u00a1VIERNES QUE TE QUIERO VIERNES! \U0001F37A</div>')
     return f"""<!DOCTYPE html>
 <html><body style="margin:0; padding:0; background:{COLOR_FONDO};">
-  <div style="max-width:640px; margin:0 auto; background:#ffffff; font-family:Arial,Helvetica,sans-serif;">
-    <div style="background:{COLOR_HEADER}; color:#ffffff; padding:20px 28px;">
-      <div style="font-size:22px; font-weight:bold;">NotiLucciano\u2019s</div>
-      <div style="font-size:13px; color:#bcd4ec; margin-top:3px;">{fecha_hoy}</div>
-      {bombo}
+  <div style="max-width:680px; margin:0 auto; background:{COLOR_FONDO};">
+    <div style="background:{COLOR_HEADER}; padding:15px 20px 12px; text-align:center; border-bottom:4px solid {COLOR_BORDE};">
+      <div style="font-size:34px; font-weight:900; color:#ffffff; letter-spacing:2px; font-family:Georgia,'Times New Roman',serif;">
+        NOTI<span style="color:{COLOR_ACENTO};">LUCCIANO\u2019S</span></div>
+      <div style="color:#f2c9cb; font-size:10px; letter-spacing:3px; text-transform:uppercase; margin-top:4px; font-family:Arial,Helvetica,sans-serif;">
+        El portal que la empresa no quiere que leas</div>
     </div>
-    <div style="padding:24px 28px 6px;">
+    <div style="background:{COLOR_OSCURO}; color:#ffffff; padding:8px 16px; font-size:12px; font-family:Arial,Helvetica,sans-serif;">
+      <span style="background:{COLOR_HEADER}; color:#ffffff; font-weight:bold; font-size:10px; padding:2px 8px; text-transform:uppercase;">\U0001F534 Urgente</span>
+      &nbsp;&nbsp;{breaking}</div>
+    <div style="background:#ffffff; border-bottom:1px solid #dddddd; padding:7px 20px; font-size:11px; color:#666666; font-family:Arial,Helvetica,sans-serif;">
+      {fecha_hoy} &nbsp;&middot;&nbsp; Mar del Plata</div>
+    {bombo}
+    <div style="background:#ffffff; padding:24px 22px 8px;">
       {_caja_notiluccianos()}
-      {_caja_clima(clima)}
-      {_caja_futbol(partidos)}
       {_caja_frase(frase)}
       {_caja_cancion(cancion)}
     </div>
-    <div style="padding:14px 28px 24px; color:#9aa7b4; font-size:11px;">
-      NotiLucciano\u2019s &mdash; toda la informaci\u00f3n que no necesit\u00e1s, y un poco m\u00e1s.
+    <div style="background:{COLOR_FONDO}; padding:20px 22px 28px; color:#aaaaaa; font-size:10px; text-align:center; font-family:Arial,Helvetica,sans-serif; line-height:1.8;">
+      NotiLucciano\u2019s &middot; \u201cInformamos lo que otros prefieren no ver\u201d &middot; Mar del Plata, 2026<br>
+      Las fotos son de dominio p\u00fablico. Los nombres fueron modificados para proteger a los inocentes (y no tanto).
     </div>
   </div>
 </body></html>"""
@@ -542,11 +541,9 @@ def main():
     if faltantes:
         print(f"[ERROR] Faltan estas variables de entorno: {', '.join(faltantes)}")
         sys.exit(1)
-    clima = obtener_clima()
-    partidos = obtener_futbol()
     cancion = obtener_cancion()
     frase = random.choice(FRASES) if (MOSTRAR_FRASE and FRASES) else None
-    html = armar_html(clima, partidos, frase, cancion)
+    html = armar_html(frase, cancion)
     enviar_mail(html)
 
 
