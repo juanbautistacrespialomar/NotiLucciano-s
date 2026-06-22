@@ -67,7 +67,7 @@ _PAIS_ISO = {
 
 # ----- Frase de la semana -----
 # Frases reales y celebres de figuras del espectaculo/deporte argentino.
-# Cada corrida elige una al azar. Cada item es (FRASE, AUTOR). Sumá las que quieras.
+# Cada corrida elige una al azar. Cada item es (FRASE, AUTOR). Suma las que quieras.
 MOSTRAR_FRASE = True
 FRASES = [
     # --- Diego Maradona ---
@@ -76,11 +76,10 @@ FRASES = [
     ("Fue la mano de Dios", "Diego Maradona"),
     ("Se le escap\u00f3 la tortuga", "Diego Maradona"),
     ("Ganarle a River es como que tu mam\u00e1 te despierte con un beso", "Diego Maradona"),
-    ("Te lo digo a vos, Segurola y Habana, and\u00e1 a buscarlo", "Diego Maradona"),
+    ("A Toresani, Segurola y Habana 4310, s\u00e9ptimo piso; y vamos a ver si me dura treinta segundos", "Diego Maradona"),
     ("Tengo menos piernas que una foto carnet", "Diego Maradona"),
     ("M\u00e1s falso que d\u00f3lar celeste", "Diego Maradona"),
     ("L\u00e1stima no se le tiene a nadie, maestro", "Diego Maradona"),
-    ("Tengo dos sue\u00f1os: jugar un Mundial y salir campe\u00f3n", "Diego Maradona"),
     ("Si voy al banco es para sacar plata, fiera", "Diego Maradona"),
     # --- Moria Cas\u00e1n ---
     ("\u00bfQui\u00e9nes son?", "Moria Cas\u00e1n"),
@@ -90,7 +89,6 @@ FRASES = [
     ("\u00a1Se calla el decorado!", "Moria Cas\u00e1n"),
     # --- Mirtha Legrand ---
     ("Como te ven, te tratan", "Mirtha Legrand"),
-    ("Les he dado mi vida", "Mirtha Legrand"),
     ("\u00a1Qu\u00e9 mesaza!", "Mirtha Legrand"),
     # --- Ricardo Fort ---
     ("\u00a1Mam\u00e1, cortaste toda la looz!", "Ricardo Fort"),
@@ -99,31 +97,20 @@ FRASES = [
     ("\u00a1Mam\u00e1, metiste el cutucuchillo!", "Ricardo Fort"),
     # --- Susana Gim\u00e9nez ---
     ("Un dinosaurio\u2026 \u00bfvivo?", "Susana Gim\u00e9nez"),
-    ("\u00a1Se acab\u00f3, de ahora en m\u00e1s voy a cumplir 69!", "Susana Gim\u00e9nez"),
     # --- Espect\u00e1culo / humor ---
-    ("\u00bfQu\u00e9 pretende usted de m\u00ed?", "Isabel Sarli"),
-    ("\u00a1Hay que caminar chicas, hay que caminar!", "Lita de Lazzari"),
-    ("Che Pedro, mir\u00e1 qui\u00e9n vino. No va andar", "Juan Carlos Calabr\u00f3"),
     ("Vermouth con papas fritas y\u2026 good show", "Tato Bores"),
-    ("Si te gusta el durazno, bancate la pelusa", "Florencia de la V"),
-    ("\u00a1Vos fum\u00e1!", "Carl\u00edn Calvo"),
     ("Billetera mata gal\u00e1n", "Jacobo Winograd"),
     ("No me peguen, soy Giordano", "Roberto Giordano"),
-    ("Muchacha, hacete el papanicolau", "Tita Merello"),
-    ("Qu\u00e9 pa\u00eds generoso", "Jorge Rial"),
     ("Estoy comprometido con mi tierra, casado con los problemas y divorciado de sus riquezas", "Inodoro Pereyra (Fontanarrosa)"),
     ("Parece que quieren hacer bowling conmigo", "Vicky Xipolitakis"),
     ("\u00bfQui\u00e9n sos? \u00a1Ubicate, pendejo!", "Nacha Guevara"),
     # --- Deporte ---
     ("Me gusta tanto la noche que al d\u00eda le pondr\u00eda un toldo", "Bambino Veira"),
     ("Pusimos un micro en el arco y entr\u00f3 por la ventanilla", "Bambino Veira"),
-    ("\u00a1Por lo menos as\u00ed lo veo yo!", "Guillermo Nimo"),
-    ("En la altura la pelota no dobla", "Daniel Passarella"),
     ("\u00bfEst\u00e1 crazy, Macaya?", "Marcelo Araujo"),
     ("La experiencia es un peine que te regalan cuando te qued\u00e1s pelado", "Ringo Bonavena"),
     ("\u00bfCu\u00e1ntos pulmones tengo? Uno, como todo el mundo", "Mostaza Merlo"),
     # --- M\u00fasica ---
-    ("Yo no me gan\u00e9 la loter\u00eda, la hice laburando", "Pablo Lescano"),
     # --- Pol\u00edtica (frases hist\u00f3ricas del folclore) ---
     ("S\u00edganme, no los voy a defraudar", "Carlos Menem"),
     ("La casa est\u00e1 en orden", "Ra\u00fal Alfons\u00edn"),
