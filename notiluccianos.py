@@ -27,11 +27,81 @@ import requests
 # Cada item es (VOLANTA, TITULAR, BAJADA, FOTO).
 # FOTO es opcional: pone la URL de una imagen, o dejala como "" si no queres foto.
 MOSTRAR_NOTILUCCIANOS = True
+
+# La nota de tapa (Mila & Matias) trae contenido rico (fichas de personajes, cita
+# resaltada, alerta, tweet) que no entra en una bajada de una linea. Como el campo
+# BAJADA admite HTML crudo, dejo toda esa nota aca, en una variable legible, y se la
+# enchufo como bajada del item principal. Uso acentos directos (el archivo ya declara
+# utf-8 arriba); conviven sin problema con los \uXXXX del resto.
+NOTICIA_PRINCIPAL_BAJADA = """
+<p style="font-size:16px; color:#333333; line-height:1.5; font-style:italic; margin:0 0 18px;">La nueva arquitecta platense y el hombre de costos m&aacute;s chamuyero de Lucciano's comparten isla de trabajo, salidas y ahora tambi&eacute;n kil&oacute;metros. Mientras tanto, Catalina observa. Y sus cejas lo dicen todo.</p>
+
+<table cellpadding="0" cellspacing="0" border="0" style="width:100%; margin:0 0 20px;"><tr>
+  <td style="width:33%; vertical-align:top; padding:3px;">
+    <div style="background:#faf8f2; border:1px solid #e3ddcf; border-radius:6px; padding:12px 8px; text-align:center;">
+      <div style="font-size:30px; line-height:1;">&#128105;&#8205;&#128188;</div>
+      <div style="font-size:16px; font-weight:bold; color:#111111; margin-top:4px; font-family:Georgia,serif;">Mila</div>
+      <div style="font-size:11px; color:#c0000a; font-weight:bold; text-transform:uppercase; letter-spacing:0.4px; margin:2px 0 8px; font-family:Arial,sans-serif;">&#128269; La nueva</div>
+      <div style="font-size:12px; color:#555555; line-height:1.8; font-family:Arial,sans-serif;">&#128205; La Plata<br>&#127963;&#65039; Arquitecta<br>&#128197; Desde abril 2026<br>&#127874; ~30 a&ntilde;os<br>&#127939; Running (nuevo)</div>
+    </div>
+  </td>
+  <td style="width:33%; vertical-align:top; padding:3px;">
+    <div style="background:#faf8f2; border:1px solid #e3ddcf; border-radius:6px; padding:12px 8px; text-align:center;">
+      <div style="font-size:30px; line-height:1;">&#128483;&#65039;</div>
+      <div style="font-size:16px; font-weight:bold; color:#111111; margin-top:4px; font-family:Georgia,serif;">Mat&iacute;as</div>
+      <div style="font-size:11px; color:#c0000a; font-weight:bold; text-transform:uppercase; letter-spacing:0.4px; margin:2px 0 8px; font-family:Arial,sans-serif;">&#9888;&#65039; El chamuyero</div>
+      <div style="font-size:12px; color:#555555; line-height:1.8; font-family:Arial,sans-serif;">&#128188; &Aacute;rea de Costos<br>&#128197; Lleva 2 a&ntilde;os<br>&#127874; 25 a&ntilde;os<br>&#127939; Running (cl&aacute;sico)<br>&#128172; Labia: nivel 10/10</div>
+    </div>
+  </td>
+  <td style="width:33%; vertical-align:top; padding:3px;">
+    <div style="background:#fff4e6; border:2px solid #e67e00; border-radius:6px; padding:12px 8px; text-align:center;">
+      <div style="font-size:30px; line-height:1;">&#128548;</div>
+      <div style="font-size:16px; font-weight:bold; color:#111111; margin-top:4px; font-family:Georgia,serif;">Catalina</div>
+      <div style="font-size:11px; color:#e67e00; font-weight:bold; text-transform:uppercase; letter-spacing:0.4px; margin:2px 0 8px; font-family:Arial,sans-serif;">&#128293; La que mira</div>
+      <div style="font-size:12px; color:#555555; line-height:1.8; font-family:Arial,sans-serif;">&#128188; Contabilidad<br>&#127874; 27 a&ntilde;os (reci&eacute;n)<br>&#128065;&#65039; Todo lo ve<br>&#9995; Correa puesta<br>&#128544; Humor: variable</div>
+    </div>
+  </td>
+</tr></table>
+
+<p style="font-size:14px; color:#333333; line-height:1.6; margin:0 0 14px; font-family:Arial,sans-serif;">Cuando Mila lleg&oacute; desde La Plata en abril de este a&ntilde;o, nadie imaginaba que su historia en Lucciano's iba a volverse tema de redacci&oacute;n tan r&aacute;pido. Arquitecta, ronda los 30, nueva en la ciudad, nueva en la empresa. La sentaron en una isla de trabajo junto a Mat&iacute;as, el hombre de costos, y ah&iacute; empez&oacute; todo.</p>
+
+<p style="font-size:14px; color:#333333; line-height:1.6; margin:0 0 14px; font-family:Arial,sans-serif;">Porque Mat&iacute;as no es cualquier compa&ntilde;ero de escritorio. Mat&iacute;as tiene labia. Mucha labia. La clase de labia que convierte una consulta sobre una factura en una conversaci&oacute;n de cuarenta minutos. Y esa misma labia fue la que, seg&uacute;n fuentes de esta redacci&oacute;n, lo tuvo durante semanas muy, muy entretenido con Catalina, de contabilidad: miraditas, toquecitos con excusa laboral, risitas que no necesitaban contexto. Catalina sab&iacute;a. Catalina sabe. Catalina siempre sabe.</p>
+
+<div style="border-left:4px solid #c0000a; background:#fff8f8; padding:14px 18px; margin:18px 0; font-family:Georgia,serif; font-size:17px; font-style:italic; color:#222222; line-height:1.4;">&ldquo;La correa que Cata le tiene puesta a Mati fue lo que, en definitiva, le impidi&oacute; venderle el auto a Mila. Correa que salva honras.&rdquo;</div>
+
+<p style="font-size:14px; color:#333333; line-height:1.6; margin:0 0 14px; font-family:Arial,sans-serif;">El cap&iacute;tulo del auto merece p&aacute;rrafo aparte. En un momento dado, circul&oacute; la versi&oacute;n de que Mat&iacute;as le iba a vender su veh&iacute;culo a Mila. Operaci&oacute;n que habr&iacute;a implicado encuentros, pruebas de manejo, negociaciones cara a cara. Sin embargo, un problema con la correa del motor dio por tierra con la transacci&oacute;n. Aunque en los pasillos de Lucciano's la teor&iacute;a m&aacute;s popular es otra: que la correa que realmente trab&oacute; la venta fue la que Cata le tiene puesta al cuello a Mat&iacute;as hace rato. Esa correa no falla.</p>
+
+<div style="background:#fff4e6; border:1px solid #e67e00; border-radius:6px; padding:14px 16px; margin:18px 0;">
+  <div style="font-size:13px; font-weight:bold; color:#b35e00; text-transform:uppercase; letter-spacing:0.5px; margin-bottom:6px; font-family:Arial,sans-serif;">&#9888;&#65039; Alerta Catalina &mdash; Estado actual</div>
+  <div style="font-size:14px; color:#444444; line-height:1.55; font-family:Arial,sans-serif;">Se la vio a Cata mirando con los ojos entrecerrados cada vez que Mila se acerca al escritorio de Mat&iacute;as. Fuentes confirman que el silencio de Cata en esos momentos &ldquo;es del tipo que asusta m&aacute;s que los gritos&rdquo;. Situaci&oacute;n: tensa y en escalada.</div>
+</div>
+
+<p style="font-size:14px; color:#333333; line-height:1.6; margin:0 0 14px; font-family:Arial,sans-serif;">Pero el cap&iacute;tulo m&aacute;s reciente &mdash; y el que encendi&oacute; todas las alarmas &mdash; lleg&oacute; esta semana. Mila se sum&oacute; al grupo de running en el que entrena Mat&iacute;as. Casualidad, dicen algunos. Estrategia, dicen otros. Kil&oacute;metros compartidos al amanecer, zapatillas y falta de excusas para estar juntos, responden los m&aacute;s duchos en estos asuntos. El running, ese deporte tan sano, tan inocente, tan conveniente.</p>
+
+<p style="font-size:14px; color:#333333; line-height:1.6; margin:0 0 4px; font-family:Arial,sans-serif;">Lo que por ahora se desconoce es si fue iniciativa de &eacute;l, de ella, o de alg&uacute;n destino que claramente no ley&oacute; el bolet&iacute;n de Catalina. Lo que s&iacute; est&aacute; claro es que Cata ya sabe del grupo de running, y que su cara al enterarse fue la de alguien que est&aacute; mentalmente redactando un comunicado.</p>
+
+<div style="margin-top:22px;">
+  <div style="font-size:13px; font-weight:bold; color:#111111; text-transform:uppercase; letter-spacing:1px; margin-bottom:10px; font-family:Arial,sans-serif;">&#128038; Lo que se dice en las redes</div>
+  <div style="border:1px solid #e1e8ed; border-radius:10px; padding:14px 16px; background:#ffffff; font-family:Arial,sans-serif;">
+    <table cellpadding="0" cellspacing="0" border="0" style="margin-bottom:8px;"><tr>
+      <td style="width:46px; vertical-align:top;"><div style="width:38px; height:38px; border-radius:50%; background:#c0000a; color:#ffffff; text-align:center; line-height:38px; font-weight:bold; font-size:15px;">BP</div></td>
+      <td style="vertical-align:top; padding-left:8px;">
+        <div style="font-size:14px; font-weight:bold; color:#111111;">Blas Polino</div>
+        <div style="font-size:13px; color:#657786;">@BlasPolino</div>
+      </td>
+    </tr></table>
+    <div style="font-size:14px; color:#222222; line-height:1.5; margin-bottom:10px;">acabo d darme cuenta q mila se metio al grupo d running d mati... cata si esto lo ves rez&aacute; porque yo no se como termina esto jajajaja igual mati sos un capo igual, desde la isla hasta las zapatillas todo junto <span style="color:#1da1f2;">#luccianos #running #diostecuide</span></div>
+    <div style="font-size:12px; color:#657786; border-bottom:1px solid #eeeeee; padding-bottom:8px; margin-bottom:8px;">9:42 AM - 24 Jun 2026 &middot; Twitter for iPhone</div>
+    <div style="font-size:12px; color:#657786;">&#8629; Responder <strong>47</strong> &nbsp;&nbsp; &#128257; Retweetear <strong>312</strong> &nbsp;&nbsp; &#9733; Favorito <strong>891</strong></div>
+  </div>
+</div>
+"""
+
 NOTILUCCIANOS = [
-    # ===== PRINCIPAL: cargarla cuando este lista (su titular sale en la barra de "Urgente") =====
-    ("\u00a1EXCLUSIVO!",
-     "AC\u00c1 VA LA NOTICIA PRINCIPAL",
-     "Reemplazar por la nota de tapa cuando la tengan lista.",
+    # ===== PRINCIPAL: nota de tapa Mila & Matias (su titular sale en la barra de "Urgente") =====
+    ("\U0001F3C3 Urgente deportivo",
+     "Del mismo escritorio al mismo grupo de running: Mila y Mat\u00edas, \u00bfcompa\u00f1eros o algo m\u00e1s?",
+     NOTICIA_PRINCIPAL_BAJADA,
      ""),
 
     # ===== SECUNDARIA 1: guerra del aire =====
