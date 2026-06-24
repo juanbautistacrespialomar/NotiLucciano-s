@@ -200,6 +200,24 @@ COLOR_SUBA    = "#1a8a1a"   # verde (sube)
 COLOR_BAJA    = "#c0000a"   # rojo (baja)
 COLOR_NARANJA = "#e07b00"   # alerta meteorologica
 
+# ----- Marca / cabecera (logo + bandera) -----
+# LOGO_URL: URL PUBLICA de una imagen (PNG/JPG). En un mail no alcanza con tener
+# el archivo: tiene que estar hospedado en algun lado. Lo mas facil es subir el
+# logo al repo de GitHub y usar el link "raw", por ejemplo:
+#   https://raw.githubusercontent.com/USUARIO/REPO/main/logo.png
+# Si la dejas en "", se muestra solo el wordmark de texto, como hasta ahora.
+LOGO_URL  = ""
+LOGO_ALTO = 44            # alto del logo en px dentro del header
+# El logo va sobre una "pastilla" blanca para que contraste sobre el rojo del header.
+# Poné False si tu logo ya tiene fondo propio o lo querés sin recuadro.
+LOGO_PASTILLA   = True
+MOSTRAR_WORDMARK = True   # mostrar el texto "NOTILUCCIANO'S" debajo del logo
+
+# Bandera argentina. Usamos IMAGEN y no el emoji \U0001F1E6\U0001F1F7 porque en
+# Windows/Outlook el emoji de bandera se ve como las 2 letras ("AR").
+MOSTRAR_BANDERA = True
+BANDERA_AR_URL  = "https://flagcdn.com/w40/ar.png"
+
 # =====================================================================
 # SECRETOS (vienen de los GitHub Secrets)
 # =====================================================================
@@ -567,12 +585,42 @@ def armar_html(frase, cancion):
              f'font-family:Arial,Helvetica,sans-serif; font-size:13px; font-weight:bold; '
              f'padding:8px; letter-spacing:1px;">'
              f'\U0001F37A \u00a1VIERNES QUE TE QUIERO VIERNES! \U0001F37A</div>')
+
+    # ----- Logo (si hay URL configurada) -----
+    if LOGO_URL:
+        if LOGO_PASTILLA:
+            estilo_img = (f'height:{LOGO_ALTO}px; background:#ffffff; padding:7px 14px; '
+                          f'border-radius:8px; display:inline-block;')
+        else:
+            estilo_img = f'height:{LOGO_ALTO}px; display:inline-block;'
+        logo_html = (f'<div style="margin-bottom:10px;">'
+                     f'<img src="{LOGO_URL}" alt="Lucciano\u2019s" height="{LOGO_ALTO}" '
+                     f'style="{estilo_img}"></div>')
+    else:
+        logo_html = ""
+
+    # ----- Wordmark de texto (nombre del diario) -----
+    if MOSTRAR_WORDMARK:
+        wordmark_html = (f'<div style="font-size:34px; font-weight:900; color:#ffffff; '
+                         f'letter-spacing:2px; font-family:Georgia,\'Times New Roman\',serif;">'
+                         f'NOTI<span style="color:{COLOR_ACENTO};">LUCCIANO\u2019S</span></div>')
+    else:
+        wordmark_html = ""
+
+    # ----- Bandera argentina (imagen, no emoji) -----
+    if MOSTRAR_BANDERA and BANDERA_AR_URL:
+        bandera_html = (f'&nbsp;<img src="{BANDERA_AR_URL}" width="20" height="13" '
+                        f'alt="Argentina" style="vertical-align:middle; border-radius:2px; '
+                        f'border:1px solid #d9c9c9;">')
+    else:
+        bandera_html = ""
+
     return f"""<!DOCTYPE html>
 <html><body style="margin:0; padding:0; background:{COLOR_FONDO};">
   <div style="max-width:680px; margin:0 auto; background:{COLOR_FONDO};">
     <div style="background:{COLOR_HEADER}; padding:15px 20px 12px; text-align:center; border-bottom:4px solid {COLOR_BORDE};">
-      <div style="font-size:34px; font-weight:900; color:#ffffff; letter-spacing:2px; font-family:Georgia,'Times New Roman',serif;">
-        NOTI<span style="color:{COLOR_ACENTO};">LUCCIANO\u2019S</span></div>
+      {logo_html}
+      {wordmark_html}
       <div style="color:#f2c9cb; font-size:10px; letter-spacing:3px; text-transform:uppercase; margin-top:4px; font-family:Arial,Helvetica,sans-serif;">
         El portal que la empresa no quiere que leas</div>
     </div>
@@ -580,7 +628,7 @@ def armar_html(frase, cancion):
       <span style="background:{COLOR_HEADER}; color:#ffffff; font-weight:bold; font-size:10px; padding:2px 8px; text-transform:uppercase;">\U0001F534 Urgente</span>
       &nbsp;&nbsp;{breaking}</div>
     <div style="background:#ffffff; border-bottom:1px solid #dddddd; padding:7px 20px; font-size:11px; color:#666666; font-family:Arial,Helvetica,sans-serif;">
-      {fecha_hoy} &nbsp;&middot;&nbsp; Mar del Plata</div>
+      {fecha_hoy} &nbsp;&middot;&nbsp; Mar del Plata{bandera_html}</div>
     {bombo}
     <div style="background:#ffffff; padding:24px 22px 8px;">
       {_caja_notiluccianos()}
