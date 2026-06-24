@@ -15,6 +15,7 @@ import smtplib
 from datetime import datetime, timedelta, timezone
 from email.mime.text import MIMEText
 from email.mime.multipart import MIMEMultipart
+from email.mime.image import MIMEImage
 
 import requests
 
@@ -201,11 +202,19 @@ COLOR_BAJA    = "#c0000a"   # rojo (baja)
 COLOR_NARANJA = "#e07b00"   # alerta meteorologica
 
 # ----- Marca / cabecera (logo + bandera) -----
-# LOGO_URL: URL PUBLICA de una imagen (PNG/JPG). En un mail no alcanza con tener
-# el archivo: tiene que estar hospedado en algun lado. Lo mas facil es subir el
-# logo al repo de GitHub y usar el link "raw", por ejemplo:
-#   https://raw.githubusercontent.com/USUARIO/REPO/main/logo.png
-# Si la dejas en "", se muestra solo el wordmark de texto, como hasta ahora.
+# Hay DOS formas de poner el logo. El script usa la primera que encuentre:
+#
+#  1) LOGO_FILE  -> archivo local del repo. RECOMENDADO (y obligatorio si el
+#     repo es PRIVADO). El logo se ADJUNTA dentro del mail (Content-ID), asi
+#     que no depende de ningun hosting ni de que el repo sea publico. Como el
+#     script corre en GitHub Actions, el repo se clona entero y el archivo
+#     queda disponible al lado del .py.
+#
+#  2) LOGO_URL   -> URL publica de la imagen. Solo sirve si la imagen es
+#     accesible SIN login (repo publico, CDN, etc.). En repos privados NO anda.
+#
+# Si las dos quedan vacias, se muestra solo el wordmark de texto, como antes.
+LOGO_FILE = "luccianos-logo-png_seeklogo-480057.png"
 LOGO_URL  = ""
 LOGO_ALTO = 44            # alto del logo en px dentro del header
 # El logo va sobre una "pastilla" blanca para que contraste sobre el rojo del header.
@@ -217,6 +226,9 @@ MOSTRAR_WORDMARK = True   # mostrar el texto "NOTILUCCIANO'S" debajo del logo
 # Windows/Outlook el emoji de bandera se ve como las 2 letras ("AR").
 MOSTRAR_BANDERA = True
 BANDERA_AR_URL  = "https://flagcdn.com/w40/ar.png"
+
+# Content-ID interno para el logo adjunto (no lo toques salvo que sepas que hacés).
+_LOGO_CID = "logo_noti"
 
 # =====================================================================
 # SECRETOS (vienen de los GitHub Secrets)
@@ -332,6 +344,23 @@ def _tag_seccion(texto):
     return (f'<span style="display:inline-block; background:{COLOR_HEADER}; color:#ffffff; '
             f'font-size:10px; font-weight:bold; text-transform:uppercase; letter-spacing:1.5px; '
             f'padding:3px 10px; font-family:Arial,Helvetica,sans-serif;">{texto}</span>')
+
+
+def _resolver_logo():
+    """Decide de donde sale el logo. Devuelve (src_para_el_img, ruta_a_adjuntar).
+    - Si LOGO_FILE existe en disco -> ('cid:...', ruta)  (se adjunta al mail).
+    - Si no, pero hay LOGO_URL      -> (LOGO_URL, None).
+    - Si no hay nada                -> ('', None).
+    La ruta se resuelve relativa a este .py, asi anda sin importar desde donde
+    se ejecute (en GitHub Actions el working dir es la raiz del repo)."""
+    if LOGO_FILE:
+        ruta = os.path.join(os.path.dirname(os.path.abspath(__file__)), LOGO_FILE)
+        if os.path.exists(ruta):
+            return (f"cid:{_LOGO_CID}", ruta)
+        print(f"[AVISO] No encontre el archivo del logo: {ruta}. Pruebo con LOGO_URL.")
+    if LOGO_URL:
+        return (LOGO_URL, None)
+    return ("", None)
 
 
 def _caja_notiluccianos():
@@ -586,15 +615,16 @@ def armar_html(frase, cancion):
              f'padding:8px; letter-spacing:1px;">'
              f'\U0001F37A \u00a1VIERNES QUE TE QUIERO VIERNES! \U0001F37A</div>')
 
-    # ----- Logo (si hay URL configurada) -----
-    if LOGO_URL:
+    # ----- Logo (archivo adjunto o URL, lo que haya) -----
+    logo_src, _ = _resolver_logo()
+    if logo_src:
         if LOGO_PASTILLA:
             estilo_img = (f'height:{LOGO_ALTO}px; background:#ffffff; padding:7px 14px; '
                           f'border-radius:8px; display:inline-block;')
         else:
             estilo_img = f'height:{LOGO_ALTO}px; display:inline-block;'
         logo_html = (f'<div style="margin-bottom:10px;">'
-                     f'<img src="{LOGO_URL}" alt="Lucciano\u2019s" height="{LOGO_ALTO}" '
+                     f'<img src="{logo_src}" alt="Lucciano\u2019s" height="{LOGO_ALTO}" '
                      f'style="{estilo_img}"></div>')
     else:
         logo_html = ""
@@ -650,13 +680,32 @@ def armar_html(frase, cancion):
 </body></html>"""
 
 
-def enviar_mail(cuerpo_html):
+def enviar_mail(cuerpo_html, logo_adjunto=None):
     fecha_hoy = datetime.now(timezone(timedelta(hours=-3))).strftime("%d/%m/%Y")
-    mensaje = MIMEMultipart("alternative")
+
+    if logo_adjunto:
+        # multipart/related: el HTML + la imagen inline referenciada por cid.
+        mensaje = MIMEMultipart("related")
+        alternativo = MIMEMultipart("alternative")
+        alternativo.attach(MIMEText(cuerpo_html, "html", "utf-8"))
+        mensaje.attach(alternativo)
+        try:
+            with open(logo_adjunto, "rb") as f:
+                img = MIMEImage(f.read())
+            img.add_header("Content-ID", f"<{_LOGO_CID}>")
+            img.add_header("Content-Disposition", "inline",
+                           filename=os.path.basename(logo_adjunto))
+            mensaje.attach(img)
+            print(f"[INFO] Logo adjuntado: {os.path.basename(logo_adjunto)}")
+        except Exception as e:
+            print(f"[AVISO] No pude adjuntar el logo ({logo_adjunto}): {e}")
+    else:
+        mensaje = MIMEMultipart("alternative")
+        mensaje.attach(MIMEText(cuerpo_html, "html", "utf-8"))
+
     mensaje["Subject"] = f"NotiLucciano's - {fecha_hoy}"
     mensaje["From"] = GMAIL_USER
     mensaje["To"] = MAIL_TO
-    mensaje.attach(MIMEText(cuerpo_html, "html", "utf-8"))
     with smtplib.SMTP_SSL("smtp.gmail.com", 465) as servidor:
         servidor.login(GMAIL_USER, GMAIL_APP_PASSWORD)
         servidor.sendmail(GMAIL_USER, MAIL_TO.split(","), mensaje.as_string())
@@ -676,7 +725,8 @@ def main():
     cancion = obtener_cancion()
     frase = random.choice(FRASES) if (MOSTRAR_FRASE and FRASES) else None
     html = armar_html(frase, cancion)
-    enviar_mail(html)
+    _, logo_adjunto = _resolver_logo()
+    enviar_mail(html, logo_adjunto)
 
 
 if __name__ == "__main__":
