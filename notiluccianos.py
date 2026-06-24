@@ -28,9 +28,66 @@ import requests
 # FOTO es opcional: pone la URL de una imagen, o dejala como "" si no queres foto.
 MOSTRAR_NOTILUCCIANOS = True
 NOTILUCCIANOS = [
+    # ===== PRINCIPAL: cargarla cuando este lista (su titular sale en la barra de "Urgente") =====
     ("\u00a1EXCLUSIVO!",
-     "AC\u00c1 VAN LOS TITULARES DE LA SEMANA",
-     "Reemplazar por las noticias reales. Cada una es (volanta, titular, bajada, foto).",
+     "AC\u00c1 VA LA NOTICIA PRINCIPAL",
+     "Reemplazar por la nota de tapa cuando la tengan lista.",
+     ""),
+
+    # ===== SECUNDARIA 1: guerra del aire =====
+    ("\u00a1TERCERA GUERRA MUNDIAL!",
+     "CLARI LE DECLAR\u00d3 LA GUERRA FR\u00cdA A LA TIKITITAH",
+     "Lo que arranc\u00f3 como una disputa diplom\u00e1tica por el termostato roto escal\u00f3 "
+     "a conflicto abierto. Tras a\u00f1os de hegemon\u00eda t\u00e9rmica, la Tikititah vio "
+     "amenazado su control absoluto del clima y Clari decidi\u00f3 romper el tratado de "
+     "no proliferaci\u00f3n de fr\u00edo. Hubo movimiento de tropas (sweaters), inteligencia "
+     "(\u201c\u00bfqui\u00e9n lo toc\u00f3?\u201d) y un alto el fuego que dur\u00f3 lo que un cubito al sol. "
+     "La ONU no intervino: tambi\u00e9n ten\u00eda fr\u00edo. \u00bfHabr\u00e1 cascos azules para el "
+     "viernes o esto termina en guerra de guerrillas a control remoto?",
+     "GUERRA DECLARADA.jpeg"),
+
+    # ===== SECUNDARIA 2: la siesta vs Messi =====
+    ("ESC\u00c1NDALO DEPORTIVO",
+     "SUE\u00d1O CON MESSI",
+     "Parte de la secta no qued\u00f3 conforme con el delantero argentino de 39 a\u00f1os "
+     "durante su presentaci\u00f3n ante Austria. El malestar fue tal que el cl\u00edmax del "
+     "an\u00e1lisis t\u00e1ctico fue, lisa y llanamente, una \u00a1SIESTA! en pleno partido. "
+     "Testigos aseguran haber escuchado un ronquido en el minuto 23. \u00bfFue protesta "
+     "silenciosa contra el 10 o simple aburrimiento? \u00bfQui\u00e9n fue el del sue\u00f1o "
+     "profundo? Y, sobre todo: \u00bfsab\u00eda que la c\u00e1mara lo estaba enfocando?",
+     ""),
+
+    # ===== SECUNDARIA 3: el histeriqueo =====
+    ("AMOR EN LA OFICINA",
+     "DOMADOR DE YEGUAS",
+     "El lunes, durante el Cooling Break de Argentina-Austria, la oficina fue testigo "
+     "de un nuevo episodio de cringe en cadena nacional. El histeriqueo entre parte "
+     "de la secta y M. de marketing dej\u00f3 de ser novedad para volverse, directamente, "
+     "rutina institucional. Ya hay quien propone agregarlo al organigrama. "
+     "\u00bfHay sentimientos o es puro espect\u00e1culo para la tribuna? \u00bfPor qu\u00e9 siempre "
+     "arranca justo en el momento de mayor audiencia? Y la pregunta del mill\u00f3n: "
+     "\u00bfqui\u00e9n doma a qui\u00e9n?",
+     ""),
+
+    # ===== SECUNDARIA 4: la miseria aumenta =====
+    ("LA MISERIA AUMENTA",
+     "FERNET 1882 CON CUNNINGTON SIN GAS: EL FONDO DEL FONDO",
+     "Fuentes informan que durante el fin de semana dos miembros del equipo fueron "
+     "encontrados bebiendo Fernet 1882 con Cunnington cola sin gas, en lo que los "
+     "especialistas describen como \u201cun nuevo piso hist\u00f3rico del poder "
+     "adquisitivo\u201d. Lo positivo: ambos a\u00fan siguen con vida. Lo preocupante: "
+     "afirman que \u201cno estaba tan mal\u201d. \u00bfRecorte de gastos, apuesta perdida o "
+     "simple ca\u00edda libre del paladar? Noticia en desarrollo.",
+     ""),
+
+    # ===== EMPLEADO DE LA SEMANA: Blas =====
+    ("EMPLEADO DE LA SEMANA",
+     "BLAS, UN EJEMPLO PARA TODOS",
+     "El galard\u00f3n de esta edici\u00f3n es para Blas, que el d\u00eda martes trabaj\u00f3 nada "
+     "m\u00e1s ni nada menos que 7 (siete) segundos. Impecable desempe\u00f1o, sin un solo "
+     "error en todo ese lapso. La eficiencia hecha persona. Desde la redacci\u00f3n "
+     "destacamos el compromiso y esperamos que el r\u00e9cord se sostenga\u2026 o se supere "
+     "a la baja.",
      ""),
 ]
 
@@ -363,6 +420,33 @@ def _resolver_logo():
     return ("", None)
 
 
+# Fotos de las noticias que hay que adjuntar inline al mail (se llena al armar el
+# HTML). Cada item es (cid, ruta_en_disco). Misma logica que el logo: en repo
+# PRIVADO la unica forma de que la imagen se vea es empotrarla por Content-ID.
+_FOTOS_ADJUNTAS = []
+
+
+def _resolver_foto(foto):
+    """Decide de donde sale la foto de una noticia. Devuelve el src para el <img>.
+    - "" o None              -> "" (la noticia no muestra foto).
+    - empieza con http(s)    -> la URL tal cual (solo sirve si es PUBLICA).
+    - archivo local que existe -> 'cid:...' y lo registra para adjuntarlo inline.
+      Esta es la unica via que anda en repo PRIVADO (igual que el logo).
+    - archivo local que NO existe -> aviso y "" (no rompe el mail, saltea la foto).
+    La ruta se resuelve relativa a este .py, asi anda desde donde sea que se ejecute."""
+    if not foto:
+        return ""
+    if foto.startswith("http://") or foto.startswith("https://"):
+        return foto
+    ruta = os.path.join(os.path.dirname(os.path.abspath(__file__)), foto)
+    if os.path.exists(ruta):
+        cid = f"foto_noti_{len(_FOTOS_ADJUNTAS)}"
+        _FOTOS_ADJUNTAS.append((cid, ruta))
+        return f"cid:{cid}"
+    print(f"[AVISO] No encontre la foto de la noticia: {ruta}. La salteo.")
+    return ""
+
+
 def _caja_notiluccianos():
     if not MOSTRAR_NOTILUCCIANOS or not NOTILUCCIANOS:
         return ""
@@ -370,9 +454,10 @@ def _caja_notiluccianos():
     for nota in NOTILUCCIANOS:
         volanta, titular, bajada = nota[0], nota[1], nota[2]
         foto = nota[3] if len(nota) > 3 else ""
+        foto_src = _resolver_foto(foto)
         img_html = ""
-        if foto:
-            img_html = (f'<img src="{foto}" width="100%" '
+        if foto_src:
+            img_html = (f'<img src="{foto_src}" width="100%" '
                         f'style="display:block; width:100%; max-height:260px; object-fit:cover; '
                         f'border-radius:3px; margin:15px 0 6px;" alt="">')
         notas += (
@@ -680,25 +765,33 @@ def armar_html(frase, cancion):
 </body></html>"""
 
 
-def enviar_mail(cuerpo_html, logo_adjunto=None):
+def enviar_mail(cuerpo_html, adjuntos_inline=None):
+    """adjuntos_inline: lista de (cid, ruta) con las imagenes a empotrar en el mail
+    (el logo y las fotos de las noticias). Si la lista esta vacia, manda el mail
+    sin adjuntos."""
     fecha_hoy = datetime.now(timezone(timedelta(hours=-3))).strftime("%d/%m/%Y")
+    adjuntos_inline = adjuntos_inline or []
 
-    if logo_adjunto:
-        # multipart/related: el HTML + la imagen inline referenciada por cid.
+    if adjuntos_inline:
+        # multipart/related: el HTML + las imagenes inline referenciadas por cid.
         mensaje = MIMEMultipart("related")
         alternativo = MIMEMultipart("alternative")
         alternativo.attach(MIMEText(cuerpo_html, "html", "utf-8"))
         mensaje.attach(alternativo)
-        try:
-            with open(logo_adjunto, "rb") as f:
-                img = MIMEImage(f.read())
-            img.add_header("Content-ID", f"<{_LOGO_CID}>")
-            img.add_header("Content-Disposition", "inline",
-                           filename=os.path.basename(logo_adjunto))
-            mensaje.attach(img)
-            print(f"[INFO] Logo adjuntado: {os.path.basename(logo_adjunto)}")
-        except Exception as e:
-            print(f"[AVISO] No pude adjuntar el logo ({logo_adjunto}): {e}")
+        for cid, ruta in adjuntos_inline:
+            try:
+                ext = os.path.splitext(ruta)[1].lower().lstrip(".")
+                subtipo = {"jpg": "jpeg", "jpeg": "jpeg", "png": "png",
+                           "gif": "gif", "webp": "webp"}.get(ext, "jpeg")
+                with open(ruta, "rb") as f:
+                    img = MIMEImage(f.read(), _subtype=subtipo)
+                img.add_header("Content-ID", f"<{cid}>")
+                img.add_header("Content-Disposition", "inline",
+                               filename=os.path.basename(ruta))
+                mensaje.attach(img)
+                print(f"[INFO] Imagen adjuntada inline: {os.path.basename(ruta)} (cid:{cid})")
+            except Exception as e:
+                print(f"[AVISO] No pude adjuntar {ruta}: {e}")
     else:
         mensaje = MIMEMultipart("alternative")
         mensaje.attach(MIMEText(cuerpo_html, "html", "utf-8"))
@@ -724,9 +817,13 @@ def main():
         sys.exit(1)
     cancion = obtener_cancion()
     frase = random.choice(FRASES) if (MOSTRAR_FRASE and FRASES) else None
-    html = armar_html(frase, cancion)
-    _, logo_adjunto = _resolver_logo()
-    enviar_mail(html, logo_adjunto)
+    html = armar_html(frase, cancion)   # al armar el HTML se llena _FOTOS_ADJUNTAS
+    _, logo_ruta = _resolver_logo()
+    adjuntos = []
+    if logo_ruta:
+        adjuntos.append((_LOGO_CID, logo_ruta))
+    adjuntos.extend(_FOTOS_ADJUNTAS)    # las fotos de las noticias, si las hay
+    enviar_mail(html, adjuntos)
 
 
 if __name__ == "__main__":
