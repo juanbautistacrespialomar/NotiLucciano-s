@@ -28,6 +28,11 @@ import requests
 # FOTO es opcional: pone la URL de una imagen, o dejala como "" si no queres foto.
 MOSTRAR_NOTILUCCIANOS = True
 
+# Foto adjunta AL TWEET de la nota de tapa (la del grupo de running). Igual que las
+# fotos de las noticias: nombre del archivo que esta en el repo (case-sensitive en
+# GitHub Actions, que corre en Linux). Dejala en "" si no queres foto en el tweet.
+FOTO_TWEET_TAPA = "AMOR RUNNER.jpeg"
+
 # La nota de tapa (Mila & Matias) trae contenido rico (fichas de personajes, cita
 # resaltada, alerta, tweet) que no entra en una bajada de una linea. Como el campo
 # BAJADA admite HTML crudo, dejo toda esa nota aca, en una variable legible, y se la
@@ -91,6 +96,7 @@ NOTICIA_PRINCIPAL_BAJADA = """
       </td>
     </tr></table>
     <div style="font-size:14px; color:#222222; line-height:1.5; margin-bottom:10px;">acabo d darme cuenta q mila se metio al grupo d running d mati... cata si esto lo ves rez&aacute; porque yo no se como termina esto jajajaja igual mati sos un capo igual, desde la isla hasta las zapatillas todo junto <span style="color:#1da1f2;">#luccianos #running #diostecuide</span></div>
+    __FOTO_TWEET__
     <div style="font-size:12px; color:#657786; border-bottom:1px solid #eeeeee; padding-bottom:8px; margin-bottom:8px;">9:42 AM - 24 Jun 2026 &middot; Twitter for iPhone</div>
     <div style="font-size:12px; color:#657786;">&#8629; Responder <strong>47</strong> &nbsp;&nbsp; &#128257; Retweetear <strong>312</strong> &nbsp;&nbsp; &#9733; Favorito <strong>891</strong></div>
   </div>
@@ -517,12 +523,36 @@ def _resolver_foto(foto):
     return ""
 
 
+def _bloque_foto_tweet():
+    """HTML de la imagen adjunta al tweet de la nota de tapa (estilo 'foto de Twitter':
+    ancho completo de la tarjeta, esquinas redondeadas). Reutiliza _resolver_foto, asi
+    que en repo PRIVADO la imagen tambien viaja inline por Content-ID.
+    Devuelve "" si FOTO_TWEET_TAPA esta vacio o el archivo no existe -> el tweet sale
+    sin foto y NO se rompe el mail."""
+    if not FOTO_TWEET_TAPA:
+        return ""
+    src = _resolver_foto(FOTO_TWEET_TAPA)
+    if not src:
+        return ""
+    return (
+        '<div style="margin:2px 0 10px;">'
+        f'<img src="{src}" alt="Mila y Mat&iacute;as, grupo de running" '
+        'style="display:block; width:100%; max-width:100%; height:auto; '
+        'border-radius:14px; border:1px solid #e1e8ed;"></div>'
+    )
+
+
 def _caja_notiluccianos():
     if not MOSTRAR_NOTILUCCIANOS or not NOTILUCCIANOS:
         return ""
     notas = ""
     for nota in NOTILUCCIANOS:
         volanta, titular, bajada = nota[0], nota[1], nota[2]
+        # Si la bajada trae el token de foto del tweet, lo cambiamos por el <img> real.
+        # Va condicionado a "if token in bajada" a proposito: asi _resolver_foto (que
+        # registra el CID a adjuntar) corre UNA sola vez, y no en cada vuelta del for.
+        if "__FOTO_TWEET__" in bajada:
+            bajada = bajada.replace("__FOTO_TWEET__", _bloque_foto_tweet())
         foto = nota[3] if len(nota) > 3 else ""
         foto_src = _resolver_foto(foto)
 
