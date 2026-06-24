@@ -1,9 +1,10 @@
 # -*- coding: utf-8 -*-
 """
 NotiLucciano's - el "diario" de joda de la oficina.
-Manda por mail: NotiLucciano's (noticias truchas) + clima + futbol del Mundial
-+ cancion al azar de Spotify. Se dispara A MANO desde GitHub Actions (Run workflow).
-No usa IA ni feeds de noticias: es todo de joda.
+Manda por mail: NotiLucciano's (noticias truchas) + horoscopo laboral +
+indices economicos + breves + recomendado + encuesta + meteorologo del cierre
++ frase celebre + cancion al azar de Spotify.
+Se dispara A MANO desde GitHub Actions (Run workflow).
 """
 
 import os
@@ -22,10 +23,9 @@ import requests
 # =====================================================================
 
 # ----- NotiLucciano's (las noticias de joda; las editamos cada viernes) -----
-# Cada item es (VOLANTA, TITULAR, BAJADA).
-MOSTRAR_NOTILUCCIANOS = True
 # Cada item es (VOLANTA, TITULAR, BAJADA, FOTO).
 # FOTO es opcional: pone la URL de una imagen, o dejala como "" si no queres foto.
+MOSTRAR_NOTILUCCIANOS = True
 NOTILUCCIANOS = [
     ("\u00a1EXCLUSIVO!",
      "AC\u00c1 VAN LOS TITULARES DE LA SEMANA",
@@ -33,37 +33,102 @@ NOTILUCCIANOS = [
      ""),
 ]
 
-# ----- Clima (Mar del Plata) -----
-CLIMA_LAT = -38.0055
-CLIMA_LON = -57.5426
-CLIMA_CIUDAD = "Mar del Plata"
-
-# ----- Futbol (Mundial, Promiedos) -----
-# El script consulta TODAS las URLs y junta los partidos. Si avanza la ronda y
-# deja de traer partidos, agregar la URL nueva (del Network de Promiedos).
-MOSTRAR_FUTBOL = True
-FUTBOL_HASTA = "2026-07-19"
-PROMIEDOS_URLS = [
-    "https://api.promiedos.com.ar/league/games/fjda/5930_25_1_1",  # Fecha 1
-    "https://api.promiedos.com.ar/league/games/fjda/5930_25_1_2",  # Fecha 2
-    "https://api.promiedos.com.ar/league/games/fjda/5930_25_1_3",  # Fecha 3 (trae hasta la final)
+# ----- Breves / "Pas\u00f3 y no lo viste" -----
+# Noticias de UNA linea, sin desarrollar. Sumar/editar como strings.
+# Si la lista queda vacia, la seccion no se muestra.
+MOSTRAR_BREVES = True
+BREVES = [
+    # "Ac\u00e1 va la primera breve.",
+    # "Ac\u00e1 va la segunda.",
 ]
 
-# Pais (url_name de Promiedos) -> codigo ISO-2, para la bandera.
-_PAIS_ISO = {
-    "mexico": "MX", "south-africa": "ZA", "south-korea": "KR", "czech-republic": "CZ",
-    "canada": "CA", "bosnia-&-herzegovina": "BA", "usa": "US", "paraguay": "PY",
-    "qatar": "QA", "switzerland": "CH", "brazil": "BR", "morocco": "MA", "haiti": "HT",
-    "australia": "AU", "turkiye": "TR", "germany": "DE", "curacao": "CW",
-    "netherlands": "NL", "japan": "JP", "ivory-coast": "CI", "ecuador": "EC",
-    "sweden": "SE", "tunisia": "TN", "spain": "ES", "cape-verde": "CV", "belgium": "BE",
-    "egypt": "EG", "saudi-arabia": "SA", "uruguay": "UY", "iran": "IR",
-    "new-zealand": "NZ", "france": "FR", "senegal": "SN", "iraq": "IQ", "norway": "NO",
-    "argentina": "AR", "algeria": "DZ", "austria": "AT", "jordan": "JO",
-    "portugal": "PT", "dr-congo": "CD", "croatia": "HR", "ghana": "GH", "panama": "PA",
-    "uzbekistan": "UZ", "colombia": "CO", "italy": "IT", "denmark": "DK", "poland": "PL",
-    "nigeria": "NG", "cameroon": "CM",
-}
+# ----- Horoscopo laboral -----
+# Cada item es (SIMBOLO, SIGNO, PERSONAS, TEXTO).
+MOSTRAR_HOROSCOPO = True
+HOROSCOPO = [
+    ("\u2653", "Piscis", "Bauti y Juan",
+     "Vas a desconectarte mentalmente cerca de las 15:30 y mirar por la ventana "
+     "un rato largo. La oficina sobrevivi\u00f3 sin vos esos veinte minutos. Todo bien."),
+    ("\u264d", "Virgo", "Blas",
+     "Vas a encontrar UN error en una planilla ajena y no vas a poder pensar en "
+     "otra cosa el resto del d\u00eda. Tu perfeccionismo es un don y una condena."),
+    ("\u2648", "Aries", "Clari",
+     "Tu impulsividad te va a llevar a responder un mail antes de leerlo entero. "
+     "Spoiler: la info que necesitabas estaba en el tercer rengl\u00f3n. Respir\u00e1 "
+     "antes de tocar \u201cEnviar\u201d."),
+    ("\u2649", "Tauro", "Dani",
+     "Semana de aferrarte a lo conocido. Alguien va a sugerir \u201ccambiar el "
+     "proceso\u201d y vos vas a defender el Excel del 2019 con tu vida. Hac\u00e9s bien."),
+    ("\u264c", "Leo", "Agus",
+     "Necesit\u00e1s reconocimiento y esta semana no va a llegar. Tu obra maestra "
+     "\u2014ese reporte impecable\u2014 va a pasar sin un solo \u201cgracias\u201d. "
+     "Guardalo igual, alg\u00fan d\u00eda lo van a valorar."),
+]
+
+# ----- Indices economicos -----
+MOSTRAR_INDICES = True
+
+# Panel lider LUCC: cada "accion" es (PERSONA, VARIACION_%).
+# Positivo = sube (verde), negativo = baja (rojo). Se ordena solo de mayor a menor.
+LUCC_ACCIONES = [
+    ("Bauti", 18),
+    ("Dani", 5),
+    ("Blas", 4),
+    ("Clari", -12),
+    ("Agus", -12),
+    ("Juan", -25),
+]
+
+# Copete narrado del LUCC (redaccion acomodada).
+LUCC_COPETE = (
+    "El \u00edndice LUCC cerr\u00f3 la semana en baja. Entre las subas, Dani trep\u00f3 un "
+    "5% tras cerrar el cashflow y Blas sum\u00f3 un 4% por alinear los planetas en USA. "
+    "El gran ganador de la rueda fue Bauti, que escal\u00f3 un 18% luego de asesinar "
+    "al equipo de conteo de inventario en Europa. Del lado de las "
+    "p\u00e9rdidas, Clari retrocedi\u00f3 un 12% por riesgo de pianel, Agus cedi\u00f3 otro "
+    "12% tras conseguir peores precios en todas las unidades de negocio del 2026, y "
+    "Juan se desplom\u00f3 un 25% despu\u00e9s de pelearse en forma definitiva con la IA y "
+    "con Payway."
+)
+
+# Sub-indices: cada item es (NOMBRE, VALOR, GLOSA).
+INDICES_SECUNDARIOS = [
+    ("Volumen del Grupo de WhatsApp", "312 mensajes operados",
+     "S\u00f3lo 4 con valor real. El resto, ruido de mercado."),
+    ("\u00cdndice de Confianza en que \u201cel viernes lo cerramos\u201d (ICVC)", "3,2 / 100",
+     "M\u00ednimo hist\u00f3rico."),
+    ("\u00cdndice de Sensaci\u00f3n T\u00e9rmica de Oficina", "40\u00b0C",
+     "La temperatura real es 5\u00b0C, pero la Tikitita tiene calor."),
+    ("Riesgo Shares", "5180 pts",
+     "Sin techo a la vista."),
+]
+
+# ----- Meteorologo del cierre contable -----
+MOSTRAR_METEO_CIERRE = True
+METEO_CIERRE = (
+    "Alerta naranja: se aproxima el cierre con un frente de facturas sin imputar. "
+    "Tormenta de conciliaciones para este viernes."
+)
+
+# ----- Encuesta de la semana -----
+# Resultados ya cargados. Cada opcion es (TEXTO, PORCENTAJE).
+MOSTRAR_ENCUESTA = True
+ENCUESTA_PREGUNTA = "\u00bfLa oficina est\u00e1 fr\u00eda?"
+ENCUESTA_OPCIONES = [
+    ("S\u00ed", 12),
+    ("No", 8),
+    ("Dejen de tocar el aire", 80),
+]
+
+# ----- Recomendado del editor -----
+MOSTRAR_RECOMENDADO = True
+RECOMENDADO_ESTRELLAS = 5
+RECOMENDADO_TITULO = "Los sorrentinos de Agus"
+RECOMENDADO_TEXTO = (
+    "Calabaza y muzzarella en su punto justo, masa de autor y un relleno que pide "
+    "pista. Cinco estrellas al plato\u2026 y una sola al costo por unidad: parece que "
+    "a \u00e9l tambi\u00e9n el proveedor se los vende caros."
+)
 
 # ----- Frase de la semana -----
 # Frases reales y celebres de figuras del espectaculo/deporte argentino.
@@ -73,9 +138,8 @@ FRASES = [
     # --- Diego Maradona ---
     ("La pelota no se mancha", "Diego Maradona"),
     ("Me cortaron las piernas", "Diego Maradona"),
-    ("Fue la mano de Dios", "Diego Maradona"),
     ("Se le escap\u00f3 la tortuga", "Diego Maradona"),
-    ("Ganarle a River es como que tu mam\u00e1 te despierte con un beso", "Diego Maradona"),
+    ("Ganarle a River es como que tu vieja te despierte con un beso", "Diego Maradona"),
     ("A Toresani, Segurola y Habana 4310, s\u00e9ptimo piso; y vamos a ver si me dura treinta segundos", "Diego Maradona"),
     ("Tengo menos piernas que una foto carnet", "Diego Maradona"),
     ("M\u00e1s falso que d\u00f3lar celeste", "Diego Maradona"),
@@ -89,7 +153,6 @@ FRASES = [
     ("\u00a1Se calla el decorado!", "Moria Cas\u00e1n"),
     # --- Mirtha Legrand ---
     ("Como te ven, te tratan", "Mirtha Legrand"),
-    ("\u00a1Qu\u00e9 mesaza!", "Mirtha Legrand"),
     # --- Ricardo Fort ---
     ("\u00a1Mam\u00e1, cortaste toda la looz!", "Ricardo Fort"),
     ("Yo no manejo el rating, yo manejo un Rolls Royce", "Ricardo Fort"),
@@ -101,16 +164,13 @@ FRASES = [
     ("Vermouth con papas fritas y\u2026 good show", "Tato Bores"),
     ("Billetera mata gal\u00e1n", "Jacobo Winograd"),
     ("No me peguen, soy Giordano", "Roberto Giordano"),
-    ("Estoy comprometido con mi tierra, casado con los problemas y divorciado de sus riquezas", "Inodoro Pereyra (Fontanarrosa)"),
     ("Parece que quieren hacer bowling conmigo", "Vicky Xipolitakis"),
-    ("\u00bfQui\u00e9n sos? \u00a1Ubicate, pendejo!", "Nacha Guevara"),
     # --- Deporte ---
     ("Me gusta tanto la noche que al d\u00eda le pondr\u00eda un toldo", "Bambino Veira"),
     ("Pusimos un micro en el arco y entr\u00f3 por la ventanilla", "Bambino Veira"),
     ("\u00bfEst\u00e1 crazy, Macaya?", "Marcelo Araujo"),
     ("La experiencia es un peine que te regalan cuando te qued\u00e1s pelado", "Ringo Bonavena"),
     ("\u00bfCu\u00e1ntos pulmones tengo? Uno, como todo el mundo", "Mostaza Merlo"),
-    # --- M\u00fasica ---
     # --- Pol\u00edtica (frases hist\u00f3ricas del folclore) ---
     ("S\u00edganme, no los voy a defraudar", "Carlos Menem"),
     ("La casa est\u00e1 en orden", "Ra\u00fal Alfons\u00edn"),
@@ -136,18 +196,9 @@ COLOR_BORDE   = "#8a0007"   # rojo mas oscuro (bordes)
 COLOR_TEXTO   = "#222222"
 COLOR_FONDO   = "#f5f4f0"   # crema (fondo)
 COLOR_CAJA    = "#fff8f8"   # rosa muy claro (caja de la frase)
-
-# Codigos de clima (WMO) -> (emoji, descripcion).
-WMO = {
-    0: ("\u2600\uFE0F", "Despejado"), 1: ("\U0001F324\uFE0F", "Mayormente despejado"),
-    2: ("\u26C5", "Parcialmente nublado"), 3: ("\u2601\uFE0F", "Nublado"),
-    45: ("\U0001F32B\uFE0F", "Niebla"), 48: ("\U0001F32B\uFE0F", "Niebla"),
-    51: ("\U0001F326\uFE0F", "Llovizna"), 53: ("\U0001F326\uFE0F", "Llovizna"), 55: ("\U0001F326\uFE0F", "Llovizna"),
-    61: ("\U0001F327\uFE0F", "Lluvia"), 63: ("\U0001F327\uFE0F", "Lluvia"), 65: ("\U0001F327\uFE0F", "Lluvia fuerte"),
-    71: ("\U0001F328\uFE0F", "Nieve"), 73: ("\U0001F328\uFE0F", "Nieve"), 75: ("\U0001F328\uFE0F", "Nieve"),
-    80: ("\U0001F326\uFE0F", "Chaparrones"), 81: ("\U0001F326\uFE0F", "Chaparrones"), 82: ("\U0001F327\uFE0F", "Chaparrones fuertes"),
-    95: ("\u26C8\uFE0F", "Tormenta"), 96: ("\u26C8\uFE0F", "Tormenta"), 99: ("\u26C8\uFE0F", "Tormenta"),
-}
+COLOR_SUBA    = "#1a8a1a"   # verde (sube)
+COLOR_BAJA    = "#c0000a"   # rojo (baja)
+COLOR_NARANJA = "#e07b00"   # alerta meteorologica
 
 # =====================================================================
 # SECRETOS (vienen de los GitHub Secrets)
@@ -156,6 +207,7 @@ WMO = {
 GMAIL_USER         = os.environ.get("GMAIL_USER")
 GMAIL_APP_PASSWORD = os.environ.get("GMAIL_APP_PASSWORD")
 MAIL_TO            = os.environ.get("MAIL_TO", GMAIL_USER)
+
 SPOTIFY_CLIENT_ID     = os.environ.get("SPOTIFY_CLIENT_ID")
 SPOTIFY_CLIENT_SECRET = os.environ.get("SPOTIFY_CLIENT_SECRET")
 
@@ -167,45 +219,8 @@ def faltan_secretos():
 
 
 # =====================================================================
-# HELPERS
+# DATOS (Spotify)
 # =====================================================================
-
-def _bandera(url_name):
-    """Imagen de bandera (flagcdn.com). Imagen y no emoji porque Windows no
-    renderiza los emojis de bandera (los muestra como las 2 letras)."""
-    especiales = {"england": "gb-eng", "scotland": "gb-sct", "wales": "gb-wls"}
-    cod = especiales.get(url_name) or _PAIS_ISO.get(url_name, "").lower()
-    if not cod:
-        return ""
-    return (f'<img src="https://flagcdn.com/w40/{cod}.png" width="24" height="16" '
-            f'style="vertical-align:middle; border-radius:2px; '
-            f'object-fit:cover; border:1px solid #e0e0e0;" alt="">')
-
-
-# =====================================================================
-# DATOS
-# =====================================================================
-
-def obtener_clima():
-    try:
-        url = ("https://api.open-meteo.com/v1/forecast"
-               f"?latitude={CLIMA_LAT}&longitude={CLIMA_LON}"
-               "&current=temperature_2m,weather_code"
-               "&daily=temperature_2m_max,temperature_2m_min"
-               "&timezone=America/Argentina/Buenos_Aires")
-        r = requests.get(url, timeout=12)
-        if r.ok:
-            d = r.json()
-            actual = d.get("current", {})
-            diaria = d.get("daily", {})
-            maxs = diaria.get("temperature_2m_max") or [None]
-            mins = diaria.get("temperature_2m_min") or [None]
-            return {"temp": actual.get("temperature_2m"), "codigo": actual.get("weather_code"),
-                    "max": maxs[0], "min": mins[0]}
-    except Exception as e:
-        print(f"[AVISO] No pude traer el clima: {e}")
-    return None
-
 
 def _spotify_token():
     if not SPOTIFY_CLIENT_ID or not SPOTIFY_CLIENT_SECRET:
@@ -290,62 +305,16 @@ def obtener_cancion():
         return None
 
 
-def obtener_futbol():
-    hoy = datetime.now(timezone(timedelta(hours=-3)))
-    if not MOSTRAR_FUTBOL or hoy.strftime("%Y-%m-%d") > FUTBOL_HASTA:
-        return []
-
-    games = []
-    vistos = set()
-    for url in PROMIEDOS_URLS:
-        if not url or url.startswith("PEGAR"):
-            continue
-        try:
-            r = requests.get(url, timeout=12)
-            if not r.ok:
-                print(f"[AVISO] Promiedos devolvio HTTP {r.status_code} en una URL.")
-                continue
-            for g in r.json().get("games", []):
-                clave = g.get("id") or (g.get("url_name", "") + g.get("start_time", ""))
-                if clave in vistos:
-                    continue
-                vistos.add(clave)
-                games.append(g)
-        except Exception as e:
-            print(f"[AVISO] No pude traer el futbol de una URL: {e}")
-            continue
-
-    ahora = hoy.replace(tzinfo=None)
-    desde = (ahora - timedelta(days=1)).replace(hour=0, minute=0, second=0, microsecond=0)
-
-    partidos = []
-    for g in games:
-        try:
-            cuando = datetime.strptime(g.get("start_time", ""), "%d-%m-%Y %H:%M")
-        except ValueError:
-            continue
-        if not (desde <= cuando <= ahora):
-            continue
-        teams = g.get("teams", [])
-        scores = g.get("scores", [])
-        if len(teams) < 2 or len(scores) < 2:
-            continue
-        partidos.append({
-            "local": teams[0].get("name", ""),
-            "visitante": teams[1].get("name", ""),
-            "bandera_local": _bandera(teams[0].get("url_name", "")),
-            "bandera_visitante": _bandera(teams[1].get("url_name", "")),
-            "gl": int(scores[0]), "gv": int(scores[1]),
-            "fin": g.get("status", {}).get("enum") == 3,
-            "estado": g.get("status", {}).get("short_name", ""),
-        })
-    print(f"[INFO] Futbol: {len(partidos)} partidos en la ventana.")
-    return partidos
-
-
 # =====================================================================
 # ARMADO DEL HTML
 # =====================================================================
+
+def _tag_seccion(texto):
+    """Tag rojo de seccion, reutilizable."""
+    return (f'<span style="display:inline-block; background:{COLOR_HEADER}; color:#ffffff; '
+            f'font-size:10px; font-weight:bold; text-transform:uppercase; letter-spacing:1.5px; '
+            f'padding:3px 10px; font-family:Arial,Helvetica,sans-serif;">{texto}</span>')
+
 
 def _caja_notiluccianos():
     if not MOSTRAR_NOTILUCCIANOS or not NOTILUCCIANOS:
@@ -361,9 +330,7 @@ def _caja_notiluccianos():
                         f'border-radius:3px; margin:15px 0 6px;" alt="">')
         notas += (
             f'<div style="margin-bottom:30px;">'
-            f'<span style="display:inline-block; background:{COLOR_HEADER}; color:#ffffff; '
-            f'font-size:10px; font-weight:bold; text-transform:uppercase; letter-spacing:1.5px; '
-            f'padding:3px 10px; font-family:Arial,Helvetica,sans-serif;">{volanta}</span>'
+            f'{_tag_seccion(volanta)}'
             f'<div style="font-size:25px; font-weight:bold; color:#111111; line-height:1.22; '
             f'margin:11px 0; font-family:Georgia,\'Times New Roman\',serif;">{titular}</div>'
             f'<div style="font-size:14px; color:#444444; line-height:1.55; '
@@ -374,42 +341,156 @@ def _caja_notiluccianos():
     return notas
 
 
-def _caja_clima(clima):
-    if not clima or clima.get("temp") is None:
+def _caja_breves():
+    if not MOSTRAR_BREVES or not BREVES:
         return ""
-    emoji, desc = WMO.get(clima.get("codigo"), ("\U0001F324\uFE0F", ""))
-    temp = round(clima["temp"])
-    mn = round(clima["min"]) if clima.get("min") is not None else None
-    mx = round(clima["max"]) if clima.get("max") is not None else None
-    rango = f" &nbsp;&middot;&nbsp; m\u00edn {mn}\u00b0 / m\u00e1x {mx}\u00b0" if mn is not None and mx is not None else ""
-    return (f'<div style="background:{COLOR_CAJA}; border-radius:8px; padding:11px 16px; '
-            f'margin-bottom:24px; color:{COLOR_HEADER}; font-size:14px;">'
-            f'<span style="font-size:17px; vertical-align:middle;">{emoji}</span>&nbsp; '
-            f'<span style="font-weight:bold;">{CLIMA_CIUDAD}</span> &nbsp; {temp}\u00b0 '
-            f'<span style="color:#5a7a99;">{desc}{rango}</span></div>')
+    items = ""
+    for b in BREVES:
+        items += (
+            f'<div style="font-size:14px; color:{COLOR_TEXTO}; line-height:1.5; '
+            f'padding:8px 0; border-bottom:1px dashed #dddddd; '
+            f'font-family:Arial,Helvetica,sans-serif;">'
+            f'<span style="color:{COLOR_HEADER}; font-weight:bold;">&raquo;</span>&nbsp; {b}</div>'
+        )
+    return (
+        f'<div style="margin-bottom:30px;">'
+        f'{_tag_seccion("Pas\u00f3 y no lo viste")}'
+        f'<div style="margin-top:11px;">{items}</div>'
+        f'</div>'
+    )
 
 
-def _caja_futbol(partidos):
-    if not partidos:
+def _caja_horoscopo():
+    if not MOSTRAR_HOROSCOPO or not HOROSCOPO:
         return ""
     filas = ""
-    for p in partidos:
-        marcador = f"{p['gl']} - {p['gv']}" if p["fin"] else f"{p['gl']} - {p['gv']} ({p['estado']})"
+    for simbolo, signo, personas, texto in HOROSCOPO:
         filas += (
             f'<tr>'
-            f'<td style="padding:7px 6px; text-align:right; font-size:14px; color:{COLOR_TEXTO}; width:42%;">'
-            f'{p["local"]} &nbsp; {p["bandera_local"]}</td>'
-            f'<td style="padding:7px 4px; text-align:center; font-size:15px; font-weight:bold; color:{COLOR_HEADER}; width:16%;">{marcador}</td>'
-            f'<td style="padding:7px 6px; text-align:left; font-size:14px; color:{COLOR_TEXTO}; width:42%;">'
-            f'{p["bandera_visitante"]} &nbsp; {p["visitante"]}</td>'
+            f'<td style="width:46px; vertical-align:top; padding:11px 0; '
+            f'font-size:26px; color:{COLOR_HEADER}; text-align:center;">{simbolo}</td>'
+            f'<td style="vertical-align:top; padding:11px 0 11px 8px; '
+            f'border-bottom:1px solid #eeeeee;">'
+            f'<div style="font-size:14px; font-weight:bold; color:#111111; '
+            f'font-family:Arial,Helvetica,sans-serif;">{signo} '
+            f'<span style="color:#999999; font-weight:normal; font-size:12px;">&middot; {personas}</span></div>'
+            f'<div style="font-size:13px; color:#444444; line-height:1.5; margin-top:3px; '
+            f'font-family:Arial,Helvetica,sans-serif;">{texto}</div>'
+            f'</td>'
             f'</tr>'
         )
     return (
-        f'<div style="margin-bottom:26px;">'
-        f'<div style="background:{COLOR_SECCION}; color:#ffffff; font-size:15px; font-weight:bold; '
-        f'padding:9px 14px; border-radius:6px;">\u26BD&nbsp; F\u00fatbol &middot; Mundial</div>'
-        f'<table width="100%" cellpadding="0" cellspacing="0" style="margin-top:10px;">{filas}</table>'
+        f'<div style="margin-bottom:30px;">'
+        f'{_tag_seccion("Hor\u00f3scopo laboral")}'
+        f'<table width="100%" cellpadding="0" cellspacing="0" style="margin-top:11px;">{filas}</table>'
         f'</div>'
+    )
+
+
+def _caja_indices():
+    if not MOSTRAR_INDICES:
+        return ""
+    # Panel lider: chips ordenados de mayor a menor variacion.
+    chips = ""
+    for persona, var in sorted(LUCC_ACCIONES, key=lambda x: x[1], reverse=True):
+        color = COLOR_SUBA if var >= 0 else COLOR_BAJA
+        flecha = "\u25B2" if var >= 0 else "\u25BC"
+        signo = "+" if var >= 0 else ""
+        chips += (
+            f'<span style="display:inline-block; background:#ffffff; border:1px solid #e3e3e3; '
+            f'border-radius:6px; padding:6px 11px; margin:0 6px 6px 0; '
+            f'font-family:Arial,Helvetica,sans-serif; font-size:13px;">'
+            f'<span style="color:#111111; font-weight:bold;">{persona}</span>&nbsp; '
+            f'<span style="color:{color}; font-weight:bold;">{flecha} {signo}{var}%</span></span>'
+        )
+    # Sub-indices.
+    subs = ""
+    for nombre, valor, glosa in INDICES_SECUNDARIOS:
+        subs += (
+            f'<tr>'
+            f'<td style="vertical-align:top; padding:9px 10px 9px 0; border-bottom:1px solid #eeeeee;">'
+            f'<div style="font-size:13px; font-weight:bold; color:#111111; '
+            f'font-family:Arial,Helvetica,sans-serif;">{nombre}</div>'
+            f'<div style="font-size:12px; color:#777777; margin-top:2px; '
+            f'font-family:Arial,Helvetica,sans-serif;">{glosa}</div></td>'
+            f'<td style="vertical-align:top; padding:9px 0; border-bottom:1px solid #eeeeee; '
+            f'text-align:right; white-space:nowrap;">'
+            f'<span style="font-size:15px; font-weight:bold; color:{COLOR_HEADER}; '
+            f'font-family:Arial,Helvetica,sans-serif;">{valor}</span></td>'
+            f'</tr>'
+        )
+    return (
+        f'<div style="margin-bottom:30px;">'
+        f'{_tag_seccion("\u00cdndices econ\u00f3micos")}'
+        f'<div style="background:{COLOR_OSCURO}; border-radius:8px; padding:15px 16px 9px; margin-top:11px;">'
+        f'<div style="color:{COLOR_ACENTO}; font-size:13px; font-weight:bold; letter-spacing:1px; '
+        f'text-transform:uppercase; margin-bottom:11px; font-family:Arial,Helvetica,sans-serif;">'
+        f'\U0001F4C8 \u00cdndice Lucciano\u2019s &middot; LUCC</div>'
+        f'<div>{chips}</div></div>'
+        f'<div style="font-size:14px; color:#444444; line-height:1.55; margin-top:13px; '
+        f'border-left:3px solid {COLOR_HEADER}; padding-left:13px; '
+        f'font-family:Arial,Helvetica,sans-serif;">{LUCC_COPETE}</div>'
+        f'<table width="100%" cellpadding="0" cellspacing="0" style="margin-top:14px;">{subs}</table>'
+        f'</div>'
+    )
+
+
+def _caja_meteo_cierre():
+    if not MOSTRAR_METEO_CIERRE or not METEO_CIERRE:
+        return ""
+    return (
+        f'<div style="margin-bottom:30px;">'
+        f'{_tag_seccion("El meteor\u00f3logo del cierre contable")}'
+        f'<div style="background:#fff6e9; border-left:4px solid {COLOR_NARANJA}; '
+        f'border-radius:0 6px 6px 0; padding:14px 16px; margin-top:11px;">'
+        f'<span style="font-size:18px; vertical-align:middle;">\u26A0\uFE0F</span>&nbsp; '
+        f'<span style="font-size:14px; color:#7a4a00; line-height:1.5; '
+        f'font-family:Arial,Helvetica,sans-serif;">{METEO_CIERRE}</span>'
+        f'</div></div>'
+    )
+
+
+def _caja_encuesta():
+    if not MOSTRAR_ENCUESTA or not ENCUESTA_OPCIONES:
+        return ""
+    barras = ""
+    for texto, pct in ENCUESTA_OPCIONES:
+        barras += (
+            f'<div style="margin-bottom:9px;">'
+            f'<div style="font-size:13px; color:{COLOR_TEXTO}; margin-bottom:3px; '
+            f'font-family:Arial,Helvetica,sans-serif;">'
+            f'<span>{texto}</span>'
+            f'<span style="float:right; font-weight:bold; color:{COLOR_HEADER};">{pct}%</span></div>'
+            f'<div style="background:#ececec; border-radius:4px; height:9px; overflow:hidden;">'
+            f'<div style="background:{COLOR_HEADER}; width:{pct}%; height:9px;"></div></div>'
+            f'</div>'
+        )
+    return (
+        f'<div style="margin-bottom:30px;">'
+        f'{_tag_seccion("Encuesta de la semana")}'
+        f'<div style="font-size:16px; font-weight:bold; color:#111111; margin:11px 0 12px; '
+        f'font-family:Georgia,\'Times New Roman\',serif;">{ENCUESTA_PREGUNTA}</div>'
+        f'{barras}'
+        f'</div>'
+    )
+
+
+def _caja_recomendado():
+    if not MOSTRAR_RECOMENDADO:
+        return ""
+    estrellas = "\u2605" * max(0, min(5, RECOMENDADO_ESTRELLAS))
+    estrellas += "\u2606" * (5 - len(estrellas))
+    return (
+        f'<div style="margin-bottom:30px;">'
+        f'{_tag_seccion("Recomendado del editor")}'
+        f'<div style="background:{COLOR_CAJA}; border-radius:8px; padding:16px 18px; margin-top:11px;">'
+        f'<div style="color:{COLOR_ACENTO}; font-size:17px; letter-spacing:2px; '
+        f'text-shadow:0 0 1px #c9a200;">{estrellas}</div>'
+        f'<div style="font-size:16px; font-weight:bold; color:#111111; margin:6px 0 7px; '
+        f'font-family:Georgia,\'Times New Roman\',serif;">{RECOMENDADO_TITULO}</div>'
+        f'<div style="font-size:13px; color:#555555; line-height:1.55; '
+        f'font-family:Arial,Helvetica,sans-serif;">{RECOMENDADO_TEXTO}</div>'
+        f'</div></div>'
     )
 
 
@@ -419,9 +500,7 @@ def _caja_frase(frase):
     texto, autor = frase
     return (
         f'<div style="margin-bottom:30px;">'
-        f'<span style="display:inline-block; background:{COLOR_HEADER}; color:#ffffff; '
-        f'font-size:10px; font-weight:bold; text-transform:uppercase; letter-spacing:1.5px; '
-        f'padding:3px 10px; font-family:Arial,Helvetica,sans-serif;">Frase de la semana</span>'
+        f'{_tag_seccion("Frase de la semana")}'
         f'<div style="border-left:4px solid {COLOR_HEADER}; border-right:4px solid {COLOR_HEADER}; '
         f'background:{COLOR_CAJA}; padding:20px 24px; margin-top:11px; text-align:center;">'
         f'<div style="font-size:21px; font-style:italic; color:{COLOR_BORDE}; line-height:1.4; '
@@ -478,18 +557,16 @@ def _fecha_en_espanol():
 
 def armar_html(frase, cancion):
     fecha_hoy = _fecha_en_espanol()
-    es_viernes = datetime.now(timezone(timedelta(hours=-3))).weekday() == 4
     # Breaking bar: usa el titular de la primera noticia, si hay.
     if MOSTRAR_NOTILUCCIANOS and NOTILUCCIANOS:
         breaking = NOTILUCCIANOS[0][1]
     else:
         breaking = "Toda la informaci\u00f3n que no necesit\u00e1s, y un poco m\u00e1s"
-    bombo = ""
-    if es_viernes:
-        bombo = (f'<div style="background:{COLOR_ACENTO}; color:{COLOR_OSCURO}; text-align:center; '
-                 f'font-family:Arial,Helvetica,sans-serif; font-size:13px; font-weight:bold; '
-                 f'padding:8px; letter-spacing:1px;">'
-                 f'\U0001F37A \u00a1VIERNES QUE TE QUIERO VIERNES! \U0001F37A</div>')
+    # Aca siempre es viernes.
+    bombo = (f'<div style="background:{COLOR_ACENTO}; color:{COLOR_OSCURO}; text-align:center; '
+             f'font-family:Arial,Helvetica,sans-serif; font-size:13px; font-weight:bold; '
+             f'padding:8px; letter-spacing:1px;">'
+             f'\U0001F37A \u00a1VIERNES QUE TE QUIERO VIERNES! \U0001F37A</div>')
     return f"""<!DOCTYPE html>
 <html><body style="margin:0; padding:0; background:{COLOR_FONDO};">
   <div style="max-width:680px; margin:0 auto; background:{COLOR_FONDO};">
@@ -507,12 +584,19 @@ def armar_html(frase, cancion):
     {bombo}
     <div style="background:#ffffff; padding:24px 22px 8px;">
       {_caja_notiluccianos()}
+      {_caja_breves()}
+      {_caja_indices()}
+      {_caja_horoscopo()}
+      {_caja_meteo_cierre()}
+      {_caja_encuesta()}
+      {_caja_recomendado()}
       {_caja_frase(frase)}
       {_caja_cancion(cancion)}
     </div>
     <div style="background:{COLOR_FONDO}; padding:20px 22px 28px; color:#aaaaaa; font-size:10px; text-align:center; font-family:Arial,Helvetica,sans-serif; line-height:1.8;">
       NotiLucciano\u2019s &middot; \u201cInformamos lo que otros prefieren no ver\u201d &middot; Mar del Plata, 2026<br>
-      Las fotos son de dominio p\u00fablico. Los nombres fueron modificados para proteger a los inocentes (y no tanto).
+      Las fotos son de dominio p\u00fablico. Los nombres fueron modificados para proteger a los inocentes (y no tanto).<br>
+      <span style="font-style:italic;">Aclaraci\u00f3n: todo lo que le\u00e9s hoy puede ser desmentido en la pr\u00f3xima edici\u00f3n sin previo aviso.</span>
     </div>
   </div>
 </body></html>"""
