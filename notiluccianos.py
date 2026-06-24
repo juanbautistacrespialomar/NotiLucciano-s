@@ -73,21 +73,21 @@ MOSTRAR_INDICES = True
 # Positivo = sube (verde), negativo = baja (rojo). Se ordena solo de mayor a menor.
 LUCC_ACCIONES = [
     ("Bauti", 18),
-    ("Dani", 5),
+    ("Dani", 10),
     ("Blas", 4),
     ("Clari", -12),
-    ("Agus", -12),
+    ("Agus", -20),
     ("Juan", -25),
 ]
 
 # Copete narrado del LUCC (redaccion acomodada).
 LUCC_COPETE = (
     "El \u00edndice LUCC cerr\u00f3 la semana en baja. Entre las subas, Dani trep\u00f3 un "
-    "5% tras cerrar el cashflow y Blas sum\u00f3 un 4% por alinear los planetas en USA. "
+    "10% tras cerrar el cashflow sin complicaciones y Blas sum\u00f3 un 4% por alinear los planetas en USA. "
     "El gran ganador de la rueda fue Bauti, que escal\u00f3 un 18% luego de asesinar "
     "al equipo de conteo de inventario en Europa. Del lado de las "
     "p\u00e9rdidas, Clari retrocedi\u00f3 un 12% por riesgo de pianel, Agus cedi\u00f3 otro "
-    "12% tras conseguir peores precios en todas las unidades de negocio del 2026, y "
+    "20% tras conseguir peores precios en todas las unidades de negocio del 2026, y "
     "Juan se desplom\u00f3 un 25% despu\u00e9s de pelearse en forma definitiva con la IA y "
     "con Payway."
 )
