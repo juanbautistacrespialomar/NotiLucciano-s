@@ -36,7 +36,7 @@ NOTILUCCIANOS = [
 
     # ===== SECUNDARIA 1: guerra del aire =====
     ("\u00a1TERCERA GUERRA MUNDIAL!",
-     "CLARI LE DECLAR\u00d3 LA GUERRA FR\u00cdA A LA TIKITITAH",
+     "\u00bfEL FIN DE UNA ERA? TIEMBLA EL REINADO T\u00c9RMICO DE LA TIKITITAH",
      "Lo que arranc\u00f3 como una disputa diplom\u00e1tica por el termostato roto escal\u00f3 "
      "a conflicto abierto. Tras a\u00f1os de hegemon\u00eda t\u00e9rmica, la Tikititah vio "
      "amenazado su control absoluto del clima y Clari decidi\u00f3 romper el tratado de "
@@ -78,16 +78,6 @@ NOTILUCCIANOS = [
      "adquisitivo\u201d. Lo positivo: ambos a\u00fan siguen con vida. Lo preocupante: "
      "afirman que \u201cno estaba tan mal\u201d. \u00bfRecorte de gastos, apuesta perdida o "
      "simple ca\u00edda libre del paladar? Noticia en desarrollo.",
-     ""),
-
-    # ===== EMPLEADO DE LA SEMANA: Blas =====
-    ("EMPLEADO DE LA SEMANA",
-     "BLAS, UN EJEMPLO PARA TODOS",
-     "El galard\u00f3n de esta edici\u00f3n es para Blas, que el d\u00eda martes trabaj\u00f3 nada "
-     "m\u00e1s ni nada menos que 7 (siete) segundos. Impecable desempe\u00f1o, sin un solo "
-     "error en todo ese lapso. La eficiencia hecha persona. Desde la redacci\u00f3n "
-     "destacamos el compromiso y esperamos que el r\u00e9cord se sostenga\u2026 o se supere "
-     "a la baja.",
      ""),
 ]
 
@@ -186,6 +176,16 @@ RECOMENDADO_TEXTO = (
     "Calabaza y muzzarella en su punto justo, masa de autor y un relleno que pide "
     "pista. Cinco estrellas al plato\u2026 y una sola al costo por unidad: parece que "
     "a \u00e9l tambi\u00e9n el proveedor se los vende caros."
+)
+
+# ----- Empleado de la semana (apartado destacado, NO es una noticia) -----
+MOSTRAR_EMPLEADO = True
+EMPLEADO_NOMBRE = "Blas"
+EMPLEADO_TEXTO = (
+    "El d\u00eda martes trabaj\u00f3 nada m\u00e1s ni nada menos que 7 (siete) segundos. "
+    "Impecable desempe\u00f1o, sin un solo error en todo ese lapso. La eficiencia "
+    "hecha persona. Desde la redacci\u00f3n destacamos el compromiso y esperamos que "
+    "el r\u00e9cord se sostenga\u2026 o se supere a la baja."
 )
 
 # ----- Frase de la semana -----
@@ -455,20 +455,38 @@ def _caja_notiluccianos():
         volanta, titular, bajada = nota[0], nota[1], nota[2]
         foto = nota[3] if len(nota) > 3 else ""
         foto_src = _resolver_foto(foto)
-        img_html = ""
+
+        # El texto de la bajada (mismo estilo tenga o no foto).
+        bajada_html = (f'<div style="font-size:14px; color:#444444; line-height:1.55; '
+                       f'font-family:Arial,Helvetica,sans-serif;">{bajada}</div>')
+
         if foto_src:
-            img_html = (f'<img src="{foto_src}" width="100%" '
-                        f'style="display:block; width:100%; max-height:260px; object-fit:cover; '
-                        f'border-radius:3px; margin:15px 0 6px;" alt="">')
+            # Con foto: tabla de 2 columnas -> foto chica a la IZQUIERDA, texto a la
+            # derecha. Se usa tabla (no float/flex) porque es lo unico que respetan
+            # todos los clientes de mail, Outlook incluido. ANCHO_FOTO controla el tamano.
+            ANCHO_FOTO = 130
+            cuerpo = (
+                f'<table cellpadding="0" cellspacing="0" border="0" style="width:100%;">'
+                f'<tr>'
+                f'<td style="width:{ANCHO_FOTO}px; vertical-align:top; padding-right:14px;">'
+                f'<img src="{foto_src}" width="{ANCHO_FOTO}" '
+                f'style="display:block; width:{ANCHO_FOTO}px; max-width:{ANCHO_FOTO}px; '
+                f'height:auto; border-radius:3px;" alt=""></td>'
+                f'<td style="vertical-align:top; border-left:3px solid {COLOR_HEADER}; '
+                f'padding-left:13px;">{bajada_html}</td>'
+                f'</tr></table>'
+            )
+        else:
+            # Sin foto: la bajada ocupa todo el ancho, con la barra roja a la izquierda.
+            cuerpo = (f'<div style="border-left:3px solid {COLOR_HEADER}; '
+                      f'padding-left:13px;">{bajada_html}</div>')
+
         notas += (
             f'<div style="margin-bottom:30px;">'
             f'{_tag_seccion(volanta)}'
             f'<div style="font-size:25px; font-weight:bold; color:#111111; line-height:1.22; '
             f'margin:11px 0; font-family:Georgia,\'Times New Roman\',serif;">{titular}</div>'
-            f'<div style="font-size:14px; color:#444444; line-height:1.55; '
-            f'border-left:3px solid {COLOR_HEADER}; padding-left:13px; '
-            f'font-family:Arial,Helvetica,sans-serif;">{bajada}</div>'
-            f'{img_html}</div>'
+            f'{cuerpo}</div>'
         )
     return notas
 
@@ -489,6 +507,26 @@ def _caja_breves():
         f'{_tag_seccion("Pas\u00f3 y no lo viste")}'
         f'<div style="margin-top:11px;">{items}</div>'
         f'</div>'
+    )
+
+
+def _caja_empleado():
+    if not MOSTRAR_EMPLEADO or not EMPLEADO_NOMBRE:
+        return ""
+    return (
+        f'<div style="margin-bottom:30px;">'
+        f'{_tag_seccion("Empleado de la semana")}'
+        f'<div style="margin-top:11px; background:#fffdf2; border:2px solid {COLOR_ACENTO}; '
+        f'border-radius:6px; padding:20px; text-align:center;">'
+        f'<div style="font-size:42px; line-height:1; margin-bottom:6px;">\U0001F3C6</div>'
+        f'<div style="font-size:11px; color:{COLOR_HEADER}; font-weight:bold; '
+        f'text-transform:uppercase; letter-spacing:2px; font-family:Arial,Helvetica,sans-serif;">'
+        f'Reconocimiento al m\u00e9rito</div>'
+        f'<div style="font-size:30px; font-weight:bold; color:#111111; margin:4px 0 10px; '
+        f'font-family:Georgia,\'Times New Roman\',serif;">{EMPLEADO_NOMBRE}</div>'
+        f'<div style="font-size:14px; color:#444444; line-height:1.55; '
+        f'font-family:Arial,Helvetica,sans-serif;">{EMPLEADO_TEXTO}</div>'
+        f'</div></div>'
     )
 
 
@@ -747,6 +785,7 @@ def armar_html(frase, cancion):
     {bombo}
     <div style="background:#ffffff; padding:24px 22px 8px;">
       {_caja_notiluccianos()}
+      {_caja_empleado()}
       {_caja_breves()}
       {_caja_indices()}
       {_caja_horoscopo()}
