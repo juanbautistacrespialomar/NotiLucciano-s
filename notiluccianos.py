@@ -95,7 +95,7 @@ NOTICIA_PRINCIPAL_BAJADA = """
         <div style="font-size:13px; color:#657786;">@BlasPolino</div>
       </td>
     </tr></table>
-    <div style="font-size:14px; color:#222222; line-height:1.5; margin-bottom:10px;">acabo d darme cuenta q mila se metio al grupo d running d mati... cata si esto lo ves rez&aacute; porque yo no se como termina esto jajajaja igual mati sos un capo igual, desde la isla hasta las zapatillas todo junto <span style="color:#1da1f2;">#luccianos #running #diostecuide</span></div>
+    <div style="font-size:14px; color:#222222; line-height:1.6; margin-bottom:10px;">mati: isla con mila &#9989; auto casi vendido &#9989; running juntos &#9989;<br>cata: &#128528;<br>yo: &#127871;</div>
     __FOTO_TWEET__
     <div style="font-size:12px; color:#657786; border-bottom:1px solid #eeeeee; padding-bottom:8px; margin-bottom:8px;">9:42 AM - 24 Jun 2026 &middot; Twitter for iPhone</div>
     <div style="font-size:12px; color:#657786;">&#8629; Responder <strong>47</strong> &nbsp;&nbsp; &#128257; Retweetear <strong>312</strong> &nbsp;&nbsp; &#9733; Favorito <strong>891</strong></div>
