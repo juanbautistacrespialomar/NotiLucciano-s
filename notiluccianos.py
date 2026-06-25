@@ -33,19 +33,19 @@ MOSTRAR_NOTILUCCIANOS = True
 # GitHub Actions, que corre en Linux). Dejala en "" si no queres foto en el tweet.
 FOTO_TWEET_TAPA = "AMOR RUNNER.jpeg"
 
-# La nota de tapa (Mila & Matias) trae contenido rico (fichas de personajes, cita
+# La nota de tapa (M & MT) trae contenido rico (fichas de personajes, cita
 # resaltada, alerta, tweet) que no entra en una bajada de una linea. Como el campo
 # BAJADA admite HTML crudo, dejo toda esa nota aca, en una variable legible, y se la
 # enchufo como bajada del item principal. Uso acentos directos (el archivo ya declara
 # utf-8 arriba); conviven sin problema con los \uXXXX del resto.
 NOTICIA_PRINCIPAL_BAJADA = """
-<p style="font-size:16px; color:#333333; line-height:1.5; font-style:italic; margin:0 0 18px;">La nueva arquitecta platense y el hombre de costos m&aacute;s chamuyero de Lucciano's comparten isla de trabajo, salidas y ahora tambi&eacute;n kil&oacute;metros. Mientras tanto, Catalina observa. Y sus cejas lo dicen todo.</p>
+<p style="font-size:16px; color:#333333; line-height:1.5; font-style:italic; margin:0 0 18px;">La nueva arquitecta platense y el hombre de costos m&aacute;s chamuyero de Lucciano's comparten isla de trabajo, salidas y ahora tambi&eacute;n kil&oacute;metros. Mientras tanto, la tiki observa. Y sus cejas lo dicen todo.</p>
 
 <table cellpadding="0" cellspacing="0" border="0" style="width:100%; margin:0 0 20px;"><tr>
   <td style="width:33%; vertical-align:top; padding:3px;">
     <div style="background:#faf8f2; border:1px solid #e3ddcf; border-radius:6px; padding:12px 8px; text-align:center;">
       <div style="font-size:30px; line-height:1;">&#128105;&#8205;&#128188;</div>
-      <div style="font-size:16px; font-weight:bold; color:#111111; margin-top:4px; font-family:Georgia,serif;">Mila</div>
+      <div style="font-size:16px; font-weight:bold; color:#111111; margin-top:4px; font-family:Georgia,serif;">M</div>
       <div style="font-size:11px; color:#c0000a; font-weight:bold; text-transform:uppercase; letter-spacing:0.4px; margin:2px 0 8px; font-family:Arial,sans-serif;">&#128269; La nueva</div>
       <div style="font-size:12px; color:#555555; line-height:1.8; font-family:Arial,sans-serif;">&#128205; La Plata<br>&#127963;&#65039; Arquitecta<br>&#128197; Desde abril 2026<br>&#127874; ~30 a&ntilde;os<br>&#127939; Running (nuevo)</div>
     </div>
@@ -53,7 +53,7 @@ NOTICIA_PRINCIPAL_BAJADA = """
   <td style="width:33%; vertical-align:top; padding:3px;">
     <div style="background:#faf8f2; border:1px solid #e3ddcf; border-radius:6px; padding:12px 8px; text-align:center;">
       <div style="font-size:30px; line-height:1;">&#128483;&#65039;</div>
-      <div style="font-size:16px; font-weight:bold; color:#111111; margin-top:4px; font-family:Georgia,serif;">Mat&iacute;as</div>
+      <div style="font-size:16px; font-weight:bold; color:#111111; margin-top:4px; font-family:Georgia,serif;">MT</div>
       <div style="font-size:11px; color:#c0000a; font-weight:bold; text-transform:uppercase; letter-spacing:0.4px; margin:2px 0 8px; font-family:Arial,sans-serif;">&#9888;&#65039; El chamuyero</div>
       <div style="font-size:12px; color:#555555; line-height:1.8; font-family:Arial,sans-serif;">&#128188; &Aacute;rea de Costos<br>&#128197; Lleva 2 a&ntilde;os<br>&#127874; 25 a&ntilde;os<br>&#127939; Running (cl&aacute;sico)<br>&#128172; Labia: nivel 10/10</div>
     </div>
@@ -61,29 +61,29 @@ NOTICIA_PRINCIPAL_BAJADA = """
   <td style="width:33%; vertical-align:top; padding:3px;">
     <div style="background:#fff4e6; border:2px solid #e67e00; border-radius:6px; padding:12px 8px; text-align:center;">
       <div style="font-size:30px; line-height:1;">&#128548;</div>
-      <div style="font-size:16px; font-weight:bold; color:#111111; margin-top:4px; font-family:Georgia,serif;">Catalina</div>
+      <div style="font-size:16px; font-weight:bold; color:#111111; margin-top:4px; font-family:Georgia,serif;">Tikititah</div>
       <div style="font-size:11px; color:#e67e00; font-weight:bold; text-transform:uppercase; letter-spacing:0.4px; margin:2px 0 8px; font-family:Arial,sans-serif;">&#128293; La que mira</div>
       <div style="font-size:12px; color:#555555; line-height:1.8; font-family:Arial,sans-serif;">&#128188; Contabilidad<br>&#127874; 27 a&ntilde;os (reci&eacute;n)<br>&#128065;&#65039; Todo lo ve<br>&#9995; Correa puesta<br>&#128544; Humor: variable</div>
     </div>
   </td>
 </tr></table>
 
-<p style="font-size:14px; color:#333333; line-height:1.6; margin:0 0 14px; font-family:Arial,sans-serif;">Cuando Mila lleg&oacute; desde La Plata en abril de este a&ntilde;o, nadie imaginaba que su historia en Lucciano's iba a volverse tema de redacci&oacute;n tan r&aacute;pido. Arquitecta, ronda los 30, nueva en la ciudad, nueva en la empresa. La sentaron en una isla de trabajo junto a Mat&iacute;as, el hombre de costos, y ah&iacute; empez&oacute; todo.</p>
+<p style="font-size:14px; color:#333333; line-height:1.6; margin:0 0 14px; font-family:Arial,sans-serif;">Cuando M lleg&oacute; desde La Plata en abril de este a&ntilde;o, nadie imaginaba que su historia en Lucciano's iba a volverse tema de redacci&oacute;n tan r&aacute;pido. Arquitecta, ronda los 30, nueva en la ciudad, nueva en la empresa. La sentaron en una isla de trabajo junto a MT, el hombre de costos, y ah&iacute; empez&oacute; todo.</p>
 
-<p style="font-size:14px; color:#333333; line-height:1.6; margin:0 0 14px; font-family:Arial,sans-serif;">Porque Mat&iacute;as no es cualquier compa&ntilde;ero de escritorio. Mat&iacute;as tiene labia. Mucha labia. La clase de labia que convierte una consulta sobre una factura en una conversaci&oacute;n de cuarenta minutos. Y esa misma labia fue la que, seg&uacute;n fuentes de esta redacci&oacute;n, lo tuvo durante semanas muy, muy entretenido con Catalina, de contabilidad: miraditas, toquecitos con excusa laboral, risitas que no necesitaban contexto. Catalina sab&iacute;a. Catalina sabe. Catalina siempre sabe.</p>
+<p style="font-size:14px; color:#333333; line-height:1.6; margin:0 0 14px; font-family:Arial,sans-serif;">Porque MT no es cualquier compa&ntilde;ero de escritorio. MT tiene labia. Mucha labia. La clase de labia que convierte una consulta sobre una factura en una conversaci&oacute;n de cuarenta minutos. Y esa misma labia fue la que, seg&uacute;n fuentes de esta redacci&oacute;n, lo tuvo durante semanas muy, muy entretenido con la Tikititah, de contabilidad: miraditas, toquecitos con excusa laboral, risitas que no necesitaban contexto. La tiki sab&iacute;a. La tiki sabe. La tiki siempre sabe.</p>
 
-<div style="border-left:4px solid #c0000a; background:#fff8f8; padding:14px 18px; margin:18px 0; font-family:Georgia,serif; font-size:17px; font-style:italic; color:#222222; line-height:1.4;">&ldquo;La correa que Cata le tiene puesta a Mati fue lo que, en definitiva, le impidi&oacute; venderle el auto a Mila. Correa que salva honras.&rdquo;</div>
+<div style="border-left:4px solid #c0000a; background:#fff8f8; padding:14px 18px; margin:18px 0; font-family:Georgia,serif; font-size:17px; font-style:italic; color:#222222; line-height:1.4;">&ldquo;La correa que la tiki le tiene puesta a MT fue lo que, en definitiva, le impidi&oacute; venderle el auto a M. Correa que salva honras.&rdquo;</div>
 
-<p style="font-size:14px; color:#333333; line-height:1.6; margin:0 0 14px; font-family:Arial,sans-serif;">El cap&iacute;tulo del auto merece p&aacute;rrafo aparte. En un momento dado, circul&oacute; la versi&oacute;n de que Mat&iacute;as le iba a vender su veh&iacute;culo a Mila. Operaci&oacute;n que habr&iacute;a implicado encuentros, pruebas de manejo, negociaciones cara a cara. Sin embargo, un problema con la correa del motor dio por tierra con la transacci&oacute;n. Aunque en los pasillos de Lucciano's la teor&iacute;a m&aacute;s popular es otra: que la correa que realmente trab&oacute; la venta fue la que Cata le tiene puesta al cuello a Mat&iacute;as hace rato. Esa correa no falla.</p>
+<p style="font-size:14px; color:#333333; line-height:1.6; margin:0 0 14px; font-family:Arial,sans-serif;">El cap&iacute;tulo del auto merece p&aacute;rrafo aparte. En un momento dado, circul&oacute; la versi&oacute;n de que MT le iba a vender su veh&iacute;culo a M. Operaci&oacute;n que habr&iacute;a implicado encuentros, pruebas de manejo, negociaciones cara a cara. Sin embargo, un problema con la correa del motor dio por tierra con la transacci&oacute;n. Aunque en los pasillos de Lucciano's la teor&iacute;a m&aacute;s popular es otra: que la correa que realmente trab&oacute; la venta fue la que la tiki le tiene puesta al cuello a MT hace rato. Esa correa no falla.</p>
 
 <div style="background:#fff4e6; border:1px solid #e67e00; border-radius:6px; padding:14px 16px; margin:18px 0;">
-  <div style="font-size:13px; font-weight:bold; color:#b35e00; text-transform:uppercase; letter-spacing:0.5px; margin-bottom:6px; font-family:Arial,sans-serif;">&#9888;&#65039; Alerta Catalina &mdash; Estado actual</div>
-  <div style="font-size:14px; color:#444444; line-height:1.55; font-family:Arial,sans-serif;">Se la vio a Cata mirando con los ojos entrecerrados cada vez que Mila se acerca al escritorio de Mat&iacute;as. Fuentes confirman que el silencio de Cata en esos momentos &ldquo;es del tipo que asusta m&aacute;s que los gritos&rdquo;. Situaci&oacute;n: tensa y en escalada.</div>
+  <div style="font-size:13px; font-weight:bold; color:#b35e00; text-transform:uppercase; letter-spacing:0.5px; margin-bottom:6px; font-family:Arial,sans-serif;">&#9888;&#65039; Alerta TIKITITAH &mdash; Estado actual</div>
+  <div style="font-size:14px; color:#444444; line-height:1.55; font-family:Arial,sans-serif;">Se la vio a la tiki mirando con los ojos entrecerrados cada vez que M se acerca al escritorio de MT. Fuentes confirman que el silencio de la tiki en esos momentos &ldquo;es del tipo que asusta m&aacute;s que los gritos&rdquo;. Situaci&oacute;n: tensa y en escalada.</div>
 </div>
 
-<p style="font-size:14px; color:#333333; line-height:1.6; margin:0 0 14px; font-family:Arial,sans-serif;">Pero el cap&iacute;tulo m&aacute;s reciente &mdash; y el que encendi&oacute; todas las alarmas &mdash; lleg&oacute; esta semana. Mila se sum&oacute; al grupo de running en el que entrena Mat&iacute;as. Casualidad, dicen algunos. Estrategia, dicen otros. Kil&oacute;metros compartidos al amanecer, zapatillas y falta de excusas para estar juntos, responden los m&aacute;s duchos en estos asuntos. El running, ese deporte tan sano, tan inocente, tan conveniente.</p>
+<p style="font-size:14px; color:#333333; line-height:1.6; margin:0 0 14px; font-family:Arial,sans-serif;">Pero el cap&iacute;tulo m&aacute;s reciente &mdash; y el que encendi&oacute; todas las alarmas &mdash; lleg&oacute; esta semana. M se sum&oacute; al grupo de running en el que entrena MT. Casualidad, dicen algunos. Estrategia, dicen otros. Kil&oacute;metros compartidos al amanecer, zapatillas y falta de excusas para estar juntos, responden los m&aacute;s duchos en estos asuntos. El running, ese deporte tan sano, tan inocente, tan conveniente.</p>
 
-<p style="font-size:14px; color:#333333; line-height:1.6; margin:0 0 4px; font-family:Arial,sans-serif;">Lo que por ahora se desconoce es si fue iniciativa de &eacute;l, de ella, o de alg&uacute;n destino que claramente no ley&oacute; el bolet&iacute;n de Catalina. Lo que s&iacute; est&aacute; claro es que Cata ya sabe del grupo de running, y que su cara al enterarse fue la de alguien que est&aacute; mentalmente redactando un comunicado.</p>
+<p style="font-size:14px; color:#333333; line-height:1.6; margin:0 0 4px; font-family:Arial,sans-serif;">Lo que por ahora se desconoce es si fue iniciativa de &eacute;l, de ella, o de alg&uacute;n destino que claramente no ley&oacute; el bolet&iacute;n de la tiki. Lo que s&iacute; est&aacute; claro es que la tikititah ya sabe del grupo de running, y que su cara al enterarse fue la de alguien que est&aacute; mentalmente redactando un comunicado.</p>
 
 <div style="margin-top:22px;">
   <div style="font-size:13px; font-weight:bold; color:#111111; text-transform:uppercase; letter-spacing:1px; margin-bottom:10px; font-family:Arial,sans-serif;">&#128038; Lo que se dice en las redes</div>
@@ -95,7 +95,7 @@ NOTICIA_PRINCIPAL_BAJADA = """
         <div style="font-size:13px; color:#657786;">@BlasPolino</div>
       </td>
     </tr></table>
-    <div style="font-size:14px; color:#222222; line-height:1.6; margin-bottom:10px;">mati: isla con mila &#9989; auto casi vendido &#9989; running juntos &#9989;<br>cata: &#128528;<br>yo: &#127871;</div>
+    <div style="font-size:14px; color:#222222; line-height:1.6; margin-bottom:10px;">MT: isla con M &#9989; auto casi vendido &#9989; running juntos &#9989;<br>Tiki: &#128528;<br>yo: &#127871;</div>
     __FOTO_TWEET__
     <div style="font-size:12px; color:#657786; border-bottom:1px solid #eeeeee; padding-bottom:8px; margin-bottom:8px;">9:42 AM - 24 Jun 2026 &middot; Twitter for iPhone</div>
     <div style="font-size:12px; color:#657786;">&#8629; Responder <strong>47</strong> &nbsp;&nbsp; &#128257; Retweetear <strong>312</strong> &nbsp;&nbsp; &#9733; Favorito <strong>891</strong></div>
@@ -104,9 +104,9 @@ NOTICIA_PRINCIPAL_BAJADA = """
 """
 
 NOTILUCCIANOS = [
-    # ===== PRINCIPAL: nota de tapa Mila & Matias (su titular sale en la barra de "Urgente") =====
+    # ===== PRINCIPAL: nota de tapa M & MT (su titular sale en la barra de "Urgente") =====
     ("\U0001F3C3 Urgente deportivo",
-     "Del mismo escritorio al mismo grupo de running: Mila y Mat\u00edas, \u00bfcompa\u00f1eros o algo m\u00e1s?",
+     "Del mismo escritorio al mismo grupo de running: M y MT, \u00bfcompa\u00f1eros o algo m\u00e1s?",
      NOTICIA_PRINCIPAL_BAJADA,
      ""),
 
