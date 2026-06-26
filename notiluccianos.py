@@ -317,8 +317,7 @@ FRASES = [
 # Cada corrida elige UN artista al azar de esta lista y de ahi un tema al azar
 # de su catalogo real. Edita la lista con los artistas que quieras.
 ARTISTAS = [
-    "Ariana Grande", "Tan Bionica", "Airbag", "Tini",
-    "One Direction", "Taylor Swift", "Justin Bieber", "Shakira",
+    "Tan Bionica", "SOFA", "Tini",
 ]
 
 # ----- Colores (estilo "portal de noticias") -----
