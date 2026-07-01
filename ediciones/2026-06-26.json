@@ -11,56 +11,227 @@
     "burst": "¡EXCLUSIVO!",
     "foto": "./fotos/2026-06-26/AMOR_RUNNER.jpeg",
     "volanta": "🏃 Urgente deportivo",
-    "titular": "Del mismo escritorio al mismo <span class='rjo'>grupo de running</span>",
+    "titular": "Del mismo escritorio al mismo <span class='rjo'>grupo de running</span>: M y MT, ¿compañeros o algo más?",
     "credito": "Foto: La Redacción",
     "coverlines": [
-      { "pos": "tl", "html": "Corren <em>juntos</em> al amanecer" },
-      { "pos": "br", "html": "y la tiki <em>ya lo sabe</em>" }
+      {
+        "pos": "tl",
+        "html": "Corren <em>juntos</em> al amanecer"
+      },
+      {
+        "pos": "br",
+        "html": "y la tiki <em>ya lo sabe</em>"
+      }
     ],
-    "bajada": "La nueva arquitecta platense y el hombre de costos más chamuyero de Lucciano's comparten isla, salidas y ahora kilómetros. Mientras tanto, <b>la tiki observa</b>. Y sus cejas lo dicen todo.",
+    "bajada": "La nueva arquitecta platense y el hombre de costos más chamuyero de Lucciano's comparten isla de trabajo, salidas y ahora también kilómetros. Mientras tanto, <b>la tiki observa</b>. Y sus cejas lo dicen todo.",
     "chimentometro": 87,
     "chimentoLabel": "¡ESCÁNDALO!",
     "autor": "La Redacción",
     "lectura": "5 min",
     "cuerpo": [
-      { "tipo": "fichas", "items": [
-        { "em": "👩‍💼", "nm": "M", "rl": "🔍 La nueva", "dt": "📍 La Plata · 🏛️ Arquitecta · 📅 Desde abril · 🏃 Running (nuevo)" },
-        { "em": "🗨️", "nm": "MT", "rl": "⚠️ El chamuyero", "dt": "💼 Costos · 📅 2 años · 🏃 Running (clásico) · 💬 Labia 10/10" },
-        { "em": "😤", "nm": "Tikititah", "rl": "🔥 La que mira", "hot": true, "dt": "💼 Conta · 👁️ Todo lo ve · ✋ Correa puesta · 😠 Humor variable" }
-      ]},
-      { "tipo": "p", "texto": "Cuando M llegó desde La Plata en abril, nadie imaginaba que su historia iba a volverse tema de redacción tan rápido. La sentaron en una isla junto a MT, el hombre de costos, y ahí empezó todo." },
-      { "tipo": "cita", "texto": "La correa que la tiki le tiene puesta a MT fue lo que le impidió venderle el auto a M. Correa que salva honras." },
-      { "tipo": "p", "texto": "El capítulo del auto merece párrafo aparte: circuló que MT le iba a vender su vehículo a M, pero un problema con la correa del motor dio por tierra con la transacción. Aunque en los pasillos la teoría más popular es otra." },
-      { "tipo": "alerta", "titulo": "⚠️ Alerta Tikititah — Estado actual", "texto": "Se la vio mirando con los ojos entrecerrados cada vez que M se acerca al escritorio de MT. Situación: tensa y en escalada." },
-      { "tipo": "tweet", "av": "BP", "nm": "Blas Polino", "us": "@BlasPolino", "tx": "MT: isla con M ✅ auto casi vendido ✅ running juntos ✅ · Tiki: 😐 · yo: 🍿", "mt": "9:42 · 24 jun · ↩ 47 · 🔁 312 · ★ 891" }
+      {
+        "tipo": "fichas",
+        "items": [
+          {
+            "em": "👩‍💼",
+            "nm": "M",
+            "rl": "🔍 La nueva",
+            "dt": "📍 La Plata · 🏛️ Arquitecta · 📅 Desde abril 2026 · 🎂 ~30 años · 🏃 Running (nuevo)"
+          },
+          {
+            "em": "🗨️",
+            "nm": "MT",
+            "rl": "⚠️ El chamuyero",
+            "dt": "💼 Área de Costos · 📅 Lleva 2 años · 🎂 25 años · 🏃 Running (clásico) · 💬 Labia: nivel 10/10"
+          },
+          {
+            "em": "😤",
+            "nm": "Tikititah",
+            "rl": "🔥 La que mira",
+            "hot": true,
+            "dt": "💼 Contabilidad · 🎂 27 años (recién) · 👁️ Todo lo ve · ✋ Correa puesta · 😠 Humor: variable"
+          }
+        ]
+      },
+      {
+        "tipo": "p",
+        "texto": "Cuando M llegó desde La Plata en abril de este año, nadie imaginaba que su historia en Lucciano's iba a volverse tema de redacción tan rápido. Arquitecta, ronda los 30, nueva en la ciudad, nueva en la empresa. La sentaron en una isla de trabajo junto a MT, el hombre de costos, y ahí empezó todo."
+      },
+      {
+        "tipo": "p",
+        "texto": "Porque MT no es cualquier compañero de escritorio. MT tiene labia. Mucha labia. La clase de labia que convierte una consulta sobre una factura en una conversación de cuarenta minutos. Y esa misma labia fue la que, según fuentes de esta redacción, lo tuvo durante semanas muy, muy entretenido con la Tikititah, de contabilidad: miraditas, toquecitos con excusa laboral, risitas que no necesitaban contexto. La tiki sabía. La tiki sabe. La tiki siempre sabe."
+      },
+      {
+        "tipo": "cita",
+        "texto": "La correa que la tiki le tiene puesta a MT fue lo que, en definitiva, le impidió venderle el auto a M. Correa que salva honras."
+      },
+      {
+        "tipo": "p",
+        "texto": "El capítulo del auto merece párrafo aparte. En un momento dado, circuló la versión de que MT le iba a vender su vehículo a M. Operación que habría implicado encuentros, pruebas de manejo, negociaciones cara a cara. Sin embargo, un problema con la correa del motor dio por tierra con la transacción. Aunque en los pasillos de Lucciano's la teoría más popular es otra: que la correa que realmente trabó la venta fue la que la tiki le tiene puesta al cuello a MT hace rato. Esa correa no falla."
+      },
+      {
+        "tipo": "alerta",
+        "titulo": "⚠️ Alerta Tikititah — Estado actual",
+        "texto": "Se la vio a la tiki mirando con los ojos entrecerrados cada vez que M se acerca al escritorio de MT. Fuentes confirman que el silencio de la tiki en esos momentos “es del tipo que asusta más que los gritos”. Situación: tensa y en escalada."
+      },
+      {
+        "tipo": "p",
+        "texto": "Pero el capítulo más reciente — y el que encendió todas las alarmas — llegó esta semana. M se sumó al grupo de running en el que entrena MT. Casualidad, dicen algunos. Estrategia, dicen otros. Kilómetros compartidos al amanecer, zapatillas y falta de excusas para estar juntos, responden los más duchos en estos asuntos. El running, ese deporte tan sano, tan inocente, tan conveniente."
+      },
+      {
+        "tipo": "p",
+        "texto": "Lo que por ahora se desconoce es si fue iniciativa de él, de ella, o de algún destino que claramente no leyó el boletín de la tiki. Lo que sí está claro es que la tikititah ya sabe del grupo de running, y que su cara al enterarse fue la de alguien que está mentalmente redactando un comunicado."
+      },
+      {
+        "tipo": "tweet",
+        "av": "BP",
+        "nm": "Blas Polino",
+        "us": "@BlasPolino",
+        "tx": "MT: isla con M ✅ auto casi vendido ✅ running juntos ✅ · Tiki: 😐 · yo: 🍿",
+        "mt": "9:42 AM · 24 Jun 2026 · Twitter for iPhone · ↩ 47 · 🔁 312 · ★ 891"
+      }
     ]
   },
   "secundarias": [
-    { "volanta": "¡Tercera guerra mundial!", "titular": "Tiembla el reinado térmico de la Tikititah", "foto": "./fotos/2026-06-26/GUERRA_DECLARADA.jpeg", "texto": "Lo que arrancó como disputa por el termostato roto escaló a conflicto abierto. Clari rompió el tratado de no proliferación de frío. Hubo movimiento de tropas (sweaters), inteligencia (\"¿quién lo tocó?\") y un alto el fuego que duró lo que un cubito al sol. ¿Cascos azules para el viernes?" },
-    { "volanta": "Escándalo deportivo", "titular": "Sueño con Messi", "texto": "Parte de la secta no quedó conforme con el delantero argentino de 39 años ante Austria. El clímax del análisis táctico fue, lisa y llanamente, una ¡SIESTA! en pleno partido. Testigos aseguran un ronquido en el minuto 23. ¿Protesta silenciosa o aburrimiento?" },
-    { "volanta": "Amor en la oficina", "titular": "Domador de yeguas", "texto": "Durante el Cooling Break de Argentina–Austria, la oficina fue testigo de un nuevo episodio de cringe en cadena nacional. El histeriqueo alcanzó niveles que la ONU debería monitorear." }
+    {
+      "volanta": "¡Tercera guerra mundial!",
+      "titular": "¿El fin de una era? Tiembla el reinado térmico de la Tikititah",
+      "foto": "./fotos/2026-06-26/GUERRA_DECLARADA.jpeg",
+      "texto": "Lo que arrancó como una disputa diplomática por el termostato roto escaló a conflicto abierto. Tras años de hegemonía térmica, la Tikititah vio amenazado su control absoluto del clima y Clari decidió romper el tratado de no proliferación de frío. Hubo movimiento de tropas (sweaters), inteligencia (“¿quién lo tocó?”) y un alto el fuego que duró lo que un cubito al sol. La ONU no intervino: también tenía frío. ¿Habrá cascos azules para el viernes o esto termina en guerra de guerrillas a control remoto?"
+    },
+    {
+      "volanta": "Escándalo deportivo",
+      "titular": "Sueño con Messi",
+      "texto": "Parte de la secta no quedó conforme con el delantero argentino de 39 años durante su presentación ante Austria. El malestar fue tal que el clímax del análisis táctico fue, lisa y llanamente, una ¡SIESTA! en pleno partido. Testigos aseguran haber escuchado un ronquido en el minuto 23. ¿Fue protesta silenciosa contra el 10 o simple aburrimiento? ¿Quién fue el del sueño profundo? Y, sobre todo: ¿sabía que la cámara lo estaba enfocando?"
+    },
+    {
+      "volanta": "Amor en la oficina",
+      "titular": "Domador de yeguas",
+      "texto": "El lunes, durante el Cooling Break de Argentina-Austria, la oficina fue testigo de un nuevo episodio de cringe en cadena nacional. El histeriqueo entre parte de la secta y M. de marketing dejó de ser novedad para volverse, directamente, rutina institucional. Ya hay quien propone agregarlo al organigrama. ¿Hay sentimientos o es puro espectáculo para la tribuna? ¿Por qué siempre arranca justo en el momento de mayor audiencia? Y la pregunta del millón: ¿quién doma a quién?"
+    },
+    {
+      "volanta": "La miseria aumenta",
+      "titular": "Fernet 1882 con Cunnington sin gas: el fondo del fondo",
+      "texto": "Fuentes informan que durante el fin de semana dos miembros del equipo fueron encontrados bebiendo Fernet 1882 con Cunnington cola sin gas, en lo que los especialistas describen como “un nuevo piso histórico del poder adquisitivo”. Lo positivo: ambos aún siguen con vida. Lo preocupante: afirman que “no estaba tan mal”. ¿Recorte de gastos, apuesta perdida o simple caída libre del paladar? Noticia en desarrollo."
+    }
   ],
   "horoscopo": [
-    { "g": "♓", "n": "Piscis", "q": "Bauti y Juan", "t": "Vas a desconectarte mentalmente cerca de las 15:30 y mirar por la ventana un rato largo. La oficina sobrevivió sin vos esos veinte minutos. Todo bien." },
-    { "g": "♍", "n": "Virgo", "q": "Blas", "t": "Vas a encontrar UN error en una planilla ajena y no vas a poder pensar en otra cosa el resto del día. Tu perfeccionismo es un don y una condena." },
-    { "g": "♈", "n": "Aries", "q": "Clari", "t": "Tu impulsividad te va a llevar a responder un mail antes de leerlo entero. Spoiler: la info estaba en el tercer renglón. Respirá antes de tocar \"Enviar\"." },
-    { "g": "♉", "n": "Tauro", "q": "Dani", "t": "Semana de aferrarte a lo conocido. Alguien va a sugerir \"cambiar el proceso\" y vos vas a defender el Excel del 2019 con tu vida. Hacés bien." },
-    { "g": "♌", "n": "Leo", "q": "Agus", "t": "Necesitás reconocimiento y esta semana no va a llegar. Tu obra maestra —ese reporte impecable— va a pasar sin un solo \"gracias\". Guardalo igual." }
+    {
+      "g": "♓",
+      "n": "Piscis",
+      "q": "Bauti y Juan",
+      "t": "Vas a desconectarte mentalmente cerca de las 15:30 y mirar por la ventana un rato largo. La oficina sobrevivió sin vos esos veinte minutos. Todo bien."
+    },
+    {
+      "g": "♍",
+      "n": "Virgo",
+      "q": "Blas",
+      "t": "Vas a encontrar UN error en una planilla ajena y no vas a poder pensar en otra cosa el resto del día. Tu perfeccionismo es un don y una condena."
+    },
+    {
+      "g": "♈",
+      "n": "Aries",
+      "q": "Clari",
+      "t": "Tu impulsividad te va a llevar a responder un mail antes de leerlo entero. Spoiler: la info que necesitabas estaba en el tercer renglón. Respirá antes de tocar “Enviar”."
+    },
+    {
+      "g": "♉",
+      "n": "Tauro",
+      "q": "Dani",
+      "t": "Semana de aferrarte a lo conocido. Alguien va a sugerir “cambiar el proceso” y vos vas a defender el Excel del 2019 con tu vida. Hacés bien."
+    },
+    {
+      "g": "♌",
+      "n": "Leo",
+      "q": "Agus",
+      "t": "Necesitás reconocimiento y esta semana no va a llegar. Tu obra maestra —ese reporte impecable— va a pasar sin un solo “gracias”. Guardalo igual, algún día lo van a valorar."
+    }
   ],
   "indices": {
-    "copete": "El índice LUCC cerró la semana en baja. El gran ganador fue Bauti (+18%) tras asesinar al equipo de conteo de inventario en Europa. Del lado de las pérdidas, Juan se desplomó un 25% después de pelearse en forma definitiva con la IA y con Payway.",
-    "lucc": [["Bauti", 18], ["Dani", 10], ["Blas", 4], ["Clari", -12], ["Agus", -20], ["Juan", -25]],
+    "copete": "El índice LUCC cerró la semana en baja. Entre las subas, Dani trepó un 10% tras cerrar el cashflow sin complicaciones y Blas sumó un 4% por alinear los planetas en USA. El gran ganador de la rueda fue Bauti, que escaló un 18% luego de asesinar al equipo de conteo de inventario en Europa. Del lado de las pérdidas, Clari retrocedió un 12% por riesgo de pianel, Agus cedió otro 20% tras conseguir peores precios en todas las unidades de negocio del 2026, y Juan se desplomó un 25% después de pelearse en forma definitiva con la IA y con Payway.",
+    "lucc": [
+      [
+        "Bauti",
+        18
+      ],
+      [
+        "Dani",
+        10
+      ],
+      [
+        "Blas",
+        4
+      ],
+      [
+        "Clari",
+        -12
+      ],
+      [
+        "Agus",
+        -20
+      ],
+      [
+        "Juan",
+        -25
+      ]
+    ],
     "sub": [
-      { "nm": "Volumen del Grupo de WhatsApp", "vl": "312 msgs", "gl": "Sólo 4 con valor real. El resto, ruido de mercado." },
-      { "nm": "Confianza en que \"el viernes lo cerramos\" (ICVC)", "vl": "3,2/100", "gl": "Mínimo histórico." },
-      { "nm": "Sensación Térmica de Oficina", "vl": "40°C", "gl": "La real es 5°C, pero la Tikitita tiene calor." },
-      { "nm": "Riesgo Shares", "vl": "5180 pts", "gl": "Sin techo a la vista." }
+      {
+        "nm": "Volumen del Grupo de WhatsApp",
+        "vl": "312 mensajes operados",
+        "gl": "Sólo 4 con valor real. El resto, ruido de mercado."
+      },
+      {
+        "nm": "Índice de Confianza en que “el viernes lo cerramos” (ICVC)",
+        "vl": "3,2 / 100",
+        "gl": "Mínimo histórico."
+      },
+      {
+        "nm": "Índice de Sensación Térmica de Oficina",
+        "vl": "40°C",
+        "gl": "La temperatura real es 5°C, pero la Tikitita tiene calor."
+      },
+      {
+        "nm": "Riesgo Shares",
+        "vl": "5180 pts",
+        "gl": "Sin techo a la vista."
+      }
     ]
   },
   "meteo": "Alerta naranja: se aproxima el cierre con un frente de facturas sin imputar. Tormenta de conciliaciones para este viernes.",
-  "encuesta": { "pregunta": "¿La oficina está fría?", "opciones": [["Sí", 12], ["No", 8], ["Dejen de tocar el aire", 80]] },
-  "recomendado": { "estrellas": 5, "titulo": "Los sorrentinos de Agus", "texto": "Calabaza y muzzarella en su punto justo, masa de autor y un relleno que pide pista. Cinco estrellas al plato… y una sola al costo por unidad: parece que a él también el proveedor se los vende caros." },
-  "empleado": { "nombre": "Blas", "texto": "El día martes trabajó nada más ni nada menos que 7 (siete) segundos. Impecable desempeño, sin un solo error en todo ese lapso. La eficiencia hecha persona. Esperamos que el récord se sostenga… o se supere a la baja." },
-  "frase": { "texto": "La pelota no se mancha", "autor": "Diego Maradona" },
-  "cancion": { "titulo": "Ji Ji Ji", "artista": "Patricio Rey y sus Redonditos de Ricota", "spotifyUrl": "https://open.spotify.com/track/5QdtKxsOZ5abspqB8Eplma" }
+  "encuesta": {
+    "pregunta": "¿La oficina está fría?",
+    "opciones": [
+      [
+        "Sí",
+        12
+      ],
+      [
+        "No",
+        8
+      ],
+      [
+        "Dejen de tocar el aire",
+        80
+      ]
+    ]
+  },
+  "recomendado": {
+    "estrellas": 5,
+    "titulo": "Los sorrentinos de Agus",
+    "texto": "Calabaza y muzzarella en su punto justo, masa de autor y un relleno que pide pista. Cinco estrellas al plato… y una sola al costo por unidad: parece que a él también el proveedor se los vende caros."
+  },
+  "empleado": {
+    "nombre": "Blas",
+    "texto": "El día martes trabajó nada más ni nada menos que 7 (siete) segundos. Impecable desempeño, sin un solo error en todo ese lapso. La eficiencia hecha persona. Desde la redacción destacamos el compromiso y esperamos que el récord se sostenga… o se supere a la baja."
+  },
+  "frase": {
+    "texto": "Lástima no se le tiene a nadie, maestro",
+    "autor": "Diego Maradona"
+  },
+  "cancion": {
+    "titulo": "Acércate",
+    "artista": "TINI",
+    "spotifyUrl": "https://open.spotify.com/track/0EZW890vYJsTiWW2rknAAU"
+  }
 }
