@@ -5,7 +5,7 @@
    - Íconos y fuentes: CACHE-FIRST (casi nunca cambian).
    Para forzar que todos actualicen el "cascarón", subí CACHE una versión
    (v1 -> v2). Eso limpia el cache viejo en el próximo arranque. */
-const CACHE = 'notilucc-v1';
+const CACHE = 'notilucc-v2';
 const SHELL = [
   './',
   './index.html',

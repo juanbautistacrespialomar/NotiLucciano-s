@@ -209,10 +209,103 @@
   .install small{font-size:11px;color:var(--gris);}
   .foot{background:var(--tinta);color:#b8afaf;text-align:center;font-size:10px;letter-spacing:1px;text-transform:uppercase;padding:12px;}
   .demoflag{background:var(--dorado);color:var(--tinta);text-align:center;font-family:'Bebas Neue';letter-spacing:1px;font-size:12px;padding:4px;}
+
+  /* ---- botón de ajustes en el masthead ---- */
+  .gear{margin-left:auto;background:none;border:0;padding:4px;cursor:pointer;display:flex;align-items:center;}
+  .gear svg{width:22px;height:22px;fill:var(--paper);opacity:.9;}
+  .flag{cursor:pointer;} /* la bandera ya no ocupa todo el ancho */
+  .masthead .flag{flex:none;}
+  .masthead{display:block;}
+  .mastrow{display:flex;align-items:center;}
+
+  /* ---- PIN gate (pantalla de ingreso) ---- */
+  .pingate{position:fixed;inset:0;z-index:200;background:var(--rojo);
+    display:flex;align-items:center;justify-content:center;padding:28px 24px;
+    color:var(--paper);}
+  .pingate[hidden]{display:none;}
+  .pg-inner{width:100%;max-width:320px;text-align:center;}
+  .pg-cono{width:70px;height:70px;margin:0 auto 10px;display:block;}
+  .pg-word{font-family:'Anton',sans-serif;font-size:34px;line-height:.9;letter-spacing:.5px;text-transform:uppercase;color:var(--paper);}
+  .pg-word b{color:var(--dorado);font-weight:400;}
+  .pg-sub{font-family:'Bebas Neue';letter-spacing:2px;font-size:14px;color:#ffe4e8;margin-top:6px;text-transform:uppercase;}
+  .pg-dots{display:flex;gap:16px;justify-content:center;margin:26px 0 8px;}
+  .pg-dots i{width:15px;height:15px;border-radius:50%;border:2px solid rgba(255,255,255,.75);transition:background .15s,transform .15s;}
+  .pg-dots i.on{background:var(--paper);transform:scale(1.12);}
+  .pg-err{min-height:18px;font-family:'Bebas Neue';letter-spacing:1px;font-size:14px;color:var(--dorado);margin-bottom:14px;}
+  .pg-keys{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;max-width:280px;margin:0 auto;}
+  .pg-keys button{aspect-ratio:1;border:0;border-radius:50%;background:rgba(255,255,255,.12);
+    color:var(--paper);font-family:'Archivo',sans-serif;font-size:26px;font-weight:600;cursor:pointer;
+    display:flex;align-items:center;justify-content:center;transition:background .1s,transform .05s;}
+  .pg-keys button:active{background:rgba(255,255,255,.28);transform:scale(.94);}
+  .pg-keys button.ghost{background:none;font-size:15px;font-family:'Bebas Neue';letter-spacing:1px;}
+  .pg-keys button svg{width:24px;height:24px;fill:var(--paper);}
+  @keyframes shake{0%,100%{transform:translateX(0)}20%,60%{transform:translateX(-9px)}40%,80%{transform:translateX(9px)}}
+  .pg-inner.shake{animation:shake .4s;}
+
+  /* ---- panel de ajustes ---- */
+  .settings{position:fixed;inset:0;z-index:210;background:rgba(20,16,11,.6);
+    display:flex;align-items:flex-end;justify-content:center;padding:0;}
+  .settings[hidden]{display:none;}
+  .st-card{width:100%;max-width:460px;background:var(--paper);border-top:4px solid var(--tinta);
+    max-height:90vh;overflow:auto;padding:0 0 calc(20px + env(safe-area-inset-bottom));}
+  .st-head{background:var(--rojo);color:var(--paper);padding:14px 16px;display:flex;
+    justify-content:space-between;align-items:center;font-family:'Anton';font-size:22px;
+    text-transform:uppercase;letter-spacing:.5px;position:sticky;top:0;}
+  .st-head button{background:none;border:0;color:var(--paper);font-size:22px;cursor:pointer;line-height:1;}
+  .st-body{padding:18px 16px 8px;}
+  .st-body h4{font-family:'Bebas Neue';letter-spacing:1px;font-size:18px;color:var(--tinta);margin-bottom:4px;}
+  .st-body .hint{font-size:12px;color:var(--gris);margin-bottom:12px;line-height:1.4;}
+  .st-body label{display:block;font-size:12px;font-weight:600;color:var(--gris);text-transform:uppercase;letter-spacing:.5px;margin:10px 0 4px;}
+  .st-body input{width:100%;border:1.5px solid var(--tinta);padding:11px 12px;font-family:'Archivo';font-size:18px;letter-spacing:4px;text-align:center;background:#fff;}
+  .st-msg{min-height:20px;font-size:13px;font-weight:600;margin:12px 0 4px;}
+  .st-msg.ok{color:var(--pistacho);}
+  .st-msg.bad{color:var(--rojo);}
+  .st-btn{width:100%;border:0;padding:13px;font-family:'Bebas Neue';letter-spacing:1.5px;font-size:17px;cursor:pointer;margin-top:6px;}
+  .st-btn.primary{background:var(--tinta);color:var(--paper);}
+  .st-btn.lock{background:none;color:var(--rojo);border:1.5px solid var(--rojo);}
 </style>
 </head>
 <body>
 <div class="revista" id="app"></div>
+
+<!-- ===================== PANTALLA DE INGRESO (PIN) ===================== -->
+<div class="pingate" id="pingate" hidden>
+  <div class="pg-inner" id="pgInner">
+    <svg class="pg-cono" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2c-3 0-5 2-5 4 0 1 .3 1.8.9 2.4C6 9 4.6 10.3 4.6 12c0 1.4 1 2.4 2.3 2.6C6 15.3 5.4 16.3 5.4 17.4c0 1.6 1.4 2.6 3 2.6.3 0 .6 0 .9-.1L12 22l2.7-2.2c.3.1.6.1.9.1 1.6 0 3-1 3-2.6 0-1.1-.6-2.1-1.5-2.8 1.3-.2 2.3-1.2 2.3-2.6 0-1.7-1.4-3-3.3-3.6.6-.6.9-1.4.9-2.4 0-2-2-4-5-4z" fill="#FBF7F1"/><circle cx="10" cy="6" r="1" fill="#CE0A24"/><circle cx="14" cy="7" r="1" fill="#CE0A24"/><circle cx="12" cy="12" r="1" fill="#CE0A24"/></svg>
+    <div class="pg-word">NOTILUCCIANO<b>'</b>S</div>
+    <div class="pg-sub">Ingresá tu código</div>
+    <div class="pg-dots" id="pgDots"><i></i><i></i><i></i><i></i></div>
+    <div class="pg-err" id="pgErr"></div>
+    <div class="pg-keys" id="pgKeys">
+      <button data-k="1">1</button><button data-k="2">2</button><button data-k="3">3</button>
+      <button data-k="4">4</button><button data-k="5">5</button><button data-k="6">6</button>
+      <button data-k="7">7</button><button data-k="8">8</button><button data-k="9">9</button>
+      <button class="ghost" data-k="clr">Borrar</button>
+      <button data-k="0">0</button>
+      <button class="ghost" data-k="del" aria-label="borrar último"><svg viewBox="0 0 24 24"><path d="M22 3H7c-.7 0-1.3.3-1.7.9L0 12l5.3 8.1c.4.6 1 .9 1.7.9h15c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-3 12.6L17.6 17 14 13.4 10.4 17 9 15.6 12.6 12 9 8.4 10.4 7 14 10.6 17.6 7 19 8.4 15.4 12 19 15.6z"/></svg></button>
+    </div>
+  </div>
+</div>
+
+<!-- ===================== AJUSTES ===================== -->
+<div class="settings" id="settings" hidden>
+  <div class="st-card">
+    <div class="st-head">Ajustes <button onclick="cerrarAjustes()" aria-label="cerrar">✕</button></div>
+    <div class="st-body">
+      <h4>Cambiar código PIN</h4>
+      <div class="hint">El código se te pide una vez por día al abrir el diario. Son 4 dígitos.</div>
+      <label>PIN actual</label>
+      <input id="stActual" type="password" inputmode="numeric" maxlength="4" autocomplete="off" placeholder="••••">
+      <label>PIN nuevo</label>
+      <input id="stNuevo" type="password" inputmode="numeric" maxlength="4" autocomplete="off" placeholder="••••">
+      <label>Repetí el PIN nuevo</label>
+      <input id="stConf" type="password" inputmode="numeric" maxlength="4" autocomplete="off" placeholder="••••">
+      <div class="st-msg" id="stMsg"></div>
+      <button class="st-btn primary" onclick="guardarPin()">Guardar cambios</button>
+      <button class="st-btn lock" onclick="bloquearAhora()">Bloquear ahora</button>
+    </div>
+  </div>
+</div>
 
 <script>
 /* =====================================================================
@@ -291,7 +384,7 @@ const DEMO = {
       recomendado:{estrellas:5, titulo:"Los sorrentinos de Agus", texto:"Calabaza y muzzarella en su punto justo, masa de autor y un relleno que pide pista. Cinco estrellas al plato… y una sola al costo por unidad: parece que a él también el proveedor se los vende caros."},
       empleado:{nombre:"Blas", texto:"El día martes trabajó nada más ni nada menos que 7 (siete) segundos. Impecable desempeño, sin un solo error en todo ese lapso. La eficiencia hecha persona. Esperamos que el récord se sostenga… o se supere a la baja."},
       frase:{texto:"La pelota no se mancha", autor:"Diego Maradona"},
-      cancion:{titulo:"Ji Ji Ji", artista:"Patricio Rey y sus Redonditos de Ricota", spotifyUrl:""}
+      cancion:{titulo:"Ji Ji Ji", artista:"Patricio Rey y sus Redonditos de Ricota", spotifyUrl:"https://open.spotify.com/track/5QdtKxsOZ5abspqB8Eplma"}
     },
     "2026-06-27":{id:"2026-06-27",numero:11,fechaTexto:"Viernes 27 de junio de 2026",
       tapa:{burst:"¡ROBO!",volanta:"Policiales",titular:"El robo del <span class='rjo'>alfajor</span> del cajón",credito:"Foto: La Redacción",bajada:"Alguien abrió el cajón sagrado y se llevó el último alfajor de maicena. La redacción tiene sospechosos. Nadie confiesa.",chimentometro:64,chimentoLabel:"Tenso",autor:"La Redacción",lectura:"3 min",cuerpo:[{tipo:"p",texto:"Edición archivada de demostración. Cuando publiques ediciones reales, se van a ver acá tal cual."}]},
@@ -320,7 +413,8 @@ async function cargarEdicion(id){
 const $ = s => document.querySelector(s);
 function embedSpotify(url){
   if(!url) return '';
-  const m = url.match(/open\.spotify\.com\/(track|album|playlist|episode)\/([A-Za-z0-9]+)/);
+  // Soporta links normales y los que Spotify copia con prefijo de idioma (/intl-es/track/...).
+  const m = url.match(/open\.spotify\.com\/(?:intl-[a-z]+\/)?(track|album|playlist|episode)\/([A-Za-z0-9]+)/);
   if(!m) return '';
   return `<iframe loading="lazy" src="https://open.spotify.com/embed/${m[1]}/${m[2]}" allow="encrypted-media"></iframe>`;
 }
@@ -332,7 +426,7 @@ function renderCoverlines(cl){
 }
 function renderFoto(t){
   const inner = t.foto
-    ? `<img src="${t.foto}" alt="">`
+    ? `<img src="${t.foto}" alt="" onerror="this.style.display='none';this.insertAdjacentHTML('afterend','<div class=\\'duo\\'></div><div class=\\'halftone\\'></div>')">`
     : `<div class="duo"></div><div class="halftone"></div>`;
   return `<div class="foto">${inner}${renderCoverlines(t.coverlines)}${t.credito?`<div class="cred">${t.credito}</div>`:''}</div>`;
 }
@@ -404,8 +498,13 @@ function renderFrase(f){
 function renderCancion(c){
   if(!c) return '';
   const emb = embedSpotify(c.spotifyUrl);
-  const play = emb || `<a class="btn" href="https://open.spotify.com/search/${encodeURIComponent(c.titulo+' '+c.artista)}" target="_blank" rel="noopener"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>Escuchar en Spotify</a>`;
-  return `<div class="band">La canción de la semana <span>♫ Spotify</span></div><div class="sec"><div class="cancion"><div class="k">♫ Suena en la redacción</div><div class="tt">${c.titulo}</div><div class="ar">${c.artista}</div>${play}</div></div>`;
+  // Si hay link de Spotify, el botón lleva DIRECTO a la canción. Sólo si no hay
+  // link cargado cae al buscador (para que nunca quede un botón muerto).
+  const href = (c.spotifyUrl && /open\.spotify\.com/.test(c.spotifyUrl))
+    ? c.spotifyUrl
+    : `https://open.spotify.com/search/${encodeURIComponent(c.titulo+' '+c.artista)}`;
+  const btn = `<a class="btn" href="${href}" target="_blank" rel="noopener"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>Abrir en Spotify</a>`;
+  return `<div class="band">La canción de la semana <span>♫ Spotify</span></div><div class="sec"><div class="cancion"><div class="k">♫ Suena en la redacción</div><div class="tt">${c.titulo}</div><div class="ar">${c.artista}</div>${emb}${emb?'<div style="height:10px"></div>':''}${btn}</div></div>`;
 }
 
 /* =========================== render edición ========================== */
@@ -425,9 +524,10 @@ function renderEdicion(ed){
 
 /* =========================== chrome / kiosco ========================= */
 function masthead(numero){
-  return `<header class="masthead"><div class="flag" onclick="irHome()">
+  return `<header class="masthead"><div class="mastrow"><div class="flag" onclick="irHome()">
       <svg class="cono" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2c-3 0-5 2-5 4 0 1 .3 1.8.9 2.4C6 9 4.6 10.3 4.6 12c0 1.4 1 2.4 2.3 2.6C6 15.3 5.4 16.3 5.4 17.4c0 1.6 1.4 2.6 3 2.6.3 0 .6 0 .9-.1L12 22l2.7-2.2c.3.1.6.1.9.1 1.6 0 3-1 3-2.6 0-1.1-.6-2.1-1.5-2.8 1.3-.2 2.3-1.2 2.3-2.6 0-1.7-1.4-3-3.3-3.6.6-.6.9-1.4.9-2.4 0-2-2-4-5-4z" fill="#FBF7F1"/><circle cx="10" cy="6" r="1" fill="#CE0A24"/><circle cx="14" cy="7" r="1" fill="#CE0A24"/><circle cx="12" cy="12" r="1" fill="#CE0A24"/></svg>
       <div class="wordmark">NOTILUCCIANO<b>'</b>S</div></div>
+      <button class="gear" onclick="abrirAjustes()" aria-label="ajustes"><svg viewBox="0 0 24 24"><path d="M19.4 13c.04-.3.06-.66.06-1s-.02-.7-.07-1l2.1-1.6c.2-.15.25-.42.12-.64l-2-3.46c-.12-.22-.4-.3-.6-.22l-2.5 1c-.5-.4-1.1-.73-1.7-.98l-.4-2.65a.5.5 0 00-.5-.42h-4a.5.5 0 00-.5.42l-.4 2.65c-.6.25-1.2.59-1.7.98l-2.5-1c-.2-.08-.48 0-.6.22l-2 3.46c-.13.22-.08.49.12.64L4.6 11c-.05.3-.07.66-.07 1s.02.7.07 1l-2.1 1.6c-.2.15-.25.42-.12.64l2 3.46c.12.22.4.3.6.22l2.5-1c.5.4 1.1.73 1.7.98l.4 2.65c.04.24.25.42.5.42h4c.25 0 .46-.18.5-.42l.4-2.65c.6-.25 1.2-.59 1.7-.98l2.5 1c.2.08.48 0 .6-.22l2-3.46c.13-.22.08-.49-.12-.64L19.4 13zM12 15.5A3.5 3.5 0 1112 8.5a3.5 3.5 0 010 7z"/></svg></button></div>
     <div class="tagline"><span>El diario de joda de la oficina</span><span class="ed">ED. #${numero||''}</span></div></header>`;
 }
 function ticker(list){
@@ -470,7 +570,102 @@ async function render(){
       + demoflag() + (ed?renderEdicion(ed):'') + rack(MANIFEST, ult.id) + install + foot;
   }
 }
-render();
+/* =========================== seguridad: PIN diario ================== */
+/* NOTA HONESTA: esto es una barrera de PRIVACIDAD, no seguridad fuerte.
+   El PIN se guarda hasheado (SHA-256) en localStorage del dispositivo, así
+   no queda en texto plano; pero cualquiera con acceso físico y ganas de
+   abrir devtools podría saltearlo. Para un diario de joda alcanza y sobra. */
+const PIN_DEFAULT = '2002';
+const K_PIN  = 'nl_pin_hash';     // hash del PIN vigente
+const K_LAST = 'nl_lastUnlock';   // fecha (YYYY-MM-DD) del último desbloqueo OK
+
+async function sha256(str){
+  try{
+    const buf = await crypto.subtle.digest('SHA-256', new TextEncoder().encode(str));
+    return [...new Uint8Array(buf)].map(b=>b.toString(16).padStart(2,'0')).join('');
+  }catch(e){ // fallback si no hay crypto.subtle (ej: abierto con file://)
+    let h=5381; for(let i=0;i<str.length;i++){ h=((h<<5)+h)+str.charCodeAt(i); h|=0; }
+    return 'djb2_'+(h>>>0).toString(16);
+  }
+}
+async function pinHashGuardado(){
+  let h = localStorage.getItem(K_PIN);
+  if(!h){ h = await sha256(PIN_DEFAULT); localStorage.setItem(K_PIN, h); }
+  return h;
+}
+function hoyStr(){
+  const d = new Date();
+  return d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0');
+}
+function pinVigenteHoy(){ return localStorage.getItem(K_LAST) === hoyStr(); }
+function marcarDesbloqueado(){ localStorage.setItem(K_LAST, hoyStr()); }
+
+/* ---- pantalla de ingreso ---- */
+let pinBuf = '';
+function pintarDots(){
+  const dots = document.querySelectorAll('#pgDots i');
+  dots.forEach((d,i)=> d.classList.toggle('on', i < pinBuf.length));
+}
+function pinReset(){ pinBuf=''; pintarDots(); }
+async function pinIntentar(){
+  const ok = (await sha256(pinBuf)) === (await pinHashGuardado());
+  if(ok){ marcarDesbloqueado(); cerrarGate(); }
+  else{
+    const inner = $('#pgInner');
+    $('#pgErr').textContent = 'Código incorrecto';
+    inner.classList.remove('shake'); void inner.offsetWidth; inner.classList.add('shake');
+    setTimeout(pinReset, 300);
+  }
+}
+function pinTecla(k){
+  if(k==='clr'){ pinReset(); return; }
+  if(k==='del'){ pinBuf = pinBuf.slice(0,-1); pintarDots(); return; }
+  if(pinBuf.length>=4) return;
+  $('#pgErr').textContent='';
+  pinBuf += k; pintarDots();
+  if(pinBuf.length===4) setTimeout(pinIntentar, 130);
+}
+function abrirGate(){ pinReset(); $('#pgErr').textContent=''; $('#pingate').hidden=false; }
+function cerrarGate(){ $('#pingate').hidden=true; pinReset(); }
+
+/* delegación de eventos del teclado numérico + soporte teclado físico */
+$('#pgKeys').addEventListener('click', e=>{
+  const b = e.target.closest('button'); if(b) pinTecla(b.dataset.k);
+});
+window.addEventListener('keydown', e=>{
+  if($('#pingate').hidden) return;
+  if(/^[0-9]$/.test(e.key)) pinTecla(e.key);
+  else if(e.key==='Backspace') pinTecla('del');
+});
+
+/* ---- ajustes ---- */
+function abrirAjustes(){
+  ['stActual','stNuevo','stConf'].forEach(id=>$('#'+id).value='');
+  $('#stMsg').textContent=''; $('#stMsg').className='st-msg';
+  $('#settings').hidden=false;
+}
+function cerrarAjustes(){ $('#settings').hidden=true; }
+async function guardarPin(){
+  const act = $('#stActual').value, nue = $('#stNuevo').value, conf = $('#stConf').value;
+  const msg = $('#stMsg');
+  const fail = t=>{ msg.textContent=t; msg.className='st-msg bad'; };
+  if((await sha256(act)) !== (await pinHashGuardado())) return fail('El PIN actual no es correcto.');
+  if(!/^\d{4}$/.test(nue)) return fail('El PIN nuevo tiene que ser de 4 dígitos.');
+  if(nue !== conf) return fail('El PIN nuevo y su repetición no coinciden.');
+  localStorage.setItem(K_PIN, await sha256(nue));
+  marcarDesbloqueado(); // ya estás adentro, no te vuelve a pedir hoy
+  msg.textContent='✔ Listo, PIN actualizado.'; msg.className='st-msg ok';
+  ['stActual','stNuevo','stConf'].forEach(id=>$('#'+id).value='');
+}
+function bloquearAhora(){
+  localStorage.removeItem(K_LAST);
+  cerrarAjustes();
+  abrirGate();
+}
+
+/* =========================== arranque =============================== */
+render(); // la revista se dibuja detrás del gate
+if(!pinVigenteHoy()) abrirGate();
 
 /* ---- PWA: registro del service worker (offline + instalable) ---- */
 if('serviceWorker' in navigator){
