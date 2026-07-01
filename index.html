@@ -34,7 +34,7 @@
   /* ---- cabecera ---- */
   .masthead{background:var(--rojo);color:var(--paper);padding:14px 16px 12px;position:sticky;top:0;z-index:50;}
   .flag{display:flex;align-items:center;gap:9px;cursor:pointer;}
-  .cono{width:26px;height:26px;flex:none;}
+  .cono{width:30px;height:30px;flex:none;border-radius:6px;object-fit:cover;}
   .wordmark{font-family:'Anton',sans-serif;font-size:33px;line-height:.86;letter-spacing:.5px;text-transform:uppercase;color:var(--paper);}
   .wordmark b{color:var(--dorado);font-weight:400;}
   .tagline{display:flex;justify-content:space-between;align-items:baseline;margin-top:8px;font-size:11px;letter-spacing:.4px;color:#ffe4e8;text-transform:uppercase;font-weight:600;}
@@ -263,6 +263,18 @@
   .st-btn{width:100%;border:0;padding:13px;font-family:'Bebas Neue';letter-spacing:1.5px;font-size:17px;cursor:pointer;margin-top:6px;}
   .st-btn.primary{background:var(--tinta);color:var(--paper);}
   .st-btn.lock{background:none;color:var(--rojo);border:1.5px solid var(--rojo);}
+
+  /* ---- cartel de actualización ---- */
+  .updbar{position:fixed;left:0;right:0;bottom:0;z-index:150;background:var(--tinta);
+    color:var(--paper);padding:12px 16px calc(12px + env(safe-area-inset-bottom));
+    display:flex;align-items:center;gap:12px;box-shadow:0 -6px 20px rgba(0,0,0,.35);
+    transform:translateY(120%);transition:transform .3s ease;}
+  .updbar.show{transform:translateY(0);}
+  .updbar .txt{flex:1;font-size:13px;line-height:1.3;}
+  .updbar .txt b{font-family:'Bebas Neue';letter-spacing:1px;font-size:15px;display:block;color:var(--dorado);}
+  .updbar button{border:0;cursor:pointer;font-family:'Bebas Neue';letter-spacing:1px;font-size:15px;padding:9px 16px;}
+  .updbar .go{background:var(--dorado);color:var(--tinta);}
+  .updbar .later{background:none;color:#b8afaf;padding:9px 4px;}
 </style>
 </head>
 <body>
@@ -305,6 +317,13 @@
       <button class="st-btn lock" onclick="bloquearAhora()">Bloquear ahora</button>
     </div>
   </div>
+</div>
+
+<!-- ===================== CARTEL DE ACTUALIZACIÓN ===================== -->
+<div class="updbar" id="updbar">
+  <div class="txt"><b>Hay una versión nueva</b>Tocá actualizar para tener lo último.</div>
+  <button class="go" id="updGo">Actualizar</button>
+  <button class="later" onclick="document.getElementById('updbar').classList.remove('show')">Después</button>
 </div>
 
 <script>
@@ -525,7 +544,7 @@ function renderEdicion(ed){
 /* =========================== chrome / kiosco ========================= */
 function masthead(numero){
   return `<header class="masthead"><div class="mastrow"><div class="flag" onclick="irHome()">
-      <svg class="cono" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2c-3 0-5 2-5 4 0 1 .3 1.8.9 2.4C6 9 4.6 10.3 4.6 12c0 1.4 1 2.4 2.3 2.6C6 15.3 5.4 16.3 5.4 17.4c0 1.6 1.4 2.6 3 2.6.3 0 .6 0 .9-.1L12 22l2.7-2.2c.3.1.6.1.9.1 1.6 0 3-1 3-2.6 0-1.1-.6-2.1-1.5-2.8 1.3-.2 2.3-1.2 2.3-2.6 0-1.7-1.4-3-3.3-3.6.6-.6.9-1.4.9-2.4 0-2-2-4-5-4z" fill="#FBF7F1"/><circle cx="10" cy="6" r="1" fill="#CE0A24"/><circle cx="14" cy="7" r="1" fill="#CE0A24"/><circle cx="12" cy="12" r="1" fill="#CE0A24"/></svg>
+      <img class="cono" src="./icons/icon-192.png" alt="NotiLucciano's">
       <div class="wordmark">NOTILUCCIANO<b>'</b>S</div></div>
       <button class="gear" onclick="abrirAjustes()" aria-label="ajustes"><svg viewBox="0 0 24 24"><path d="M19.4 13c.04-.3.06-.66.06-1s-.02-.7-.07-1l2.1-1.6c.2-.15.25-.42.12-.64l-2-3.46c-.12-.22-.4-.3-.6-.22l-2.5 1c-.5-.4-1.1-.73-1.7-.98l-.4-2.65a.5.5 0 00-.5-.42h-4a.5.5 0 00-.5.42l-.4 2.65c-.6.25-1.2.59-1.7.98l-2.5-1c-.2-.08-.48 0-.6.22l-2 3.46c-.13.22-.08.49.12.64L4.6 11c-.05.3-.07.66-.07 1s.02.7.07 1l-2.1 1.6c-.2.15-.25.42-.12.64l2 3.46c.12.22.4.3.6.22l2.5-1c.5.4 1.1.73 1.7.98l.4 2.65c.04.24.25.42.5.42h4c.25 0 .46-.18.5-.42l.4-2.65c.6-.25 1.2-.59 1.7-.98l2.5 1c.2.08.48 0 .6-.22l2-3.46c.13-.22.08-.49-.12-.64L19.4 13zM12 15.5A3.5 3.5 0 1112 8.5a3.5 3.5 0 010 7z"/></svg></button></div>
     <div class="tagline"><span>El diario de joda de la oficina</span><span class="ed">ED. #${numero||''}</span></div></header>`;
@@ -541,7 +560,6 @@ function rack(manifest, exceptoId){
   const covers = others.map(e=>`<div class="cover" onclick="irEdicion('${e.id}')"><div class="ph" style="background:${e.color||'#c9243b'}"><div class="hd"></div><div class="mini">${e.tapaTitular||''}</div></div><div class="cap"><div class="n">ED. #${e.numero} · ${(e.fechaTexto||'').replace('Viernes ','')}</div><div class="h">${(e.tapaTitular||'').slice(0,26)}</div></div></div>`).join('');
   return `<div class="band">El kiosco <span>ediciones anteriores →</span></div><div class="rack">${covers}</div>`;
 }
-const install = `<div class="install"><div class="ic"><svg viewBox="0 0 24 24"><path d="M12 3v10.6l3.3-3.3 1.4 1.4L12 17.4 6.3 11.7l1.4-1.4L11 13.6V3zM5 19h14v2H5z"/></svg></div><div><b>Instalá el diario en tu celu</b><small>Agregalo a la pantalla de inicio y leelo aunque no tengas señal.</small></div></div>`;
 const foot = `<div class="foot">NotiLucciano's · Mar del Plata · sin IA, sin feeds, todo a pulmón</div>`;
 const demoflag = () => USANDO_DEMO ? `<div class="demoflag">Modo demo · todavía no hay ediciones publicadas en el repo</div>` : '';
 
@@ -562,12 +580,12 @@ async function render(){
     if(!ed){ app.innerHTML = masthead('') + `<div class="sec"><p>No encontré esa edición.</p></div>`; return; }
     app.innerHTML = masthead(ed.numero) + ticker(ed.ticker)
       + `<div class="backbar" onclick="irHome()"><svg viewBox="0 0 24 24"><path d="M15 5l-7 7 7 7" stroke="#17130F" stroke-width="2.5" fill="none"/></svg> Volver al último número</div>`
-      + demoflag() + renderEdicion(ed) + rack(MANIFEST, ed.id) + install + foot;
+      + demoflag() + renderEdicion(ed) + rack(MANIFEST, ed.id) + foot;
   } else {
     const ult = MANIFEST.ediciones[0];
     const ed = await cargarEdicion(ult.id);
     app.innerHTML = masthead(ed?ed.numero:ult.numero) + ticker(ed?ed.ticker:null)
-      + demoflag() + (ed?renderEdicion(ed):'') + rack(MANIFEST, ult.id) + install + foot;
+      + demoflag() + (ed?renderEdicion(ed):'') + rack(MANIFEST, ult.id) + foot;
   }
 }
 /* =========================== seguridad: PIN diario ================== */
@@ -667,9 +685,64 @@ function bloquearAhora(){
 render(); // la revista se dibuja detrás del gate
 if(!pinVigenteHoy()) abrirGate();
 
-/* ---- PWA: registro del service worker (offline + instalable) ---- */
+/* ---- PWA: service worker + cartel de actualización ----
+   El cartel aparece solo, sin tener que cambiar ningún número de versión.
+   ¿Cómo? Cada tanto le preguntamos al server la "firma" del index.html
+   (el ETag, que GitHub genera según el contenido). Si difiere de la que
+   cargamos al abrir, es que subiste algo nuevo => mostramos el cartel.
+   Como bonus, también reacciona si cambia el propio sw.js (update nativo). */
 if('serviceWorker' in navigator){
-  window.addEventListener('load', ()=>{ navigator.serviceWorker.register('./sw.js').catch(()=>{}); });
+  let recargando = false;
+  navigator.serviceWorker.addEventListener('controllerchange', ()=>{
+    if(recargando) return; recargando = true; location.reload();
+  });
+
+  const firmaServidor = async ()=>{
+    try{
+      const r = await fetch('./index.html?_=' + Date.now(), {method:'HEAD', cache:'no-store'});
+      return r.headers.get('ETag') || r.headers.get('Last-Modified') || r.headers.get('Content-Length') || null;
+    }catch(e){ return null; }
+  };
+
+  const aplicarUpdate = async ()=>{
+    const reg = await navigator.serviceWorker.getRegistration();
+    if(reg && reg.waiting){ reg.waiting.postMessage({type:'SKIP_WAITING'}); } // sw.js cambió
+    else { recargando = true; location.reload(); }                            // solo cambió el contenido
+  };
+
+  const mostrarCartel = ()=>{
+    const bar = $('#updbar');
+    if(bar.classList.contains('show')) return; // ya está visible
+    bar.classList.add('show');
+    $('#updGo').onclick = aplicarUpdate;
+  };
+
+  window.addEventListener('load', async ()=>{
+    const firmaInicial = await firmaServidor();
+
+    try{
+      const reg = await navigator.serviceWorker.register('./sw.js');
+      // Si cambia el sw.js, el navegador lo detecta solo:
+      if(reg.waiting && navigator.serviceWorker.controller) mostrarCartel();
+      reg.addEventListener('updatefound', ()=>{
+        const nuevo = reg.installing; if(!nuevo) return;
+        nuevo.addEventListener('statechange', ()=>{
+          if(nuevo.state === 'installed' && navigator.serviceWorker.controller) mostrarCartel();
+        });
+      });
+      // dispara la comprobación nativa del sw.js también
+      setInterval(()=> reg.update().catch(()=>{}), 5*60*1000);
+    }catch(e){}
+
+    // Comprobación por contenido (esto es lo que hace que NO tengas que
+    // tocar el número de versión nunca más):
+    const chequear = async ()=>{
+      const f = await firmaServidor();
+      if(f && firmaInicial && f !== firmaInicial) mostrarCartel();
+    };
+    document.addEventListener('visibilitychange', ()=>{ if(!document.hidden) chequear(); });
+    setInterval(chequear, 5*60*1000); // cada 5 minutos
+  });
 }
 </script>
 </body>
