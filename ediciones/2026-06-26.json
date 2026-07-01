@@ -9,6 +9,7 @@
   ],
   "tapa": {
     "burst": "¡EXCLUSIVO!",
+    "foto": "./fotos/2026-06-26/AMOR_RUNNER.jpeg",
     "volanta": "🏃 Urgente deportivo",
     "titular": "Del mismo escritorio al mismo <span class='rjo'>grupo de running</span>",
     "credito": "Foto: La Redacción",
@@ -35,7 +36,7 @@
     ]
   },
   "secundarias": [
-    { "volanta": "¡Tercera guerra mundial!", "titular": "Tiembla el reinado térmico de la Tikititah", "texto": "Lo que arrancó como disputa por el termostato roto escaló a conflicto abierto. Clari rompió el tratado de no proliferación de frío. Hubo movimiento de tropas (sweaters), inteligencia (\"¿quién lo tocó?\") y un alto el fuego que duró lo que un cubito al sol. ¿Cascos azules para el viernes?" },
+    { "volanta": "¡Tercera guerra mundial!", "titular": "Tiembla el reinado térmico de la Tikititah", "foto": "./fotos/2026-06-26/GUERRA_DECLARADA.jpeg", "texto": "Lo que arrancó como disputa por el termostato roto escaló a conflicto abierto. Clari rompió el tratado de no proliferación de frío. Hubo movimiento de tropas (sweaters), inteligencia (\"¿quién lo tocó?\") y un alto el fuego que duró lo que un cubito al sol. ¿Cascos azules para el viernes?" },
     { "volanta": "Escándalo deportivo", "titular": "Sueño con Messi", "texto": "Parte de la secta no quedó conforme con el delantero argentino de 39 años ante Austria. El clímax del análisis táctico fue, lisa y llanamente, una ¡SIESTA! en pleno partido. Testigos aseguran un ronquido en el minuto 23. ¿Protesta silenciosa o aburrimiento?" },
     { "volanta": "Amor en la oficina", "titular": "Domador de yeguas", "texto": "Durante el Cooling Break de Argentina–Austria, la oficina fue testigo de un nuevo episodio de cringe en cadena nacional. El histeriqueo alcanzó niveles que la ONU debería monitorear." }
   ],
@@ -61,5 +62,5 @@
   "recomendado": { "estrellas": 5, "titulo": "Los sorrentinos de Agus", "texto": "Calabaza y muzzarella en su punto justo, masa de autor y un relleno que pide pista. Cinco estrellas al plato… y una sola al costo por unidad: parece que a él también el proveedor se los vende caros." },
   "empleado": { "nombre": "Blas", "texto": "El día martes trabajó nada más ni nada menos que 7 (siete) segundos. Impecable desempeño, sin un solo error en todo ese lapso. La eficiencia hecha persona. Esperamos que el récord se sostenga… o se supere a la baja." },
   "frase": { "texto": "La pelota no se mancha", "autor": "Diego Maradona" },
-  "cancion": { "titulo": "Ji Ji Ji", "artista": "Patricio Rey y sus Redonditos de Ricota", "spotifyUrl": "" }
+  "cancion": { "titulo": "Ji Ji Ji", "artista": "Patricio Rey y sus Redonditos de Ricota", "spotifyUrl": "https://open.spotify.com/track/5QdtKxsOZ5abspqB8Eplma" }
 }
