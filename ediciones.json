@@ -1,0 +1,13 @@
+{
+  "revista": "NotiLucciano's",
+  "ediciones": [
+    {
+      "id": "2026-06-26",
+      "numero": 1,
+      "fecha": "2026-06-26",
+      "fechaTexto": "Viernes 26 de junio",
+      "tapaTitular": "Del mismo escritorio al mismo grupo de running",
+      "color": "#c9243b"
+    }
+  ]
+}

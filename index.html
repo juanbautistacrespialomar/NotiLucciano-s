@@ -1,0 +1,481 @@
+<!DOCTYPE html>
+<html lang="es-AR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#CE0A24">
+<title>NotiLucciano's</title>
+<link rel="manifest" href="./manifest.webmanifest">
+<link rel="icon" href="./icons/favicon.png">
+<link rel="apple-touch-icon" href="./icons/apple-touch-icon.png">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="NotiLucciano's">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=Bebas+Neue&family=Fraunces:ital,opsz,wght@0,9..144,400..900;1,9..144,400..900&family=Archivo:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --tinta:#17130F; --rojo:#CE0A24; --rosa:#FF2E88; --paper:#FBF7F1;
+    --pistacho:#2FA36B; --rule:#E3DBCF; --gris:#6B635A; --dorado:#FFD23F;
+    --verde:#1DB954; --sube:#0f8a4d; --baja:#CE0A24;
+  }
+  *{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent;}
+  body{background:#211C17;background-image:radial-gradient(circle at 30% 0%, #2c261f 0%, #1a1611 70%);
+    font-family:'Archivo',system-ui,sans-serif;color:var(--tinta);min-height:100vh;
+    padding:0 0 40px;display:flex;justify-content:center;line-height:1.4;}
+  a{color:inherit;text-decoration:none;}
+
+  .revista{width:100%;max-width:460px;background:var(--paper);position:relative;min-height:100vh;
+    box-shadow:0 24px 60px rgba(0,0,0,.55);}
+  .revista::before{content:"";position:absolute;inset:0;pointer-events:none;z-index:60;
+    background-image:radial-gradient(rgba(0,0,0,.028) 1px, transparent 1.4px);background-size:4px 4px;mix-blend-mode:multiply;}
+
+  /* ---- cabecera ---- */
+  .masthead{background:var(--rojo);color:var(--paper);padding:14px 16px 12px;position:sticky;top:0;z-index:50;}
+  .flag{display:flex;align-items:center;gap:9px;cursor:pointer;}
+  .cono{width:26px;height:26px;flex:none;}
+  .wordmark{font-family:'Anton',sans-serif;font-size:33px;line-height:.86;letter-spacing:.5px;text-transform:uppercase;color:var(--paper);}
+  .wordmark b{color:var(--dorado);font-weight:400;}
+  .tagline{display:flex;justify-content:space-between;align-items:baseline;margin-top:8px;font-size:11px;letter-spacing:.4px;color:#ffe4e8;text-transform:uppercase;font-weight:600;}
+  .tagline .ed{background:var(--tinta);color:var(--paper);padding:2px 8px;font-family:'Bebas Neue';font-size:14px;letter-spacing:1px;}
+
+  /* ---- ticker ---- */
+  .ticker{background:var(--tinta);color:var(--paper);display:flex;align-items:center;overflow:hidden;height:30px;}
+  .ticker .lbl{background:var(--rosa);color:var(--tinta);font-family:'Bebas Neue';font-size:14px;letter-spacing:1px;padding:0 10px;height:100%;display:flex;align-items:center;flex:none;z-index:2;}
+  .ticker .track{white-space:nowrap;font-size:12px;font-weight:600;letter-spacing:.3px;padding-left:12px;}
+  .ticker .track span{margin-right:34px;}
+  .ticker .track b{color:var(--dorado);}
+  @media (prefers-reduced-motion: no-preference){.ticker .track{animation:scroll 26s linear infinite;}}
+  @keyframes scroll{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+
+  /* ---- barra volver ---- */
+  .backbar{background:var(--paper);border-bottom:2px solid var(--tinta);padding:9px 16px;display:flex;align-items:center;gap:8px;font-family:'Bebas Neue';letter-spacing:1px;font-size:15px;cursor:pointer;}
+  .backbar svg{width:15px;height:15px;fill:var(--tinta);}
+
+  /* ---- tapa ---- */
+  .tapa{padding:18px 16px 8px;position:relative;}
+  .burst{position:absolute;top:6px;right:14px;z-index:20;background:var(--rosa);color:#fff;font-family:'Bebas Neue';font-size:15px;letter-spacing:1px;padding:9px 12px 7px;transform:rotate(7deg);box-shadow:0 4px 0 #c31e6a;}
+  .foto{position:relative;aspect-ratio:4/3;background:#241f1a;overflow:hidden;border:3px solid var(--tinta);}
+  .foto img{width:100%;height:100%;object-fit:cover;display:block;filter:contrast(1.05) saturate(1.05);}
+  .foto .duo{position:absolute;inset:0;background:
+      radial-gradient(120px 150px at 32% 78%, #ff5c8d 0 44%, transparent 46%),
+      radial-gradient(120px 150px at 68% 82%, #ff5c8d 0 44%, transparent 46%),
+      radial-gradient(60px 60px at 32% 40%, #ff5c8d 0 50%, transparent 52%),
+      radial-gradient(60px 60px at 68% 42%, #ff5c8d 0 50%, transparent 52%),
+      linear-gradient(180deg,#2b2a3a,#141018);}
+  .foto .halftone{position:absolute;inset:0;background-image:radial-gradient(rgba(255,255,255,.10) 1px,transparent 1.5px);background-size:5px 5px;pointer-events:none;}
+  .foto .cred{position:absolute;bottom:0;left:0;background:var(--tinta);color:var(--paper);font-size:9px;letter-spacing:1px;text-transform:uppercase;padding:3px 7px;font-weight:700;z-index:3;}
+  .coverline{position:absolute;z-index:12;font-family:'Bebas Neue';line-height:.92;text-transform:uppercase;text-shadow:0 2px 0 rgba(0,0,0,.35);}
+  .cl-tl{top:10px;left:10px;color:#fff;font-size:22px;max-width:55%;}
+  .cl-br{bottom:34px;right:8px;color:#fff;font-size:17px;text-align:right;max-width:60%;}
+  .coverline em{color:var(--dorado);font-style:normal;}
+
+  .volanta{display:inline-block;margin:14px 0 6px;background:var(--tinta);color:var(--paper);font-family:'Bebas Neue';font-size:15px;letter-spacing:1.5px;padding:3px 9px 2px;}
+  .titular{font-family:'Anton',sans-serif;font-size:32px;line-height:.94;text-transform:uppercase;letter-spacing:.3px;color:var(--tinta);}
+  .titular .rjo{color:var(--rojo);}
+  .bajada{font-family:'Fraunces',Georgia,serif;font-style:italic;font-size:16px;line-height:1.45;color:#3a332c;margin-top:10px;}
+  .bajada b{font-style:normal;font-weight:600;}
+
+  /* ---- cuerpo de nota (bloques) ---- */
+  .cuerpo{margin-top:14px;}
+  .cuerpo p{font-family:'Fraunces',Georgia,serif;font-size:15.5px;line-height:1.55;color:#2e2822;margin:0 0 12px;}
+  .cuerpo .cita{border-left:4px solid var(--rojo);background:#fff6f6;padding:12px 16px;margin:16px 0;font-family:'Fraunces',serif;font-style:italic;font-size:17px;line-height:1.35;color:#241f1a;}
+  .alerta{background:#fff2e2;border:1.5px solid #e07b00;padding:12px 14px;margin:16px 0;}
+  .alerta .h{font-family:'Bebas Neue';letter-spacing:1px;color:#b35e00;font-size:15px;margin-bottom:4px;}
+  .alerta .t{font-size:13.5px;color:#4a3f2f;line-height:1.45;}
+  .fichas{display:grid;grid-template-columns:1fr 1fr 1fr;gap:6px;margin:16px 0;}
+  .ficha{background:#fff;border:1.5px solid var(--tinta);padding:9px 6px;text-align:center;}
+  .ficha.hot{background:#fff2e2;border-color:#e07b00;}
+  .ficha .em{font-size:24px;line-height:1;}
+  .ficha .nm{font-family:'Anton';font-size:15px;margin-top:3px;text-transform:uppercase;}
+  .ficha .rl{font-family:'Bebas Neue';font-size:11px;letter-spacing:.5px;color:var(--rojo);margin:2px 0 5px;text-transform:uppercase;}
+  .ficha.hot .rl{color:#b35e00;}
+  .ficha .dt{font-size:10px;color:var(--gris);line-height:1.6;}
+  .tweet{border:1.5px solid #d8dde1;border-radius:12px;padding:12px 14px;margin:16px 0;background:#fff;}
+  .tweet .hd{display:flex;align-items:center;gap:8px;margin-bottom:8px;}
+  .tweet .av{width:38px;height:38px;border-radius:50%;background:var(--rojo);color:#fff;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:14px;flex:none;}
+  .tweet .nm{font-weight:700;font-size:14px;}.tweet .us{font-size:12px;color:#657786;}
+  .tweet .tx{font-size:14px;line-height:1.5;color:#1a1a1a;}
+  .tweet .mt{font-size:12px;color:#657786;margin-top:8px;border-top:1px solid #eee;padding-top:7px;}
+
+  /* ---- chimentómetro ---- */
+  .chimentometro{margin:16px 0 6px;border:2px solid var(--tinta);padding:10px 12px;background:#fff;}
+  .chimentometro .top{display:flex;justify-content:space-between;align-items:center;font-family:'Bebas Neue';letter-spacing:1px;font-size:15px;}
+  .chimentometro .top .val{color:var(--rosa);}
+  .barra{height:12px;background:var(--rule);margin-top:8px;position:relative;overflow:hidden;}
+  .barra i{position:absolute;left:0;top:0;bottom:0;background:repeating-linear-gradient(45deg,var(--rosa) 0 8px,#ff5fa2 8px 16px);}
+  .barra b{position:absolute;top:-3px;width:3px;height:18px;background:var(--tinta);}
+  .byline{display:flex;justify-content:space-between;font-size:11px;text-transform:uppercase;letter-spacing:.6px;color:var(--gris);margin-top:10px;font-weight:600;}
+
+  /* ---- bandas + secciones ---- */
+  .band{background:var(--tinta);color:var(--paper);font-family:'Bebas Neue';letter-spacing:2px;font-size:16px;padding:7px 16px;margin-top:20px;display:flex;justify-content:space-between;align-items:center;}
+  .band span{color:var(--dorado);font-size:12px;letter-spacing:1px;}
+  .sec{padding:14px 16px 2px;}
+
+  /* secundaria */
+  .secn{border-top:1px solid var(--rule);padding-top:14px;margin-top:2px;}
+  .secn:first-child{border-top:0;}
+  .secn .v{font-family:'Bebas Neue';letter-spacing:1px;color:var(--rojo);font-size:14px;}
+  .secn h3{font-family:'Anton';font-size:22px;line-height:.96;text-transform:uppercase;margin:3px 0 6px;}
+  .secn .foto{aspect-ratio:16/9;margin:8px 0;}
+  .secn p{font-size:14px;line-height:1.5;color:#3a332c;}
+
+  /* breves */
+  .breve{display:flex;gap:9px;padding:8px 0;border-bottom:1px dotted var(--rule);font-size:14px;}
+  .breve i{color:var(--rosa);font-style:normal;font-weight:700;flex:none;}
+
+  /* horoscopo */
+  .horo{display:flex;gap:11px;padding:11px 0;border-bottom:1px solid var(--rule);}
+  .horo .sig{width:46px;flex:none;text-align:center;}
+  .horo .sig .g{font-size:26px;line-height:1;}
+  .horo .sig .n{font-family:'Bebas Neue';font-size:13px;letter-spacing:.5px;}
+  .horo .bd .q{font-size:11px;color:var(--rojo);font-weight:700;text-transform:uppercase;letter-spacing:.4px;}
+  .horo .bd .t{font-size:13.5px;line-height:1.45;color:#3a332c;margin-top:2px;}
+
+  /* indices */
+  .lucc{background:var(--tinta);color:var(--paper);padding:12px 14px;margin-bottom:12px;}
+  .lucc .cab{font-family:'Bebas Neue';letter-spacing:1px;font-size:15px;color:var(--dorado);margin-bottom:8px;display:flex;justify-content:space-between;}
+  .lucc .row{display:flex;justify-content:space-between;align-items:center;padding:5px 0;border-bottom:1px solid #2c2620;font-size:14px;}
+  .lucc .row:last-child{border-bottom:0;}
+  .lucc .pct{font-family:'Bebas Neue';font-size:17px;letter-spacing:.5px;}
+  .lucc .up{color:#54e08a;}.lucc .dn{color:#ff6b6b;}
+  .lucc .copete{font-size:11.5px;color:#c7bfb4;line-height:1.5;margin-top:9px;font-style:italic;}
+  .subind{display:flex;justify-content:space-between;gap:10px;padding:8px 0;border-bottom:1px solid var(--rule);}
+  .subind .nm{font-size:13px;font-weight:600;}
+  .subind .gl{font-size:11px;color:var(--gris);margin-top:2px;}
+  .subind .vl{font-family:'Bebas Neue';font-size:16px;color:var(--rojo);flex:none;text-align:right;}
+
+  /* meteo */
+  .meteo{background:#fff2e2;border:1.5px solid #e07b00;padding:14px;display:flex;gap:11px;align-items:flex-start;}
+  .meteo .ic{font-size:26px;flex:none;}
+  .meteo .h{font-family:'Bebas Neue';letter-spacing:1px;color:#b35e00;font-size:15px;}
+  .meteo .t{font-size:13.5px;color:#4a3f2f;line-height:1.45;margin-top:2px;}
+
+  /* encuesta */
+  .enc .q{font-family:'Fraunces';font-weight:600;font-size:17px;margin-bottom:10px;}
+  .opt{margin:7px 0;}
+  .opt .lbl{display:flex;justify-content:space-between;font-size:13px;font-weight:600;margin-bottom:3px;}
+  .opt .bar{height:20px;background:var(--rule);position:relative;overflow:hidden;}
+  .opt .bar i{position:absolute;left:0;top:0;bottom:0;background:var(--tinta);}
+  .opt.win .bar i{background:var(--rosa);}
+  .opt.win .lbl{color:var(--rosa);}
+
+  /* recomendado */
+  .reco{display:flex;gap:12px;align-items:flex-start;}
+  .reco .num{font-family:'Anton';font-size:40px;color:var(--rojo);line-height:.8;flex:none;}
+  .reco .st{color:var(--dorado);font-size:16px;letter-spacing:2px;}
+  .reco h4{font-family:'Anton';font-size:19px;text-transform:uppercase;margin:2px 0 5px;}
+  .reco p{font-size:13.5px;line-height:1.5;color:#3a332c;}
+
+  /* empleado */
+  .emp{background:#fff;border:2px solid var(--dorado);padding:14px;text-align:center;}
+  .emp .med{font-size:34px;}
+  .emp .nm{font-family:'Anton';font-size:24px;text-transform:uppercase;color:var(--rojo);}
+  .emp .rol{font-family:'Bebas Neue';letter-spacing:2px;font-size:13px;color:var(--gris);margin-bottom:8px;}
+  .emp p{font-size:13.5px;line-height:1.5;color:#3a332c;}
+
+  /* frase */
+  .frase{text-align:center;padding:8px 6px;}
+  .frase .mark{font-family:'Anton';font-size:44px;color:var(--rosa);line-height:.5;}
+  .frase .tx{font-family:'Fraunces';font-style:italic;font-weight:500;font-size:20px;line-height:1.3;color:var(--tinta);margin:6px 0;}
+  .frase .au{font-family:'Bebas Neue';letter-spacing:1px;font-size:15px;color:var(--rojo);}
+
+  /* cancion */
+  .cancion{background:var(--tinta);color:var(--paper);padding:14px;}
+  .cancion .k{font-family:'Bebas Neue';letter-spacing:1px;color:var(--verde);font-size:15px;display:flex;align-items:center;gap:6px;}
+  .cancion .tt{font-family:'Fraunces';font-weight:600;font-size:19px;margin:6px 0 2px;}
+  .cancion .ar{font-size:13px;color:#c7bfb4;margin-bottom:10px;}
+  .cancion iframe{width:100%;height:80px;border:0;border-radius:12px;}
+  .cancion .btn{display:inline-flex;align-items:center;gap:7px;background:var(--verde);color:var(--tinta);font-weight:700;font-size:13px;padding:9px 14px;border-radius:22px;}
+  .cancion .btn svg{width:13px;height:13px;fill:var(--tinta);}
+
+  /* kiosco */
+  .rack{display:flex;gap:11px;overflow-x:auto;padding:12px 16px 16px;scroll-snap-type:x mandatory;}
+  .rack::-webkit-scrollbar{height:0;}
+  .cover{flex:none;width:110px;scroll-snap-align:start;background:#fff;border:2px solid var(--tinta);box-shadow:4px 4px 0 rgba(23,19,15,.16);cursor:pointer;}
+  .cover .ph{height:82px;position:relative;overflow:hidden;}
+  .cover .ph .hd{position:absolute;inset:0;background-image:radial-gradient(rgba(0,0,0,.14) 1px,transparent 1.3px);background-size:4px 4px;}
+  .cover .ph .mini{position:absolute;left:6px;bottom:5px;right:6px;font-family:'Bebas Neue';color:#fff;font-size:13px;line-height:.95;text-transform:uppercase;text-shadow:0 1px 2px rgba(0,0,0,.5);}
+  .cover .cap{padding:6px 8px 9px;}
+  .cover .n{font-family:'Bebas Neue';font-size:12px;letter-spacing:.5px;color:var(--rojo);}
+  .cover .h{font-family:'Anton';font-size:13px;line-height:.98;text-transform:uppercase;margin-top:2px;}
+
+  /* install */
+  .install{margin:6px 16px 18px;border:2px dashed var(--tinta);padding:12px 14px;display:flex;gap:12px;align-items:center;}
+  .install .ic{width:34px;height:34px;flex:none;border:2px solid var(--tinta);border-radius:8px;display:flex;align-items:center;justify-content:center;}
+  .install .ic svg{width:18px;height:18px;fill:var(--tinta);}
+  .install b{font-family:'Bebas Neue';letter-spacing:1px;font-size:16px;display:block;}
+  .install small{font-size:11px;color:var(--gris);}
+  .foot{background:var(--tinta);color:#b8afaf;text-align:center;font-size:10px;letter-spacing:1px;text-transform:uppercase;padding:12px;}
+  .demoflag{background:var(--dorado);color:var(--tinta);text-align:center;font-family:'Bebas Neue';letter-spacing:1px;font-size:12px;padding:4px;}
+</style>
+</head>
+<body>
+<div class="revista" id="app"></div>
+
+<script>
+/* =====================================================================
+   DATOS DEMO (fallback). En producción esto se ignora: el lector lee
+   ./manifest.json y ./ediciones/<id>.json del repo.
+   ===================================================================== */
+const DEMO = {
+  manifest: {
+    revista:"NotiLucciano's",
+    ediciones:[
+      {id:"2026-07-04", numero:12, fecha:"2026-07-04", fechaTexto:"Viernes 4 de julio", tapaTitular:"Del mismo escritorio al mismo grupo de running", color:"#c9243b"},
+      {id:"2026-06-27", numero:11, fecha:"2026-06-27", fechaTexto:"Viernes 27 de junio", tapaTitular:"El robo del alfajor del cajón", color:"#1f7a54"},
+      {id:"2026-06-20", numero:10, fecha:"2026-06-20", fechaTexto:"Viernes 20 de junio", tapaTitular:"Fernet vs café: la grieta", color:"#2b2a3a"},
+      {id:"2026-06-13", numero:9,  fecha:"2026-06-13", fechaTexto:"Viernes 13 de junio", tapaTitular:"La reunión que no terminaba nunca", color:"#e08a1e"}
+    ]
+  },
+  ediciones:{
+    "2026-07-04":{
+      id:"2026-07-04", numero:12, fechaTexto:"Viernes 4 de julio de 2026",
+      ticker:[
+        "Denuncian <b>siesta</b> en pleno Argentina–Austria · ¿ronquido en el minuto 23?",
+        "La <b>Tikititah</b> pierde el control del termostato · Clari rompe el tratado",
+        "MT casi le vende el auto a M · <b>la correa salva honras</b>"
+      ],
+      tapa:{
+        burst:"¡EXCLUSIVO!",
+        volanta:"🏃 Urgente deportivo",
+        titular:"Del mismo escritorio al mismo <span class='rjo'>grupo de running</span>",
+        credito:"Foto: La Redacción",
+        coverlines:[
+          {pos:"tl", html:"Corren <em>juntos</em> al amanecer"},
+          {pos:"br", html:"y la tiki <em>ya lo sabe</em>"}
+        ],
+        bajada:"La nueva arquitecta platense y el hombre de costos más chamuyero de Lucciano's comparten isla, salidas y ahora kilómetros. Mientras tanto, <b>la tiki observa</b>. Y sus cejas lo dicen todo.",
+        chimentometro:87, chimentoLabel:"¡ESCÁNDALO!", autor:"La Redacción", lectura:"5 min",
+        cuerpo:[
+          {tipo:"fichas", items:[
+            {em:"👩‍💼", nm:"M", rl:"🔍 La nueva", dt:"📍 La Plata · 🏛️ Arquitecta · 📅 Desde abril · 🏃 Running (nuevo)"},
+            {em:"🗨️", nm:"MT", rl:"⚠️ El chamuyero", dt:"💼 Costos · 📅 2 años · 🏃 Running (clásico) · 💬 Labia 10/10"},
+            {em:"😤", nm:"Tikititah", rl:"🔥 La que mira", hot:true, dt:"💼 Conta · 👁️ Todo lo ve · ✋ Correa puesta · 😠 Humor variable"}
+          ]},
+          {tipo:"p", texto:"Cuando M llegó desde La Plata en abril, nadie imaginaba que su historia iba a volverse tema de redacción tan rápido. La sentaron en una isla junto a MT, el hombre de costos, y ahí empezó todo."},
+          {tipo:"cita", texto:"La correa que la tiki le tiene puesta a MT fue lo que le impidió venderle el auto a M. Correa que salva honras."},
+          {tipo:"p", texto:"El capítulo del auto merece párrafo aparte: circuló que MT le iba a vender su vehículo a M, pero un problema con la correa del motor dio por tierra con la transacción. Aunque en los pasillos la teoría más popular es otra."},
+          {tipo:"alerta", titulo:"⚠️ Alerta Tikititah — Estado actual", texto:"Se la vio mirando con los ojos entrecerrados cada vez que M se acerca al escritorio de MT. Situación: tensa y en escalada."},
+          {tipo:"tweet", av:"BP", nm:"Blas Polino", us:"@BlasPolino", tx:"MT: isla con M ✅ auto casi vendido ✅ running juntos ✅ · Tiki: 😐 · yo: 🍿", mt:"9:42 · 24 jun · ↩ 47 · 🔁 312 · ★ 891"}
+        ]
+      },
+      secundarias:[
+        {volanta:"¡Tercera guerra mundial!", titular:"Tiembla el reinado térmico de la Tikititah",
+         texto:"Lo que arrancó como disputa por el termostato roto escaló a conflicto abierto. Clari rompió el tratado de no proliferación de frío. Hubo movimiento de tropas (sweaters), inteligencia (\"¿quién lo tocó?\") y un alto el fuego que duró lo que un cubito al sol. ¿Cascos azules para el viernes?"},
+        {volanta:"Escándalo deportivo", titular:"Sueño con Messi",
+         texto:"Parte de la secta no quedó conforme con el delantero argentino de 39 años ante Austria. El clímax del análisis táctico fue, lisa y llanamente, una ¡SIESTA! en pleno partido. Testigos aseguran un ronquido en el minuto 23. ¿Protesta silenciosa o aburrimiento?"},
+        {volanta:"Amor en la oficina", titular:"Domador de yeguas",
+         texto:"Durante el Cooling Break de Argentina–Austria, la oficina fue testigo de un nuevo episodio de cringe en cadena nacional. El histeriqueo alcanzó niveles que la ONU debería monitorear."}
+      ],
+      horoscopo:[
+        {g:"♓", n:"Piscis", q:"Bauti y Juan", t:"Vas a desconectarte mentalmente cerca de las 15:30 y mirar por la ventana un rato largo. La oficina sobrevivió sin vos esos veinte minutos. Todo bien."},
+        {g:"♍", n:"Virgo", q:"Blas", t:"Vas a encontrar UN error en una planilla ajena y no vas a poder pensar en otra cosa el resto del día. Tu perfeccionismo es un don y una condena."},
+        {g:"♈", n:"Aries", q:"Clari", t:"Tu impulsividad te va a llevar a responder un mail antes de leerlo entero. Spoiler: la info estaba en el tercer renglón. Respirá antes de tocar \"Enviar\"."},
+        {g:"♉", n:"Tauro", q:"Dani", t:"Semana de aferrarte a lo conocido. Alguien va a sugerir \"cambiar el proceso\" y vos vas a defender el Excel del 2019 con tu vida. Hacés bien."},
+        {g:"♌", n:"Leo", q:"Agus", t:"Necesitás reconocimiento y esta semana no va a llegar. Tu obra maestra —ese reporte impecable— va a pasar sin un solo \"gracias\". Guardalo igual."}
+      ],
+      indices:{
+        copete:"El índice LUCC cerró la semana en baja. El gran ganador fue Bauti (+18%) tras asesinar al equipo de conteo de inventario en Europa. Del lado de las pérdidas, Juan se desplomó un 25% después de pelearse en forma definitiva con la IA y con Payway.",
+        lucc:[["Bauti",18],["Dani",10],["Blas",4],["Clari",-12],["Agus",-20],["Juan",-25]],
+        sub:[
+          {nm:"Volumen del Grupo de WhatsApp", vl:"312 msgs", gl:"Sólo 4 con valor real. El resto, ruido de mercado."},
+          {nm:"Confianza en que \"el viernes lo cerramos\" (ICVC)", vl:"3,2/100", gl:"Mínimo histórico."},
+          {nm:"Sensación Térmica de Oficina", vl:"40°C", gl:"La real es 5°C, pero la Tikitita tiene calor."},
+          {nm:"Riesgo Shares", vl:"5180 pts", gl:"Sin techo a la vista."}
+        ]
+      },
+      meteo:"Alerta naranja: se aproxima el cierre con un frente de facturas sin imputar. Tormenta de conciliaciones para este viernes.",
+      encuesta:{pregunta:"¿La oficina está fría?", opciones:[["Sí",12],["No",8],["Dejen de tocar el aire",80]]},
+      recomendado:{estrellas:5, titulo:"Los sorrentinos de Agus", texto:"Calabaza y muzzarella en su punto justo, masa de autor y un relleno que pide pista. Cinco estrellas al plato… y una sola al costo por unidad: parece que a él también el proveedor se los vende caros."},
+      empleado:{nombre:"Blas", texto:"El día martes trabajó nada más ni nada menos que 7 (siete) segundos. Impecable desempeño, sin un solo error en todo ese lapso. La eficiencia hecha persona. Esperamos que el récord se sostenga… o se supere a la baja."},
+      frase:{texto:"La pelota no se mancha", autor:"Diego Maradona"},
+      cancion:{titulo:"Ji Ji Ji", artista:"Patricio Rey y sus Redonditos de Ricota", spotifyUrl:""}
+    },
+    "2026-06-27":{id:"2026-06-27",numero:11,fechaTexto:"Viernes 27 de junio de 2026",
+      tapa:{burst:"¡ROBO!",volanta:"Policiales",titular:"El robo del <span class='rjo'>alfajor</span> del cajón",credito:"Foto: La Redacción",bajada:"Alguien abrió el cajón sagrado y se llevó el último alfajor de maicena. La redacción tiene sospechosos. Nadie confiesa.",chimentometro:64,chimentoLabel:"Tenso",autor:"La Redacción",lectura:"3 min",cuerpo:[{tipo:"p",texto:"Edición archivada de demostración. Cuando publiques ediciones reales, se van a ver acá tal cual."}]},
+      frase:{texto:"¿Quiénes son?",autor:"Moria Casán"}},
+    "2026-06-20":{id:"2026-06-20",numero:10,fechaTexto:"Viernes 20 de junio de 2026",
+      tapa:{burst:"¡GRIETA!",volanta:"Política de oficina",titular:"Fernet vs café: <span class='rjo'>la grieta</span>",credito:"Foto: La Redacción",bajada:"Dos bandos irreconciliables. La máquina de café en el medio. El fernet, siempre esperando el viernes.",chimentometro:52,chimentoLabel:"Picante",autor:"La Redacción",lectura:"2 min",cuerpo:[{tipo:"p",texto:"Edición archivada de demostración."}]},
+      frase:{texto:"Como te ven, te tratan",autor:"Mirtha Legrand"}},
+    "2026-06-13":{id:"2026-06-13",numero:9,fechaTexto:"Viernes 13 de junio de 2026",
+      tapa:{burst:"¡BASTA!",volanta:"Crónica",titular:"La reunión que <span class='rjo'>no terminaba</span> nunca",credito:"Foto: La Redacción",bajada:"Empezó a las 10. Iba a durar 15 minutos. Se levantó el acta a las 13:40. Hay heridos.",chimentometro:71,chimentoLabel:"Agotador",autor:"La Redacción",lectura:"4 min",cuerpo:[{tipo:"p",texto:"Edición archivada de demostración."}]},
+      frase:{texto:"La casa está en orden",autor:"Raúl Alfonsín"}}
+  }
+};
+
+/* =========================== carga de datos =========================== */
+let USANDO_DEMO = false;
+async function cargarManifest(){
+  try{ const r = await fetch('./ediciones.json',{cache:'no-store'}); if(!r.ok) throw 0; return await r.json(); }
+  catch(e){ USANDO_DEMO = true; return DEMO.manifest; }
+}
+async function cargarEdicion(id){
+  try{ const r = await fetch('./ediciones/'+id+'.json',{cache:'no-store'}); if(!r.ok) throw 0; return await r.json(); }
+  catch(e){ USANDO_DEMO = true; return DEMO.ediciones[id]; }
+}
+
+/* =========================== helpers ================================= */
+const $ = s => document.querySelector(s);
+function embedSpotify(url){
+  if(!url) return '';
+  const m = url.match(/open\.spotify\.com\/(track|album|playlist|episode)\/([A-Za-z0-9]+)/);
+  if(!m) return '';
+  return `<iframe loading="lazy" src="https://open.spotify.com/embed/${m[1]}/${m[2]}" allow="encrypted-media"></iframe>`;
+}
+
+/* =========================== render tapa ============================= */
+function renderCoverlines(cl){
+  if(!cl) return '';
+  return cl.map(c=>`<div class="coverline cl-${c.pos==='br'?'br':'tl'}">${c.html}</div>`).join('');
+}
+function renderFoto(t){
+  const inner = t.foto
+    ? `<img src="${t.foto}" alt="">`
+    : `<div class="duo"></div><div class="halftone"></div>`;
+  return `<div class="foto">${inner}${renderCoverlines(t.coverlines)}${t.credito?`<div class="cred">${t.credito}</div>`:''}</div>`;
+}
+function renderBloque(b){
+  if(b.tipo==='p') return `<p>${b.texto}</p>`;
+  if(b.tipo==='cita') return `<div class="cita">“${b.texto}”</div>`;
+  if(b.tipo==='alerta') return `<div class="alerta"><div class="h">${b.titulo}</div><div class="t">${b.texto}</div></div>`;
+  if(b.tipo==='fichas') return `<div class="fichas">${b.items.map(f=>`<div class="ficha${f.hot?' hot':''}"><div class="em">${f.em}</div><div class="nm">${f.nm}</div><div class="rl">${f.rl}</div><div class="dt">${f.dt}</div></div>`).join('')}</div>`;
+  if(b.tipo==='tweet') return `<div class="tweet"><div class="hd"><div class="av">${b.av}</div><div><div class="nm">${b.nm}</div><div class="us">${b.us}</div></div></div><div class="tx">${b.tx}</div><div class="mt">${b.mt}</div></div>`;
+  return '';
+}
+function renderTapa(t){
+  const chi = (t.chimentometro!=null) ? `<div class="chimentometro"><div class="top"><span>CHIMENTÓMETRO</span><span class="val">${t.chimentometro}% ${t.chimentoLabel||''}</span></div><div class="barra"><i style="width:${t.chimentometro}%"></i><b style="left:${t.chimentometro}%"></b></div><div class="byline"><span>Por ${t.autor||'La Redacción'}</span><span>Lectura: ${t.lectura||'—'}</span></div></div>` : '';
+  const cuerpo = t.cuerpo ? `<div class="cuerpo">${t.cuerpo.map(renderBloque).join('')}</div>` : '';
+  return `<section class="tapa">
+    ${t.burst?`<div class="burst">${t.burst}</div>`:''}
+    ${renderFoto(t)}
+    ${t.volanta?`<div class="volanta">${t.volanta}</div>`:''}
+    <h1 class="titular">${t.titular}</h1>
+    ${t.bajada?`<p class="bajada">${t.bajada}</p>`:''}
+    ${chi}${cuerpo}
+  </section>`;
+}
+
+/* =========================== render secciones ======================== */
+function renderSecundarias(list){
+  if(!list||!list.length) return '';
+  const items = list.map(s=>`<div class="secn"><div class="v">${s.volanta||''}</div><h3>${s.titular}</h3>${s.foto?`<div class="foto"><img src="${s.foto}" alt=""></div>`:''}<p>${s.texto}</p></div>`).join('');
+  return `<div class="band">Las del montón <span>seguí bajando</span></div><div class="sec">${items}</div>`;
+}
+function renderBreves(list){
+  if(!list||!list.length) return '';
+  return `<div class="band">Pasó y no lo viste</div><div class="sec">${list.map(b=>`<div class="breve"><i>›</i><span>${b}</span></div>`).join('')}</div>`;
+}
+function renderHoroscopo(list){
+  if(!list||!list.length) return '';
+  return `<div class="band">Horóscopo laboral <span>por Madame Shares</span></div><div class="sec">${list.map(h=>`<div class="horo"><div class="sig"><div class="g">${h.g}</div><div class="n">${h.n}</div></div><div class="bd"><div class="q">${h.q}</div><div class="t">${h.t}</div></div></div>`).join('')}</div>`;
+}
+function renderIndices(ix){
+  if(!ix) return '';
+  const rows = (ix.lucc||[]).slice().sort((a,b)=>b[1]-a[1]).map(([n,v])=>`<div class="row"><span>${n}</span><span class="pct ${v>=0?'up':'dn'}">${v>=0?'▲ +':'▼ '}${v}%</span></div>`).join('');
+  const sub = (ix.sub||[]).map(s=>`<div class="subind"><div><div class="nm">${s.nm}</div><div class="gl">${s.gl}</div></div><div class="vl">${s.vl}</div></div>`).join('');
+  return `<div class="band">Índices económicos <span>panel LUCC</span></div><div class="sec">
+    <div class="lucc"><div class="cab"><span>PANEL LÍDER LUCC</span><span>var. semanal</span></div>${rows}${ix.copete?`<div class="copete">${ix.copete}</div>`:''}</div>${sub}</div>`;
+}
+function renderMeteo(t){
+  if(!t) return '';
+  return `<div class="band">El meteorólogo del cierre</div><div class="sec"><div class="meteo"><div class="ic">⛈️</div><div><div class="h">Pronóstico contable</div><div class="t">${t}</div></div></div></div>`;
+}
+function renderEncuesta(e){
+  if(!e) return '';
+  const max = Math.max(...e.opciones.map(o=>o[1]));
+  const opts = e.opciones.map(([txt,p])=>`<div class="opt${p===max?' win':''}"><div class="lbl"><span>${txt}</span><span>${p}%</span></div><div class="bar"><i style="width:${p}%"></i></div></div>`).join('');
+  return `<div class="band">La encuesta de la semana</div><div class="sec enc"><div class="q">${e.pregunta}</div>${opts}</div>`;
+}
+function renderRecomendado(r){
+  if(!r) return '';
+  const st = '★'.repeat(r.estrellas||0)+'☆'.repeat(Math.max(0,5-(r.estrellas||0)));
+  return `<div class="band">El recomendado del editor</div><div class="sec"><div class="reco"><div class="num">${r.estrellas}</div><div><div class="st">${st}</div><h4>${r.titulo}</h4><p>${r.texto}</p></div></div></div>`;
+}
+function renderEmpleado(e){
+  if(!e) return '';
+  return `<div class="band">Empleado de la semana</div><div class="sec"><div class="emp"><div class="med">🏅</div><div class="nm">${e.nombre}</div><div class="rol">La eficiencia hecha persona</div><p>${e.texto}</p></div></div>`;
+}
+function renderFrase(f){
+  if(!f) return '';
+  return `<div class="band">La frase de la semana</div><div class="sec"><div class="frase"><div class="mark">“</div><div class="tx">${f.texto}</div><div class="au">— ${f.autor}</div></div></div>`;
+}
+function renderCancion(c){
+  if(!c) return '';
+  const emb = embedSpotify(c.spotifyUrl);
+  const play = emb || `<a class="btn" href="https://open.spotify.com/search/${encodeURIComponent(c.titulo+' '+c.artista)}" target="_blank" rel="noopener"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>Escuchar en Spotify</a>`;
+  return `<div class="band">La canción de la semana <span>♫ Spotify</span></div><div class="sec"><div class="cancion"><div class="k">♫ Suena en la redacción</div><div class="tt">${c.titulo}</div><div class="ar">${c.artista}</div>${play}</div></div>`;
+}
+
+/* =========================== render edición ========================== */
+function renderEdicion(ed){
+  return renderTapa(ed.tapa)
+    + renderSecundarias(ed.secundarias)
+    + renderBreves(ed.breves)
+    + renderHoroscopo(ed.horoscopo)
+    + renderIndices(ed.indices)
+    + renderMeteo(ed.meteo)
+    + renderEncuesta(ed.encuesta)
+    + renderRecomendado(ed.recomendado)
+    + renderEmpleado(ed.empleado)
+    + renderFrase(ed.frase)
+    + renderCancion(ed.cancion);
+}
+
+/* =========================== chrome / kiosco ========================= */
+function masthead(numero){
+  return `<header class="masthead"><div class="flag" onclick="irHome()">
+      <svg class="cono" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2c-3 0-5 2-5 4 0 1 .3 1.8.9 2.4C6 9 4.6 10.3 4.6 12c0 1.4 1 2.4 2.3 2.6C6 15.3 5.4 16.3 5.4 17.4c0 1.6 1.4 2.6 3 2.6.3 0 .6 0 .9-.1L12 22l2.7-2.2c.3.1.6.1.9.1 1.6 0 3-1 3-2.6 0-1.1-.6-2.1-1.5-2.8 1.3-.2 2.3-1.2 2.3-2.6 0-1.7-1.4-3-3.3-3.6.6-.6.9-1.4.9-2.4 0-2-2-4-5-4z" fill="#FBF7F1"/><circle cx="10" cy="6" r="1" fill="#CE0A24"/><circle cx="14" cy="7" r="1" fill="#CE0A24"/><circle cx="12" cy="12" r="1" fill="#CE0A24"/></svg>
+      <div class="wordmark">NOTILUCCIANO<b>'</b>S</div></div>
+    <div class="tagline"><span>El diario de joda de la oficina</span><span class="ed">ED. #${numero||''}</span></div></header>`;
+}
+function ticker(list){
+  const base = (list&&list.length)?list:["NotiLucciano's · sin IA, sin feeds, todo a pulmón"];
+  const dup = base.concat(base).map(t=>`<span>${t}</span>`).join('');
+  return `<div class="ticker"><div class="lbl">⚡ Último momento</div><div class="track">${dup}</div></div>`;
+}
+function rack(manifest, exceptoId){
+  const others = manifest.ediciones.filter(e=>e.id!==exceptoId);
+  if(!others.length) return '';
+  const covers = others.map(e=>`<div class="cover" onclick="irEdicion('${e.id}')"><div class="ph" style="background:${e.color||'#c9243b'}"><div class="hd"></div><div class="mini">${e.tapaTitular||''}</div></div><div class="cap"><div class="n">ED. #${e.numero} · ${(e.fechaTexto||'').replace('Viernes ','')}</div><div class="h">${(e.tapaTitular||'').slice(0,26)}</div></div></div>`).join('');
+  return `<div class="band">El kiosco <span>ediciones anteriores →</span></div><div class="rack">${covers}</div>`;
+}
+const install = `<div class="install"><div class="ic"><svg viewBox="0 0 24 24"><path d="M12 3v10.6l3.3-3.3 1.4 1.4L12 17.4 6.3 11.7l1.4-1.4L11 13.6V3zM5 19h14v2H5z"/></svg></div><div><b>Instalá el diario en tu celu</b><small>Agregalo a la pantalla de inicio y leelo aunque no tengas señal.</small></div></div>`;
+const foot = `<div class="foot">NotiLucciano's · Mar del Plata · sin IA, sin feeds, todo a pulmón</div>`;
+const demoflag = () => USANDO_DEMO ? `<div class="demoflag">Modo demo · todavía no hay ediciones publicadas en el repo</div>` : '';
+
+/* =========================== router ================================= */
+let MANIFEST = null;
+async function irHome(){ location.hash = ''; render(); }
+async function irEdicion(id){ location.hash = 'ed/'+id; render(); }
+window.addEventListener('hashchange', render);
+
+async function render(){
+  if(!MANIFEST) MANIFEST = await cargarManifest();
+  const m = location.hash.match(/ed\/(.+)$/);
+  const app = $('#app');
+  window.scrollTo(0,0);
+
+  if(m){
+    const ed = await cargarEdicion(m[1]);
+    if(!ed){ app.innerHTML = masthead('') + `<div class="sec"><p>No encontré esa edición.</p></div>`; return; }
+    app.innerHTML = masthead(ed.numero) + ticker(ed.ticker)
+      + `<div class="backbar" onclick="irHome()"><svg viewBox="0 0 24 24"><path d="M15 5l-7 7 7 7" stroke="#17130F" stroke-width="2.5" fill="none"/></svg> Volver al último número</div>`
+      + demoflag() + renderEdicion(ed) + rack(MANIFEST, ed.id) + install + foot;
+  } else {
+    const ult = MANIFEST.ediciones[0];
+    const ed = await cargarEdicion(ult.id);
+    app.innerHTML = masthead(ed?ed.numero:ult.numero) + ticker(ed?ed.ticker:null)
+      + demoflag() + (ed?renderEdicion(ed):'') + rack(MANIFEST, ult.id) + install + foot;
+  }
+}
+render();
+
+/* ---- PWA: registro del service worker (offline + instalable) ---- */
+if('serviceWorker' in navigator){
+  window.addEventListener('load', ()=>{ navigator.serviceWorker.register('./sw.js').catch(()=>{}); });
+}
+</script>
+</body>
+</html>
