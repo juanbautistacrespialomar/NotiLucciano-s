@@ -2,7 +2,7 @@
 <html lang="es-AR">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 <meta name="theme-color" content="#CE0A24">
 <title>NotiLucciano's</title>
 <link rel="manifest" href="./manifest.webmanifest">
@@ -20,7 +20,7 @@
     --pistacho:#2FA36B; --rule:#E3DBCF; --gris:#6B635A; --dorado:#FFD23F;
     --verde:#1DB954; --sube:#0f8a4d; --baja:#CE0A24;
   }
-  *{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent;}
+  *{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent;touch-action:manipulation;}
   body{background:#211C17;background-image:radial-gradient(circle at 30% 0%, #2c261f 0%, #1a1611 70%);
     font-family:'Archivo',system-ui,sans-serif;color:var(--tinta);min-height:100vh;
     padding:0 0 40px;display:flex;justify-content:center;line-height:1.4;}
@@ -224,7 +224,7 @@
     color:var(--paper);}
   .pingate[hidden]{display:none;}
   .pg-inner{width:100%;max-width:320px;text-align:center;}
-  .pg-cono{width:70px;height:70px;margin:0 auto 10px;display:block;}
+  .pg-cono{width:76px;height:76px;margin:0 auto 12px;display:block;border-radius:16px;object-fit:cover;box-shadow:0 6px 18px rgba(0,0,0,.25);}
   .pg-word{font-family:'Anton',sans-serif;font-size:34px;line-height:.9;letter-spacing:.5px;text-transform:uppercase;color:var(--paper);}
   .pg-word b{color:var(--dorado);font-weight:400;}
   .pg-sub{font-family:'Bebas Neue';letter-spacing:2px;font-size:14px;color:#ffe4e8;margin-top:6px;text-transform:uppercase;}
@@ -275,6 +275,24 @@
   .updbar button{border:0;cursor:pointer;font-family:'Bebas Neue';letter-spacing:1px;font-size:15px;padding:9px 16px;}
   .updbar .go{background:var(--dorado);color:var(--tinta);}
   .updbar .later{background:none;color:#b8afaf;padding:9px 4px;}
+
+  /* ---- sello "última edición" ---- */
+  .sello{display:flex;align-items:center;gap:10px;margin:12px 16px 2px;}
+  .sello .tag{background:var(--rojo);color:var(--paper);font-family:'Bebas Neue';letter-spacing:1.5px;
+    font-size:14px;padding:5px 12px 4px;display:inline-flex;align-items:center;gap:6px;
+    box-shadow:2px 2px 0 var(--tinta);}
+  .sello .tag::before{content:"●";color:var(--dorado);font-size:9px;}
+  .sello .fch{font-family:'Bebas Neue';letter-spacing:.5px;font-size:13px;color:var(--gris);text-transform:uppercase;}
+
+  /* ---- puntito "no leída" en el kiosco ---- */
+  .cover{position:relative;}
+  .cover .dot{position:absolute;top:-5px;right:-5px;width:16px;height:16px;border-radius:50%;
+    background:var(--dorado);border:2.5px solid var(--paper);box-shadow:0 1px 4px rgba(0,0,0,.35);z-index:3;}
+
+  /* ---- bloqueo de scroll cuando está la pantalla del PIN ---- */
+  body.locked{overflow:hidden;}
+  html.locked,body.locked{overscroll-behavior:none;}
+  .pingate{touch-action:none;overscroll-behavior:contain;}
 </style>
 </head>
 <body>
@@ -283,7 +301,7 @@
 <!-- ===================== PANTALLA DE INGRESO (PIN) ===================== -->
 <div class="pingate" id="pingate" hidden>
   <div class="pg-inner" id="pgInner">
-    <svg class="pg-cono" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2c-3 0-5 2-5 4 0 1 .3 1.8.9 2.4C6 9 4.6 10.3 4.6 12c0 1.4 1 2.4 2.3 2.6C6 15.3 5.4 16.3 5.4 17.4c0 1.6 1.4 2.6 3 2.6.3 0 .6 0 .9-.1L12 22l2.7-2.2c.3.1.6.1.9.1 1.6 0 3-1 3-2.6 0-1.1-.6-2.1-1.5-2.8 1.3-.2 2.3-1.2 2.3-2.6 0-1.7-1.4-3-3.3-3.6.6-.6.9-1.4.9-2.4 0-2-2-4-5-4z" fill="#FBF7F1"/><circle cx="10" cy="6" r="1" fill="#CE0A24"/><circle cx="14" cy="7" r="1" fill="#CE0A24"/><circle cx="12" cy="12" r="1" fill="#CE0A24"/></svg>
+    <img class="pg-cono" src="./icons/icon-192.png" alt="NotiLucciano's">
     <div class="pg-word">NOTILUCCIANO<b>'</b>S</div>
     <div class="pg-sub">Ingresá tu código</div>
     <div class="pg-dots" id="pgDots"><i></i><i></i><i></i><i></i></div>
@@ -419,9 +437,16 @@ const DEMO = {
 
 /* =========================== carga de datos =========================== */
 let USANDO_DEMO = false;
+// Ordena las ediciones de más nueva a más vieja por fecha (o id, que es la fecha).
+// Así ediciones[0] es SIEMPRE la última, sin depender del orden del archivo.
+function ordenarEdiciones(m){
+  if(m && Array.isArray(m.ediciones))
+    m.ediciones.sort((a,b)=> String(b.fecha||b.id||'').localeCompare(String(a.fecha||a.id||'')));
+  return m;
+}
 async function cargarManifest(){
-  try{ const r = await fetch('./ediciones.json',{cache:'no-store'}); if(!r.ok) throw 0; return await r.json(); }
-  catch(e){ USANDO_DEMO = true; return DEMO.manifest; }
+  try{ const r = await fetch('./ediciones.json',{cache:'no-store'}); if(!r.ok) throw 0; return ordenarEdiciones(await r.json()); }
+  catch(e){ USANDO_DEMO = true; return ordenarEdiciones(DEMO.manifest); }
 }
 async function cargarEdicion(id){
   try{ const r = await fetch('./ediciones/'+id+'.json',{cache:'no-store'}); if(!r.ok) throw 0; return await r.json(); }
@@ -554,10 +579,20 @@ function ticker(list){
   const dup = base.concat(base).map(t=>`<span>${t}</span>`).join('');
   return `<div class="ticker"><div class="lbl">⚡ Último momento</div><div class="track">${dup}</div></div>`;
 }
+/* ---- ediciones leídas (para el puntito de "no leída") ---- */
+function leidas(){ try{ return JSON.parse(localStorage.getItem('nl_leidas')||'[]'); }catch(e){ return []; } }
+function marcarLeida(id){ const s=new Set(leidas()); if(!s.has(id)){ s.add(id); localStorage.setItem('nl_leidas', JSON.stringify([...s])); } }
+function esNoLeida(id){ return !leidas().includes(id); }
+
+function selloUltima(ed, info){
+  const fch = (ed&&ed.fechaTexto) || (info&&info.fechaTexto) || '';
+  return `<div class="sello"><span class="tag">Última edición</span>${fch?`<span class="fch">${fch}</span>`:''}</div>`;
+}
+
 function rack(manifest, exceptoId){
   const others = manifest.ediciones.filter(e=>e.id!==exceptoId);
   if(!others.length) return '';
-  const covers = others.map(e=>`<div class="cover" onclick="irEdicion('${e.id}')"><div class="ph" style="background:${e.color||'#c9243b'}"><div class="hd"></div><div class="mini">${e.tapaTitular||''}</div></div><div class="cap"><div class="n">ED. #${e.numero} · ${(e.fechaTexto||'').replace('Viernes ','')}</div><div class="h">${(e.tapaTitular||'').slice(0,26)}</div></div></div>`).join('');
+  const covers = others.map(e=>`<div class="cover" onclick="irEdicion('${e.id}')">${esNoLeida(e.id)?'<span class="dot" title="no leída"></span>':''}<div class="ph" style="background:${e.color||'#c9243b'}"><div class="hd"></div><div class="mini">${e.tapaTitular||''}</div></div><div class="cap"><div class="n">ED. #${e.numero} · ${(e.fechaTexto||'').replace('Viernes ','')}</div><div class="h">${(e.tapaTitular||'').slice(0,26)}</div></div></div>`).join('');
   return `<div class="band">El kiosco <span>ediciones anteriores →</span></div><div class="rack">${covers}</div>`;
 }
 const foot = `<div class="foot">NotiLucciano's · Mar del Plata · sin IA, sin feeds, todo a pulmón</div>`;
@@ -581,11 +616,13 @@ async function render(){
     app.innerHTML = masthead(ed.numero) + ticker(ed.ticker)
       + `<div class="backbar" onclick="irHome()"><svg viewBox="0 0 24 24"><path d="M15 5l-7 7 7 7" stroke="#17130F" stroke-width="2.5" fill="none"/></svg> Volver al último número</div>`
       + demoflag() + renderEdicion(ed) + rack(MANIFEST, ed.id) + foot;
+    marcarLeida(m[1]);
   } else {
     const ult = MANIFEST.ediciones[0];
     const ed = await cargarEdicion(ult.id);
     app.innerHTML = masthead(ed?ed.numero:ult.numero) + ticker(ed?ed.ticker:null)
-      + demoflag() + (ed?renderEdicion(ed):'') + rack(MANIFEST, ult.id) + foot;
+      + demoflag() + selloUltima(ed, ult) + (ed?renderEdicion(ed):'') + rack(MANIFEST, ult.id) + foot;
+    marcarLeida(ult.id);
   }
 }
 /* =========================== seguridad: PIN diario ================== */
@@ -643,10 +680,13 @@ function pinTecla(k){
   pinBuf += k; pintarDots();
   if(pinBuf.length===4) setTimeout(pinIntentar, 130);
 }
-function abrirGate(){ pinReset(); $('#pgErr').textContent=''; $('#pingate').hidden=false; }
-function cerrarGate(){ $('#pingate').hidden=true; pinReset(); }
+function abrirGate(){ pinReset(); $('#pgErr').textContent=''; $('#pingate').hidden=false;
+  document.documentElement.classList.add('locked'); document.body.classList.add('locked'); }
+function cerrarGate(){ $('#pingate').hidden=true; pinReset();
+  document.documentElement.classList.remove('locked'); document.body.classList.remove('locked'); }
 
 /* delegación de eventos del teclado numérico + soporte teclado físico */
+$('#pingate').addEventListener('touchmove', e=>{ e.preventDefault(); }, {passive:false});
 $('#pgKeys').addEventListener('click', e=>{
   const b = e.target.closest('button'); if(b) pinTecla(b.dataset.k);
 });
