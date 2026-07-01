@@ -5,7 +5,7 @@
    - Íconos y fuentes: CACHE-FIRST (casi nunca cambian).
    Para forzar que todos actualicen el "cascarón", subí CACHE una versión
    (v1 -> v2). Eso limpia el cache viejo en el próximo arranque. */
-const CACHE = 'notilucc-v2';
+const CACHE = 'notilucc-v3';
 const SHELL = [
   './',
   './index.html',
@@ -17,7 +17,12 @@ const SHELL = [
 ];
 
 self.addEventListener('install', e => {
-  e.waitUntil(caches.open(CACHE).then(c => c.addAll(SHELL)).then(() => self.skipWaiting()));
+  e.waitUntil(caches.open(CACHE).then(c => c.addAll(SHELL)));
+});
+
+// El cliente avisa "actualizá ahora" (cuando el usuario toca el cartel).
+self.addEventListener('message', e => {
+  if (e.data && e.data.type === 'SKIP_WAITING') self.skipWaiting();
 });
 
 self.addEventListener('activate', e => {
