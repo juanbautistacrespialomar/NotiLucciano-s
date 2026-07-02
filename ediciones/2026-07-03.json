@@ -60,7 +60,7 @@
     },
     {
       "volanta": "🛍️ Informa Blas Polino",
-      "titular": "Operación vidriera: pescan a Dani en pleno safari de shopping con la compu de la empresa",
+      "titular": "Operación vidriera: pescan a Dani mirando ropa en horario laboral con la compu de la empresa",
       "foto": "./fotos/2026-07-03/COMPRAS_DANI.jpeg",
       "texto": "En una nueva y demoledora entrega de su columna, <b>Blas Polino</b> —con la autoridad moral de quien trabaja siete segundos por día— destapó la olla: durante horario laboral, escudada tras la excusa sagrada del “reporte urgente”, <b>Dani fue sorprendida cazando ofertas de ropa</b> con la compu de la oficina. La reconstrucción de los hechos es lapidaria: pestañas de outlet abiertas en abanico, carritos llenos y abandonados como promesas de fin de año, y una comparación de talles digna de una auditoría de inventario. “Yo no invento, yo constato”, declaró Polino acomodándose un saco que nadie vio. La redacción aclara que no juzga a Dani por comprar en horario laboral: la juzga por no haberle avisado a nadie del descuento."
     }
@@ -104,6 +104,10 @@
   "efemerides": [
     "Un día como hoy, hace dos semanas, nacía esta redacción con la promesa de no meterse en la vida de nadie. Promesa incumplida en la primera nota."
   ],
+  "calendario": {
+    "titulo": "Cumbre histórica: se logró fijar una cena",
+    "texto": "Tras una negociación diplomática de <b>seis meses de anticipación</b> —más tiempo del que le toma a Shares hacer un arreglo del obsoleto sistema—, los seis integrantes del grupo lograron lo imposible: <b>ponerse de acuerdo para una cena</b>. Fecha confirmada: <b>miércoles 8 de julio</b>, estratégicamente elegida porque el 9 es feriado y nadie quiere madrugar arrepentido. Un hito logístico que la ONU estudia como caso de éxito. Se aceptan apuestas sobre cuántos confirman y cuántos cancelan a última hora."
+  },
   "encuestas": [
     {
       "pregunta": "¿Qué anda mejor?",
@@ -144,8 +148,8 @@
     "autor": "Gustavo Alfaro — el cazador de utopías"
   },
   "cancion": {
-    "titulo": "Mi Nena Facebook",
-    "artista": "Los Nota Lokos",
-    "spotifyUrl": "https://open.spotify.com/track/1o8ShSYbZPEyT1Mx76xiDf"
+    "titulo": "Julio",
+    "artista": "Julio Iglesias · porque arrancó el mes 🗓️",
+    "spotifyUrl": "https://open.spotify.com/album/0A7iQnL2ecaqridecloYGm"
   }
 }
