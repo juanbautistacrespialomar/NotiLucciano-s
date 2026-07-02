@@ -3,11 +3,19 @@
   "ediciones": [
     {
       "id": "2026-06-26",
-      "numero": 1,
+      "numero": 2,
       "fecha": "2026-06-26",
       "fechaTexto": "Viernes 26 de junio",
       "tapaTitular": "Del mismo escritorio al mismo grupo de running",
       "color": "#c9243b"
+    },
+    {
+      "id": "2026-06-19",
+      "numero": 1,
+      "fecha": "2026-06-19",
+      "fechaTexto": "Viernes 19 de junio",
+      "tapaTitular": "MT, perdidamente enamorado de la Tikititah",
+      "color": "#8a0007"
     }
   ]
 }
