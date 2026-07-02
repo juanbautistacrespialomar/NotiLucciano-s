@@ -1,0 +1,56 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 600" width="800" height="600" role="img" aria-label="Cámara oculta: censurado por la redacción">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#241f1a"/>
+      <stop offset="1" stop-color="#17130F"/>
+    </linearGradient>
+    <radialGradient id="spot" cx="50%" cy="38%" r="60%">
+      <stop offset="0" stop-color="#3a3128"/>
+      <stop offset="1" stop-color="#17130F"/>
+    </radialGradient>
+    <pattern id="dots" width="9" height="9" patternUnits="userSpaceOnUse">
+      <circle cx="2" cy="2" r="1.3" fill="#FBF7F1" opacity="0.10"/>
+    </pattern>
+    <filter id="blur"><feGaussianBlur stdDeviation="6"/></filter>
+  </defs>
+
+  <!-- fondo -->
+  <rect width="800" height="600" fill="url(#bg)"/>
+  <rect width="800" height="600" fill="url(#spot)"/>
+
+  <!-- escena de masaje: dos siluetas genéricas, difusas -->
+  <g filter="url(#blur)" fill="#FF2E88" opacity="0.85">
+    <!-- persona sentada (recibe el masaje) -->
+    <circle cx="330" cy="300" r="52"/>
+    <path d="M250 560 Q250 400 330 400 Q410 400 410 560 Z"/>
+    <!-- persona parada detrás (masajea), con los brazos hacia los hombros -->
+    <circle cx="470" cy="215" r="46" fill="#CE0A24"/>
+    <path d="M400 560 Q400 300 470 300 Q540 300 540 560 Z" fill="#CE0A24"/>
+    <!-- brazos hacia los hombros del que está sentado -->
+    <path d="M430 300 Q360 320 320 360" stroke="#CE0A24" stroke-width="26" fill="none" stroke-linecap="round"/>
+    <path d="M510 300 Q420 315 360 350" stroke="#CE0A24" stroke-width="26" fill="none" stroke-linecap="round"/>
+  </g>
+
+  <!-- trama de puntos tipo diario -->
+  <rect width="800" height="600" fill="url(#dots)"/>
+
+  <!-- barra de censura -->
+  <g transform="rotate(-7 400 300)">
+    <rect x="60" y="252" width="680" height="96" fill="#17130F"/>
+    <rect x="60" y="252" width="680" height="96" fill="none" stroke="#FF2E88" stroke-width="4"/>
+    <text x="400" y="316" text-anchor="middle" font-family="Arial Black, Arial, sans-serif" font-weight="900" font-size="56" letter-spacing="6" fill="#FBF7F1">CENSURADO</text>
+  </g>
+
+  <!-- sello cámara oculta -->
+  <g transform="rotate(-4 175 90)">
+    <rect x="40" y="52" width="270" height="72" fill="#FFD23F"/>
+    <text x="60" y="100" font-family="Arial Black, Arial, sans-serif" font-weight="900" font-size="34" letter-spacing="1" fill="#17130F">📸 CÁMARA OCULTA</text>
+  </g>
+
+  <!-- barra estilo grabación espía -->
+  <g font-family="Consolas, monospace" font-size="26" fill="#FBF7F1">
+    <circle cx="600" cy="540" r="10" fill="#CE0A24"/>
+    <text x="620" y="549" font-weight="700">REC</text>
+    <text x="60" y="549" opacity="0.85">03-07-2026 · 12:47</text>
+  </g>
+</svg>
