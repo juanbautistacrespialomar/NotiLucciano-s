@@ -2,6 +2,14 @@
   "revista": "NotiLucciano's",
   "ediciones": [
     {
+      "id": "2026-07-03",
+      "numero": 3,
+      "fecha": "2026-07-03",
+      "fechaTexto": "Viernes 3 de julio",
+      "tapaTitular": "Se terminó la novela: MT y la Tikititah",
+      "color": "#a11029"
+    },
+    {
       "id": "2026-06-26",
       "numero": 2,
       "fecha": "2026-06-26",
