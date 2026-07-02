@@ -66,7 +66,7 @@
       linear-gradient(180deg,#2b2a3a,#141018);}
   .foto .halftone{position:absolute;inset:0;background-image:radial-gradient(rgba(255,255,255,.10) 1px,transparent 1.5px);background-size:5px 5px;pointer-events:none;}
   .foto .cred{position:absolute;bottom:0;left:0;background:var(--tinta);color:var(--paper);font-size:9px;letter-spacing:1px;text-transform:uppercase;padding:3px 7px;font-weight:700;z-index:3;}
-  .coverline{position:absolute;z-index:12;font-family:'Bebas Neue';line-height:.92;text-transform:uppercase;text-shadow:0 2px 0 rgba(0,0,0,.35);}
+  .coverline{position:absolute;z-index:12;font-family:'Bebas Neue';line-height:.92;text-transform:uppercase;text-shadow:-1.5px -1.5px 0 #000,1.5px -1.5px 0 #000,-1.5px 1.5px 0 #000,1.5px 1.5px 0 #000,0 3px 7px rgba(0,0,0,.75);}
   .cl-tl{top:10px;left:10px;color:#fff;font-size:22px;max-width:55%;}
   .cl-br{bottom:34px;right:8px;color:#fff;font-size:17px;text-align:right;max-width:60%;}
   .coverline em{color:var(--dorado);font-style:normal;}
@@ -186,6 +186,11 @@
   .salud .ic{font-size:26px;flex:none;}
   .salud .h{font-family:'Bebas Neue';letter-spacing:1px;color:var(--sube);font-size:15px;}
   .salud .t{font-size:13.5px;color:#2f4a3a;line-height:1.5;margin-top:2px;}
+  /* calendario */
+  .calen{background:#fff8e6;border:1.5px solid var(--dorado);padding:14px;display:flex;gap:11px;align-items:flex-start;}
+  .calen .ic{font-size:26px;flex:none;}
+  .calen .h{font-family:'Bebas Neue';letter-spacing:1px;color:#9a7b00;font-size:15px;}
+  .calen .t{font-size:13.5px;color:#4a3f2f;line-height:1.5;margin-top:2px;}
 
   /* recomendado */
   .reco{display:flex;gap:12px;align-items:flex-start;}
@@ -222,7 +227,7 @@
   .cover{flex:none;width:110px;scroll-snap-align:start;background:#fff;border:2px solid var(--tinta);box-shadow:4px 4px 0 rgba(23,19,15,.16);cursor:pointer;}
   .cover .ph{height:82px;position:relative;overflow:hidden;}
   .cover .ph .hd{position:absolute;inset:0;background-image:radial-gradient(rgba(0,0,0,.14) 1px,transparent 1.3px);background-size:4px 4px;}
-  .cover .ph .mini{position:absolute;left:6px;bottom:5px;right:6px;font-family:'Bebas Neue';color:#fff;font-size:13px;line-height:.95;text-transform:uppercase;text-shadow:0 1px 2px rgba(0,0,0,.5);}
+  .cover .ph .edn{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-family:'Anton';color:rgba(255,255,255,.92);font-size:26px;letter-spacing:1px;text-shadow:0 2px 4px rgba(0,0,0,.4);}
   .cover .cap{padding:6px 8px 9px;}
   .cover .n{font-family:'Bebas Neue';font-size:12px;letter-spacing:.5px;color:var(--rojo);}
   .cover .h{font-family:'Anton';font-size:13px;line-height:.98;text-transform:uppercase;margin-top:2px;}
@@ -599,6 +604,10 @@ function renderEfemerides(list){
   const items = list.map(t=>`<div class="efem"><span class="cal">📅</span><p>${t}</p></div>`).join('');
   return `<div class="band">Efemérides <span>un día como hoy</span></div><div class="sec">${items}</div>`;
 }
+function renderCalendario(c){
+  if(!c) return '';
+  return `<div class="band">El calendario de la redacción</div><div class="sec"><div class="calen"><div class="ic">📅</div><div><div class="h">${c.titulo||'Agenda oficial'}</div><div class="t">${c.texto}</div></div></div></div>`;
+}
 function renderCarta(c){
   if(!c) return '';
   const arr = Array.isArray(c) ? c : [c];
@@ -621,6 +630,7 @@ function renderEdicion(ed){
     + renderSalud(ed.salud)
     + renderHoroscopo(ed.horoscopo)
     + renderEfemerides(ed.efemerides)
+    + renderCalendario(ed.calendario)
     + renderIndices(ed.indices)
     + renderMeteo(ed.meteo)
     + renderEncuestas(ed.encuestas || ed.encuesta)
@@ -658,7 +668,7 @@ function selloUltima(ed, info){
 function rack(manifest, exceptoId){
   const others = manifest.ediciones.filter(e=>e.id!==exceptoId);
   if(!others.length) return '';
-  const covers = others.map(e=>`<div class="cover" onclick="irEdicion('${e.id}')">${esNoLeida(e.id)?'<span class="dot" title="no leída"></span>':''}<div class="ph" style="background:${e.color||'#c9243b'}"><div class="hd"></div><div class="mini">${e.tapaTitular||''}</div></div><div class="cap"><div class="n">ED. #${e.numero} · ${(e.fechaTexto||'').replace('Viernes ','')}</div><div class="h">${(e.tapaTitular||'').slice(0,26)}</div></div></div>`).join('');
+  const covers = others.map(e=>`<div class="cover" onclick="irEdicion('${e.id}')">${esNoLeida(e.id)?'<span class="dot" title="no leída"></span>':''}<div class="ph" style="background:${e.color||'#c9243b'}"><div class="hd"></div><div class="edn">ED. #${e.numero}</div></div><div class="cap"><div class="n">ED. #${e.numero} · ${(e.fechaTexto||'').replace('Viernes ','')}</div></div></div>`).join('');
   return `<div class="band">El kiosco <span>ediciones anteriores →</span></div><div class="rack">${covers}</div>`;
 }
 const foot = `<div class="foot">NotiLucciano's · Mar del Plata · sin IA, sin feeds, todo a pulmón</div>`;
