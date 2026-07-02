@@ -160,6 +160,28 @@
   .opt .bar i{position:absolute;left:0;top:0;bottom:0;background:var(--tinta);}
   .opt.win .bar i{background:var(--rosa);}
   .opt.win .lbl{color:var(--rosa);}
+  .enc + .enc{margin-top:14px;}
+  /* efemérides */
+  .efem{display:flex;gap:9px;align-items:flex-start;padding:9px 0;border-bottom:1px solid var(--rule);}
+  .efem:last-child{border-bottom:0;}
+  .efem .cal{font-size:18px;flex:none;line-height:1.35;}
+  .efem p{font-size:13.5px;line-height:1.5;color:#3a332c;}
+  /* carta de lectores */
+  .carta{border-left:3px solid var(--rosa);padding:2px 0 2px 12px;margin:8px 0;}
+  .carta .cuerpo{font-family:'Fraunces';font-style:italic;font-size:15px;line-height:1.5;color:var(--tinta);}
+  .carta .firma{font-family:'Bebas Neue';letter-spacing:1px;font-size:14px;color:var(--rojo);margin-top:6px;text-align:right;}
+  /* crucigrama */
+  .cruci .pista{display:flex;gap:10px;padding:8px 0;border-bottom:1px solid var(--rule);}
+  .cruci .pista .n{font-family:'Anton';font-size:22px;color:var(--rosa);line-height:1;flex:none;width:22px;text-align:center;}
+  .cruci .pista .def{font-size:13.5px;line-height:1.45;color:#3a332c;}
+  .cruci .pista .def b{font-family:'Bebas Neue';letter-spacing:.5px;color:var(--tinta);font-weight:400;}
+  .cruci .resp{margin-top:12px;font-size:13px;color:var(--gris);letter-spacing:.3px;}
+  .cruci .resp span{font-family:'Bebas Neue';letter-spacing:1px;color:var(--rojo);margin-right:4px;}
+  /* salud lucciano's */
+  .salud{background:#eafaf0;border:1.5px solid var(--pistacho);padding:14px;display:flex;gap:11px;align-items:flex-start;}
+  .salud .ic{font-size:26px;flex:none;}
+  .salud .h{font-family:'Bebas Neue';letter-spacing:1px;color:var(--sube);font-size:15px;}
+  .salud .t{font-size:13.5px;color:#2f4a3a;line-height:1.5;margin-top:2px;}
 
   /* recomendado */
   .reco{display:flex;gap:12px;align-items:flex-start;}
@@ -533,7 +555,7 @@ function renderRecomendado(r){
 }
 function renderEmpleado(e){
   if(!e) return '';
-  return `<div class="band">Empleado de la semana</div><div class="sec"><div class="emp"><div class="med">🏅</div><div class="nm">${e.nombre}</div><div class="rol">La eficiencia hecha persona</div><p>${e.texto}</p></div></div>`;
+  return `<div class="band">Empleado de la semana</div><div class="sec"><div class="emp"><div class="med">🏅</div><div class="nm">${e.nombre}</div><div class="rol">${e.rol||'La eficiencia hecha persona'}</div><p>${e.texto}</p></div></div>`;
 }
 function renderFrase(f){
   if(!f) return '';
@@ -552,16 +574,53 @@ function renderCancion(c){
 }
 
 /* =========================== render edición ========================== */
+function renderEncuestas(e){
+  if(!e) return '';
+  const arr = Array.isArray(e) ? e : [e];
+  if(!arr.length) return '';
+  const uno = (enc)=>{
+    const max = Math.max(...enc.opciones.map(o=>o[1]));
+    const opts = enc.opciones.map(([txt,p])=>`<div class="opt${p===max?' win':''}"><div class="lbl"><span>${txt}</span><span>${p}%</span></div><div class="bar"><i style="width:${p}%"></i></div></div>`).join('');
+    return `<div class="sec enc"><div class="q">${enc.pregunta}</div>${opts}</div>`;
+  };
+  const band = `<div class="band">${arr.length>1?'Las encuestas de la semana':'La encuesta de la semana'}</div>`;
+  return band + arr.map(uno).join('');
+}
+function renderSalud(s){
+  if(!s) return '';
+  return `<div class="band">Salud Lucciano's <span>parte médico</span></div><div class="sec"><div class="salud"><div class="ic">🩺</div><div><div class="h">${s.titulo||'Parte médico oficial'}</div><div class="t">${s.texto}</div></div></div></div>`;
+}
+function renderEfemerides(list){
+  if(!list||!list.length) return '';
+  const items = list.map(t=>`<div class="efem"><span class="cal">📅</span><p>${t}</p></div>`).join('');
+  return `<div class="band">Efemérides <span>un día como hoy</span></div><div class="sec">${items}</div>`;
+}
+function renderCarta(c){
+  if(!c) return '';
+  const arr = Array.isArray(c) ? c : [c];
+  const items = arr.map(x=>`<div class="carta"><div class="cuerpo">“${x.texto}”</div>${x.firma?`<div class="firma">— ${x.firma}</div>`:''}</div>`).join('');
+  return `<div class="band">Carta de lectores <span>correo de la redacción</span></div><div class="sec">${items}</div>`;
+}
+function renderCrucigrama(cr){
+  if(!cr) return '';
+  const pistas = (cr.pistas||[]).map(p=>`<div class="pista"><span class="n">${p.n}</span><div class="def"><b>${p.orient}${p.letras?` · ${p.letras} letras`:''}:</b> ${p.def}</div></div>`).join('');
+  const resp = cr.respuestas ? `<div class="resp"><span>Respuestas:</span>${cr.respuestas}</div>` : '';
+  return `<div class="band">Crucigrama imposible <span>una definición por número</span></div><div class="sec cruci">${pistas}${resp}</div>`;
+}
 function renderEdicion(ed){
   return renderTapa(ed.tapa)
     + renderSecundarias(ed.secundarias)
     + renderBreves(ed.breves)
+    + renderSalud(ed.salud)
     + renderHoroscopo(ed.horoscopo)
+    + renderEfemerides(ed.efemerides)
     + renderIndices(ed.indices)
     + renderMeteo(ed.meteo)
-    + renderEncuesta(ed.encuesta)
+    + renderEncuestas(ed.encuestas || ed.encuesta)
     + renderRecomendado(ed.recomendado)
     + renderEmpleado(ed.empleado)
+    + renderCarta(ed.carta)
+    + renderCrucigrama(ed.crucigrama)
     + renderFrase(ed.frase)
     + renderCancion(ed.cancion);
 }
