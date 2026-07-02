@@ -1,0 +1,101 @@
+{
+  "id": "2026-06-19",
+  "numero": 1,
+  "fechaTexto": "Viernes 19 de junio de 2026",
+  "ticker": [
+    "MT (35) <b>no come ni duerme</b> · el amor lo tiene a maltraer",
+    "Amenazan con <b>quemar cubiertas</b> por ver a la Selección en la oficina",
+    "Crisis nacional: <b>desabastecimiento de yerba</b> · trabajan dormidos sobre el teclado"
+  ],
+  "tapa": {
+    "burst": "¡PRIMICIA!",
+    "volanta": "💘 Amor en la oficina",
+    "titular": "Histeriqueo imparable: MT, <span class='rjo'>perdidamente enamorado</span> de la Tikititah",
+    "coverlines": [
+      {
+        "pos": "tl",
+        "html": "No come, <em>no duerme</em>"
+      },
+      {
+        "pos": "br",
+        "html": "y el destino <em>los sienta juntos</em>"
+      }
+    ],
+    "bajada": "Fuentes de esta redacción confirman que el joven de 35 anda con la cabeza en otro lado. A ella la agarró desprevenida y no sabe bien qué hacer. Y el calendario, siempre burlón, esta semana los manda a laburar codo a codo.",
+    "chimentometro": 72,
+    "chimentoLabel": "¡SE VIENE!",
+    "autor": "La Redacción",
+    "lectura": "3 min",
+    "cuerpo": [
+      {
+        "tipo": "p",
+        "texto": "Lo que empezó como miraditas en la máquina de café ya es la comidilla de toda la oficina. MT, 35 años, estaría perdidamente enamorado de la Tikititah, y los síntomas son de manual: no come, no duerme y se le va el santo al cielo cada vez que ella pasa cerca."
+      },
+      {
+        "tipo": "cita",
+        "texto": "A ella la agarró desprevenida. No sabe qué hacer y el resto de la oficina, tampoco."
+      },
+      {
+        "tipo": "p",
+        "texto": "El cuadro se complica con un dato que enciende todas las alarmas: esta semana a los dos les toca —¿casualidad o destino?— trabajar codo a codo. Y por si faltaba condimento, se los habría visto entrar juntos al baño. ¿Escándalo en puerta o puro run run de pasillo? El tiempo, y esta redacción, dirán."
+      },
+      {
+        "tipo": "tweet",
+        "av": "BP",
+        "nm": "Blas Polino",
+        "us": "@BlasPolino",
+        "tx": "MT no come ✅ no duerme ✅ los mandan a laburar juntos ✅ · la oficina: 🍿🍿🍿",
+        "mt": "10:15 AM · 19 Jun 2026 · Twitter for iPhone · ↩ 22 · 🔁 140 · ★ 405"
+      }
+    ]
+  },
+  "secundarias": [
+    {
+      "volanta": "Tensión gremial",
+      "titular": "Amenazan con quemar cubiertas por tener que ver a la Selección en la oficina",
+      "texto": "Un sector de los administrativos arma la rebelión. El reclamo es claro: pretenden ver a la Argentina en casa, con la birra en la mano, pero la conducción los obliga a mirarla en la oficina. Se habla de asambleas, de quite de colaboración y hasta de quema de cubiertas en la puerta. ¿Habrá sanciones ejemplares o la conducción negocia un pack de birras para el próximo partido?"
+    },
+    {
+      "volanta": "Terror en la cocina",
+      "titular": "Amenazas de muerte por un inocente pedido de yerba",
+      "texto": "Administrativos denuncian haber sido amedrentados por el personal de cocina tras animarse a pedir, con la mejor de las ondas, un poco de yerba. Crece el temor en los pasillos y ya se habla en voz baja de una posible perimetral. La convivencia pende de un hilo. Ampliaremos."
+    },
+    {
+      "volanta": "Cringe total",
+      "titular": "El grupo de WhatsApp incomoda a media oficina",
+      "texto": "El contenido que circula últimamente por el grupo dejó a más de uno mirando para otro lado y silenciando notificaciones. En paralelo, trascendió un fuerte histeriqueo entre alguien de «la secta» y un personaje de Marketing. ¿Se dará? El pueblo exige respuestas y, sobre todo, exige que dejen de mandar audios de tres minutos."
+    },
+    {
+      "volanta": "Crisis nacional",
+      "titular": "Desabastecimiento de yerba: trabajan dormidos sobre el teclado",
+      "texto": "El faltante de stock tiene a los empleados cabeceando en pleno horario laboral. Para mañana se anticipa una verdadera carrera de las buenas: el primero que llega se queda con la última yerba. Las sospechas, por ahora, apuntan a Tesorería. Ampliaremos."
+    }
+  ],
+  "meteo": "Alerta amarilla: un frente de desabastecimiento de yerba avanza sobre la oficina. Se esperan cabeceos sobre el teclado y disputas por la última bolsa hacia el mediodía.",
+  "encuesta": {
+    "pregunta": "¿Quién se quedó con la última yerba?",
+    "opciones": [
+      [
+        "Tesorería",
+        64
+      ],
+      [
+        "La cocina",
+        25
+      ],
+      [
+        "Fue MT, distraído de amor",
+        11
+      ]
+    ]
+  },
+  "frase": {
+    "texto": "Billetera mata galán",
+    "autor": "Jacobo Winograd"
+  },
+  "cancion": {
+    "titulo": "Loca",
+    "artista": "Tan Biónica",
+    "spotifyUrl": "https://open.spotify.com/track/7r0Hxx3ARBDlw4YeKMyie0"
+  }
+}
