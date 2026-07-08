@@ -1,0 +1,175 @@
+{
+  "id": "2026-07-10",
+  "numero": 4,
+  "fechaTexto": "Viernes 10 de julio de 2026",
+  "ticker": [
+    "🎵 MT y M sincronizaron un <b>Spotify Jam de Disney</b> · prueba documental",
+    "🐀 <b>Ratas con antigüedad</b> en los muebles de administración · más presentismo que varios humanos",
+    "💸 Para los <b>gatos del banderazo</b> hay millones · para tu sueldo, en veremos"
+  ],
+  "tapa": {
+    "burst": "¡RECAÍDA!",
+    "foto": "./fotos/2026-07-10/JAM_DISNEY.jpeg",
+    "volanta": "Duró siete días el descanso en paz",
+    "titular": "Bomba: el Jam de Disney que reabrió la novela y <span class='rjo'>congeló la redacción</span>",
+    "credito": "Foto: La Redacción",
+    "bajada": "La novela que dimos por muerta en la Nº3 resucitó en tiempo récord. Camp Rock, High School Musical y un Jam compartido bastaron para reabrir el caso. La tiki, que no puede intervenir la playlist ajena, hace lo único que sabe hacer desde que reina: le maneja el clima a toda la oficina.",
+    "chimentometro": 98,
+    "chimentoLabel": "¡NUCLEAR!",
+    "autor": "La Redacción",
+    "lectura": "4 min",
+    "cuerpo": [
+      {
+        "tipo": "p",
+        "texto": "Todo empezó como empiezan las tragedias en esta oficina: con una charla intrascendente. Se armó la ronda de «¿y vos con quién viste el partido?». Cuando le llegó el turno a la tiki, en una charla con P, contestó impecable, sin una arruga: «con amigas». Coartada perfecta, testigos incluidos, caso cerrado. El de ella."
+      },
+      {
+        "tipo": "p",
+        "texto": "El problema fue el turno siguiente. Le preguntaron a MT. Y MT, que para explicar una factura tiene cuerda para rato, esta vez se quedó a mitad de camino: antes de que juntara aire, la tiki le contestó por él. «Con M», soltó, con una risita que no esperaba respuesta porque ya venía con la sentencia adentro. MT no confirmó. Tampoco desmintió. Se hizo uno de esos silencios que en esta redacción valen más que una confesión firmada."
+      },
+      {
+        "tipo": "cita",
+        "texto": "La tiki hizo en cuatro palabras lo que a nosotros nos lleva una revista entera: investigó, juzgó y publicó. Y encima sin gastar tinta."
+      },
+      {
+        "tipo": "p",
+        "texto": "Al expediente se suma la prueba que ya circula por los pasillos: un Spotify Jam compartido entre MT y M, con Camp Rock y High School Musical girando en loop. Nadie sincroniza la banda de sonido de su infancia con un compañero de isla por cuestiones de trabajo. Eso no se comparte: eso se confiesa."
+      },
+      {
+        "tipo": "cita",
+        "texto": "No puede bajarle la temperatura al romance, así que se la baja a la redacción. Saquen los sweaters: esto es venganza climatizada."
+      },
+      {
+        "tipo": "alerta",
+        "titulo": "Escena del crimen: la foto grupal",
+        "texto": "Mientras la redacción entera posaba, sonreía y esperaba con paciencia de santo, MT y M aparecieron tarde, café en mano y paso de domingo, como si la sesión se hubiera convocado para aguardarlos a ellos dos. La cámara no miente: dos que llegan juntos, relajados y con cafecito, ya juegan en otra categoría."
+      },
+      {
+        "tipo": "p",
+        "texto": "Del blanqueo con la tiki en la Nº3 a este Jam con M en la Nº4 pasó, exactamente, una edición. A esta historia ya no le alcanza con capítulos sueltos: le vamos a tener que dar temporada completa."
+      }
+    ]
+  },
+  "secundarias": [
+    {
+      "volanta": "🐀 Nueva temporada de la saga de fauna",
+      "titular": "Ratas atrincheradas en los muebles de administración",
+      "texto": "Después del gusano del jugo de manzana, la franquicia sube la apuesta: ratas, y con domicilio fijo en los muebles de administración. Ya tienen antigüedad, se organizaron y —a este ritmo— van a exigir aguinaldo antes que nadie (y, conociendo la caja, lo van a cobrar antes también). Se las acusa de comerse las facturas pendientes de pago —encontraron la única forma real de «saldarlas», a mordiscos— y de haber roído el cable justo para dejar la clave del homebanking bloqueada. Resultado: sueldos y aguinaldos, tarde. Se solicitan gatos con experiencia comprobable; los pocos que hay en la oficina no dan abasto."
+    },
+    {
+      "volanta": "✊ Malestar general",
+      "titular": "Paro imposible: igual hay que laburar",
+      "texto": "Bronca en varios frentes: sueldo y aguinaldo que llegaron tarde, la clave del Nación y del BBVA bloqueada justo para pagar, y el feriado del viernes 10 que igual toca laburar. La asamblea pidió explicaciones y del otro lado, silencio: X viene devengando ese silencio con una constancia que ya quisiéramos para los pagos. El reclamo de fondo es humilde, casi conmovedor: «no pedimos cobrar el mismo mes en que trabajamos; con cobrar el mismo año nos damos por hechos»."
+    },
+    {
+      "volanta": "💸 No hay plata (para vos)",
+      "titular": "Ranking: fortunas para los gatos del banderazo, sueldos en veremos",
+      "texto": "En la oficina no aparece la clave para pagar, pero para los gatos del banderazo la billetera se abre sola. El ranking que nadie encargó:<br><b>1) $6,5 palos</b> — la señora del número 3 jamás gambeteado en un torneo internacional 🥇<br><b>2) $5 palos</b> — Valu Cervantes<br><b>3) $3 palos</b> — Cachete Sierra<br><b>4) $2,5 palos</b> — la influencer con nombre de provincia norteña<br><b>5) $2 palos</b> — la novia de la araña que pica 🕷️<br><br><em>Remate:</em> para el aguinaldo no hay, para los gatos siempre. Y encima cobran en el acto.",
+      "foto": "./fotos/2026-07-10/BANDERAZO_GATOS.jpeg"
+    },
+    {
+      "volanta": "💘 Sociología de redacción",
+      "titular": "¿Sos pibe burga o pibe asadito?",
+      "texto": "<b>El pibe burga:</b> modo bajo consumo emocional. Relax total, no se complica, no se compromete; plan sin sorpresas ni ansiedad. Cómodo, previsible, tibio.<br><br><b>El pibe asadito:</b> te trata como una reina, tan atento, tan divino, tan perfecto… que empezás a desconfiar. <em>Es tan bueno que asusta.</em> La paradoja nacional: cuando todo está demasiado bien, salís a buscar dónde está la trampa.<br><br><b>Cómo reconocerlos en su hábitat:</b><br>🛋️ Al <b>burga</b> lo delata su llamado natural —“todo piola, tranqui”— y su hábitat: el sillón. Esfuerzo de cortejo: mínimo, sustentable.<br>🌹 Al <b>asadito</b> lo delata el exceso: buenos días con foto del amanecer, se acuerda de tu signo, ya reservó mesa. Esfuerzo de cortejo: preocupante.<br>⚠️ <em>Diagnóstico final:</em> al burga lo bancás, al asadito lo investigás. El punto medio no existe: es un mito urbano, como el aumento."
+    },
+    {
+      "volanta": "🫠 Terapia grupal en cadena nacional",
+      "titular": "El 3-2 a Egipto: nos vimos afuera y la oficina no lo cuenta",
+      "foto": "./fotos/2026-07-10/POSTPARTIDO_EGIPTO.jpeg",
+      "texto": "Hay partidos que se ganan y partidos que se sobreviven. El 3-2 a Egipto fue de los segundos. La redacción lo bancó toda junta, en la oficina —porque acá, ya se sabe, a la Selección se la ve laburando—, y el termómetro emocional pasó de la euforia al velorio y de vuelta a la gloria en noventa minutos que parecieron una auditoría de cierre de ejercicio. Cuando Egipto lo dio vuelta y por un rato largo nos vimos afuera, el clima se puso denso: nadie hablaba, nadie respiraba, alguno miraba el techo negociando con quien hiciera falta. La foto de esta nota se tomó justo al pitazo final: caras de espanto, alivio y trauma compartido, la mueca exacta que solo te sale con algo que casi te saca del Mundial. Post partido nadie comentó la victoria: se comentó el sufrimiento, que es lo único que de verdad une a esta oficina."
+    },
+    {
+      "volanta": "🇦🇷🕊️ Milagro celeste y blanco",
+      "titular": "Paz mundialista: Clari, Dani, la tiki y B fundidas en un solo abrazo (válido solo hasta el próximo lunes)",
+      "texto": "Hay abrazos más difíciles que un gol sobre la hora, y este fue de esos. El grito de la Selección fundió en un mismo festejo a Clari y a la tiki —que venían midiéndose de lejos hace rato— y a Dani con B, que para salir del modo avión necesita, como mínimo, un acontecimiento de escala mundial. Por un rato la redacción fue una sola: se gritó, se saltó, se abrazó gente que ni se saluda. Pasado el pitazo, cada uno volvió despacio a su trinchera, haciéndose el distraído. Que quede filmado, porque una foto así no se consigue ni con Mundial todos los años."
+    }
+  ],
+  "horoscopo": [
+    {
+      "g": "♓",
+      "n": "Piscis",
+      "q": "Bauti y Juan",
+      "t": "Un signo, dos destinos opuestos. A Juan lo contrataron de auditor y los astros lo tienen de soporte técnico, fabricando apps boludas para matar el tiempo mientras España e Italia no dan señales de vida por los balances de junio: paciencia oceánica, la única que te queda. Encima, mientras el resto cobraba, a vos la plata no te entró en todo el finde —refrescaste el homebanking más veces que un adolescente el Instagram del ex—. Bauti, en su orilla, navega tranquilo: maneja Europa sin drama ni urgencias, en gran parte porque F no está yendo a la oficina. Consejo cósmico: Juan, respirá; Bauti, seguí flotando."
+    },
+    {
+      "g": "♍",
+      "n": "Virgo",
+      "q": "Blas",
+      "t": "Mercurio, tu regente, te hizo cronista y archivista de la redacción: anotás todo, no se te escapa un dato y tenés la oreja parada como antena satelital. Esta semana el cielo te premia con lo que más amás en el mundo: chisme fresco para catalogar. Único cuidado de manual —la tentación de meter cizaña donde no hace falta—: los astros avisan que el que revuelve el avispero a veces se lleva la primera picadura. Igual lo vas a hacer. Y lo vas a disfrutar."
+    },
+    {
+      "g": "♈",
+      "n": "Aries",
+      "q": "Clari",
+      "t": "Marte viene picante y vos también: semana de malhumor marca registrada y quejas en serie. Las terminales y los establecimientos te resultan jeroglíficos y, con toda la razón del mundo, declarás que eso no te corresponde. La conciliación de Nubceo, directamente, que la agarre la tiki: tu energía ariana no se malgasta en lo ajeno. Y como frutilla: trabajás en tesorería, sabés mejor que nadie cuándo entra la plata… y esta vez la viste entrar para todos menos para vos. Injusticia cósmica nivel experto."
+    },
+    {
+      "g": "♉",
+      "n": "Tauro",
+      "q": "Dani",
+      "t": "Tauro metódico y paciente como pocos: cargás gasto por gasto, uno por uno, todo el mes, con una dedicación que Saturno aplaude de pie. Entre carga y carga buscás con quién charlar y repetís tu mantra sagrado: “acá se labura demasiado”. Esta semana el universo te hizo la peor jugada de tesorera: sabés al peso cuándo cae cada pago… y aun así te tocó esperar el tuyo hasta el final, refrescando el banco todo el fin de semana. El colmo del oficio: la que lleva la cuenta de todos fue de las últimas en cobrar."
+    },
+    {
+      "g": "♌",
+      "n": "Leo",
+      "q": "Agus",
+      "t": "El Sol te tiene a mil revoluciones y sin freno: comprás, peleás con importadoras, perseguís despachantes de aduana y correteás servicios de entrega, todo el mismo día y con el teléfono al rojo. Leo necesita escenario y aplauso, pero esta semana el reconocimiento te llega en forma de otro despacho trabado en la aduana. Júpiter promete que algún día se va a valorar semejante aguante; mientras tanto, rugí bajito y seguí moviendo cajas: sos el motor que nadie ve, pero sin vos no llega ni un pallet."
+    }
+  ],
+  "indices": {
+    "sub": [
+      {
+        "nm": "Vuelvan los Otero",
+        "gl": "Se fueron a bancar a la Celeste y Blanca a doce mil kilómetros, la distancia justa. No los queremos de vuelta: que la sigan agitando allá, tranquilos y felices.",
+        "vl": "2/100"
+      },
+      {
+        "nm": "Aguinaldo",
+        "gl": "Entró el lunes; para el miércoles ya tenía dueño: el asado, las deudas, la nada.",
+        "vl": "📉 evaporado"
+      },
+      {
+        "nm": "Cuartos",
+        "gl": "Los días de Selección no se labura, solo se transpira.",
+        "vl": "😰 pulso a mil"
+      },
+      {
+        "nm": "Disney",
+        "gl": "Sube con cada tema que MT y M sincronizan en la isla.",
+        "vl": "🎵 top 1"
+      }
+    ]
+  },
+  "encuestas": [
+    {
+      "pregunta": "¿A quién le interesan los temas de Dani?",
+      "opciones": [
+        [
+          "A Lucciano's",
+          3
+        ],
+        [
+          "A Dani",
+          7
+        ],
+        [
+          "A su isla",
+          5
+        ],
+        [
+          "A nadie",
+          95
+        ]
+      ]
+    }
+  ],
+  "frase": {
+    "texto": "El que abandona no tiene premio",
+    "autor": "«Sorpresa de Shangai» — Patricio Rey y sus Redonditos de Ricota"
+  },
+  "cancion": {
+    "titulo": "Tierra de Campeones",
+    "artista": "La T y la M · a los gritos por la Scaloneta 🇦🇷",
+    "spotifyUrl": "https://open.spotify.com/track/0stkQt5poZVs82AOMNPzF6"
+  }
+}
