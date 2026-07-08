@@ -710,6 +710,28 @@ const PIN_DEFAULT = '2002';
 const K_PIN  = 'nl_pin_hash';     // hash del PIN vigente
 const K_LAST = 'nl_lastUnlock';   // fecha (YYYY-MM-DD) del último desbloqueo OK
 
+/* ---- rotación semanal del PIN ----------------------------------------
+   Cada semana que quieras forzar un PIN nuevo a TODOS, cambiá estas dos
+   líneas: la etiqueta (PIN_ROTACION) y el hash del PIN nuevo. Cuando un
+   dispositivo abre la app y ve que su rotación guardada NO coincide con la
+   del código, le pisa el PIN por el nuevo y le borra el "ya entré hoy", así
+   le vuelve a aparecer el candado pidiendo el PIN nuevo.
+   Para sacar el hash de un PIN: en la consola del navegador corré
+     crypto.subtle.digest('SHA-256', new TextEncoder().encode('7392'))
+       .then(b=>console.log([...new Uint8Array(b)].map(x=>x.toString(16).padStart(2,'0')).join('')))
+   ...o pedímelo a mí y te lo calculo. */
+const PIN_ROTACION   = '2026-07-10'; // ← cambiá esto cada vez que rotes el PIN
+const PIN_NUEVO_HASH = 'fa68d2ed5f32f14746be3ce92a07e5dcc7431b3ac4e7717b6947a4054fae5c18'; // PIN de esta semana
+const K_ROT          = 'nl_pin_rotacion';
+
+function aplicarRotacionPin(){
+  if(localStorage.getItem(K_ROT) !== PIN_ROTACION){
+    localStorage.setItem(K_PIN, PIN_NUEVO_HASH); // fuerza el PIN nuevo
+    localStorage.removeItem(K_LAST);             // invalida "ya entré hoy"
+    localStorage.setItem(K_ROT, PIN_ROTACION);   // marca esta rotación como hecha
+  }
+}
+
 async function sha256(str){
   try{
     const buf = await crypto.subtle.digest('SHA-256', new TextEncoder().encode(str));
@@ -798,6 +820,7 @@ function bloquearAhora(){
 }
 
 /* =========================== arranque =============================== */
+aplicarRotacionPin(); // rotación semanal: pisa el PIN guardado + invalida el desbloqueo de hoy
 render(); // la revista se dibuja detrás del gate
 if(!pinVigenteHoy()) abrirGate();
 
