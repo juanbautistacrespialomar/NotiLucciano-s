@@ -50,7 +50,7 @@
       },
       {
         "tipo": "p",
-        "texto": "Cerrábamos esta edición con la novela ya confirmada para temporada completa cuando entró, sobre la hora, la prueba que faltaba. Escenario: la cena de la mesa chica. Movida: MT le mandó a M, por WhatsApp, la foto de una birra. Una birra. No un «Solita?», no un meme reenviado: la fotografía de estudio de una cerveza, encuadrada con la misma devoción con la que uno adjunta un papel de trabajo. Que MT se la quiere levantar a M lo sabe toda la oficina; la única que no se enteró es la propia M, que lo ignora con una prolijidad de manual."
+        "texto": "Cerrábamos esta edición con la novela ya confirmada para temporada completa cuando entró, sobre la hora, la prueba que faltaba. Escenario: la cena de la mesa chica pre feriado del 9 de julio. Movida: MT le mandó a M, por WhatsApp, la foto de una birra. Una birra. No un «Solita?», no un meme reenviado: la fotografía de estudio de una cerveza, encuadrada con la misma devoción con la que uno adjunta un papel de trabajo. Que MT se la quiere levantar a M lo sabe toda la oficina; la única que no se enteró es la propia M, que lo ignora con una prolijidad de manual."
       },
       {
         "tipo": "cita",
@@ -76,7 +76,7 @@
     {
       "volanta": "💸 No hay plata (para vos)",
       "titular": "Ranking: fortunas para los gatos del banderazo, sueldos en veremos",
-      "texto": "En la oficina no aparece la clave para pagar, pero para los gatos del banderazo la billetera se abre sola. El ranking que nadie encargó:<br><b>1) $6,5 palos</b> — la señora del número 3 jamás gambeteado en un torneo internacional 🥇<br><b>2) $5 palos</b> — Valu Cervantes<br><b>3) $3 palos</b> — Cachete Sierra<br><b>4) $2,5 palos</b> — la influencer con nombre de provincia norteña<br><b>5) $2 palos</b> — la novia de la araña que pica 🕷️<br><br><em>Remate:</em> para el aguinaldo no hay, para los gatos siempre. Y encima cobran en el acto.",
+      "texto": "En la oficina no aparece la clave para pagar, pero para los gatos del banderazo la billetera se abre sola. El ranking que nadie encargó:<br><b>1) $6,5 palos</b> — la señora del número 3 jamás gambeteado en un torneo internacional 🥇<br><b>2) $5 palos</b> — Valu Cervantes<br><b>3) $3 palos</b> — Cachete Sierra<br><b>4) $2,5 palos</b> — la influencer con nombre de provincia norteña<br><b>5) $2 palos</b> — la novia de la araña que pica 🕷️<br><b>6) $? palos</b> — X, que para tu sueldo nunca encuentra la plata pero para un Toyota Etios 2019 la encontró al toque. Un fierro sin una gota de onda, de un blanco pálido que combina con su vida: bien de X. Broche de oro: lo compró sin vender el anterior, así que ahora tiene una flota. Llegó el sobre?<br><br><em>Remate:</em> para el aguinaldo no hay, para los gatos siempre. Y encima cobran en el acto.",
       "foto": "./fotos/2026-07-10/BANDERAZO_GATOS.jpeg"
     },
     {
@@ -178,6 +178,12 @@
   "escuchados": [
     "Parece que estuvo practicando con los dedos…"
   ],
+  "empleado": {
+    "plural": true,
+    "nombre": "Cuti Romero, Enzo Fernández y Leandro Paredes",
+    "rol": "Departamento de Encomiendas de Larga Distancia",
+    "texto": "Homenaje al servicio más noble que recibió esta redacción en todo el año: mantener a los Otero a doce mil kilómetros. Con cada partido que la Scaloneta sigue en pie, los Otero se quedan una semana más en Yankilandia, agitando la bandera bien lejos de nuestros escritorios. Cuti puso el cuero, Enzo puso la pausa y Paredes puso el orden en el medio, pero el resultado que de verdad festejamos es geográfico: ellos allá, nosotros en paz. Que Argentina avance nos emociona como hinchas; que los Otero no vuelvan todavía, nos salva la semana como oficina. Señores: por favor, renueven contrato hasta la final."
+  },
   "frase": {
     "texto": "No digamos pelotudeces para rellenar el vacío",
     "autor": "Dani"
