@@ -568,7 +568,8 @@ function renderRecomendado(r){
 }
 function renderEmpleado(e){
   if(!e) return '';
-  return `<div class="band">Empleado de la semana</div><div class="sec"><div class="emp"><div class="med">🏅</div><div class="nm">${e.nombre}</div><div class="rol">${e.rol||'La eficiencia hecha persona'}</div><p>${e.texto}</p></div></div>`;
+  const titulo = e.plural ? 'Empleados de la semana' : 'Empleado de la semana';
+  return `<div class="band">${titulo}</div><div class="sec"><div class="emp"><div class="med">🏅</div><div class="nm">${e.nombre}</div><div class="rol">${e.rol||'La eficiencia hecha persona'}</div><p>${e.texto}</p></div></div>`;
 }
 function renderFrase(f){
   if(!f) return '';
