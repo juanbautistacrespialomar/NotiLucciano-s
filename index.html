@@ -536,6 +536,10 @@ function renderBreves(list){
   if(!list||!list.length) return '';
   return `<div class="band">Pasó y no lo viste</div><div class="sec">${list.map(b=>`<div class="breve"><i>›</i><span>${b}</span></div>`).join('')}</div>`;
 }
+function renderEscuchados(list){
+  if(!list||!list.length) return '';
+  return `<div class="band">Se escucha al pasar <span>👂 radio pasillo</span></div><div class="sec">${list.map(t=>`<div class="breve"><i>👂</i><span><em>${t}</em></span></div>`).join('')}</div>`;
+}
 function renderHoroscopo(list){
   if(!list||!list.length) return '';
   return `<div class="band">Horóscopo laboral <span>por Madame Shares</span></div><div class="sec">${list.map(h=>`<div class="horo"><div class="sig"><div class="g">${h.g}</div><div class="n">${h.n}</div></div><div class="bd"><div class="q">${h.q}</div><div class="t">${h.t}</div></div></div>`).join('')}</div>`;
@@ -627,6 +631,7 @@ function renderEdicion(ed){
   return renderTapa(ed.tapa)
     + renderSecundarias(ed.secundarias)
     + renderBreves(ed.breves)
+    + renderEscuchados(ed.escuchados)
     + renderSalud(ed.salud)
     + renderHoroscopo(ed.horoscopo)
     + renderEfemerides(ed.efemerides)
