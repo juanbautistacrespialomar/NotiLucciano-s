@@ -47,6 +47,18 @@
       {
         "tipo": "p",
         "texto": "Del blanqueo con la tiki en la Nº3 a este Jam con M en la Nº4 pasó, exactamente, una edición. A esta historia ya no le alcanza con capítulos sueltos: le vamos a tener que dar temporada completa."
+      },
+      {
+        "tipo": "p",
+        "texto": "Cerrábamos esta edición con la novela ya confirmada para temporada completa cuando entró, sobre la hora, la prueba que faltaba. Escenario: la cena de la mesa chica. Movida: MT le mandó a M, por WhatsApp, la foto de una birra. Una birra. No un «Solita?», no un meme reenviado: la fotografía de estudio de una cerveza, encuadrada con la misma devoción con la que uno adjunta un papel de trabajo. Que MT se la quiere levantar a M lo sabe toda la oficina; la única que no se enteró es la propia M, que lo ignora con una prolijidad de manual."
+      },
+      {
+        "tipo": "cita",
+        "texto": "Y sin embargo MT arma la única jugada que gana perdiendo: si M le da bola, cobra; si M lo ignora, le da celos a la tiki. Doble o nada donde hasta el «nada» le paga."
+      },
+      {
+        "tipo": "p",
+        "texto": "Porque la que sí leyó el mensaje —aunque no era para ella— fue la tiki. Toda la redacción la vio clavarle a M una mirada para matarla, capaz de fundir un servidor a tres metros, y todo eso sin despegar la espalda del respaldo: recostada en su silla como quien preside un juicio desde el diván. Sí, recostada. La tiki no se sienta, se reclina; no ocupa la silla, la gobierna. Desde ahí, horizontal y letal, dejó dicho sin abrir la boca que el expediente le sigue perteneciendo."
       }
     ]
   },
@@ -142,30 +154,33 @@
   },
   "encuestas": [
     {
-      "pregunta": "¿A quién le interesan los temas de Dani?",
+      "pregunta": "¿A quién le interesan los temas de Dani R?",
       "opciones": [
         [
-          "A Lucciano's",
-          3
+          "A todo Lucciano's",
+          0
         ],
         [
           "A Dani",
-          7
+          0
         ],
         [
           "A su isla",
-          5
+          0
         ],
         [
-          "A nadie",
-          95
+          "¿Alguien la escucha?",
+          100
         ]
       ]
     }
   ],
+  "escuchados": [
+    "Parece que estuvo practicando con los dedos…"
+  ],
   "frase": {
-    "texto": "El que abandona no tiene premio",
-    "autor": "«Sorpresa de Shangai» — Patricio Rey y sus Redonditos de Ricota"
+    "texto": "No digamos pelotudeces para rellenar el vacío",
+    "autor": "Dani"
   },
   "cancion": {
     "titulo": "Tierra de Campeones",
